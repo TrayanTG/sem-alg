@@ -1,0 +1,522 @@
+%Асимптотични нотации
+
+\section{Теория}
+
+Започваме с припомняне на две дефинции от математическия анализ.
+
+\begin{boxdefinition}{Асимптотично неотрицателна функция}{asym-non-negative}
+	Ще казваме, че $f:\mathbb{R}^+\rightarrow\mathbb{R}$ е асимптотично неотрицателна, ако $\exists n_0\in\mathbb{N}_0:\forall n\ge n_0$ е изпълнено $f(n)\ge0$
+\end{boxdefinition}
+
+\begin{boxdefinition}{Асимптотично положителна функция}{asym-positive}\label{asym-positive}
+	Ще казваме, че $f:\mathbb{R}^+\rightarrow\mathbb{R}$ е асимптотично положителна, ако $\exists n_0\in\mathbb{N}_0:\forall n\ge n_0$ е изпълнено $f(n)>0$
+\end{boxdefinition}
+
+\noindent
+В настоящия курс ще се интересуваме от горните два типа функции, тъй като тези функции ще са със семантика на $\emph{брой стъпки до приключване изпълнението на дадена програма}$, което очевидно няма как да ни върне отрицателен резултат.
+Също така ще се интересуваме да сравняваме асимптотично неотрицателни/положителни функции. За целта въвеждаме следните пет класа от фунции спрямо дадена функция.
+
+\begin{boxdefinition}{Основни класове от функции, спрямо асимптотиката}{}\label{bdef-asymp-classes}
+	Нека $g$ е асимптотично неотрицателна функция. Петте основни класа спрямо асимптотиката на $g$ са следните:
+	\begin{itemize}
+		\item $O(g)=\{f$ - неотр. $|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0$ е изпълнено $0\le f(n)\le c.g(n)\}$
+		\item $o(g)=\{f$ - неотр. $|\,\forall c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0$ е изпълнено $0\le f(n)\le c.g(n)\}$
+		\item $\Omega(g)=\{f$ - неотр. $|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0$ е изпълнено $0\le c.g(n)\le f(n)\}$
+		\item $\omega(g)=\{f$ - неотр. $|\,\forall c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0$ е изпълнено $0\le c.g(n)\le f(n)\}$
+		\item $\theta(g)=\{f$ - неотр. $|\,\exists c_1>0\,\exists c_2>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0$ е изпълнено $0\le c_1.g(n)\le f(n)\le c_2.g(n)\}$
+	\end{itemize}
+\end{boxdefinition}
+
+\begin{remark*}
+	Поради исторически причини е прието да се пише $f=O(g)$ вместо $f\in O(g)$. Аналогично и за другите четири класа.
+\end{remark*}
+
+\begin{example}
+	$O(n^2)=\{n^2,100n^2,\frac{n^2}5,n,{10}^6n,1,5n^2-1000n-1000,\dots\}$.
+
+	\noindent
+	Нека разгледаме при какви стойности на $c$ и $n_0\emph{ работи}$ дефинициятаза за $g(n)=n^2$ и $f(n)$ съответно:
+	\begin{itemize}
+		\item $f(n)=n^2$
+		
+		Директно се вижда, че $c=1$ и $n_0=0$ ни вършат работа:
+		
+		$\forall n\ge\underbrace0_{n_0}$ е изпълнено $0\le \underbrace{n^2}_{f(n)}\le\underbrace1_c*\underbrace{n^2}_{g(n)}$
+		\item $f(n)=100n^2$
+		
+		Отново лесно се преценя, че $c=100$ и $n_0=0$ ни вършат работа:
+		
+		$\forall n\ge\underbrace0_{n_0}$ е изпълнено $0\le \underbrace{100n^2}_{f(n)}\le\underbrace{100}_c*\underbrace{n^2}_{g(n)}$
+		
+		\item $f(n)=\frac{n^2}5$
+		
+		Отново $c=1$ и $n_0=0$ ни вършат работа (разбира се и $c=\frac15$ $n_0=0$ също):
+		
+		$\forall n\ge\underbrace0_{n_0}$ е изпълнено $0\le \underbrace{\frac{n^2}5}_{f(n)}\le\underbrace1_c*\underbrace{n^2}_{g(n)}$
+		
+		\item $f(n)=5n^2-1000n-1000$
+		
+		Макар и сташно на първи поглед, отново лесно се преценя, че $c={10}^7$ и $n_0=0$ ни вършат работа (разбира се това не е минимален избор на $c$ и $n_0$.. интересува ни само да намерим кои да е):
+		
+		$\forall n\ge\underbrace0_{n_0}$ е изпълнено $0\le \underbrace{5n^2-1000n-1000}_{f(n)}\le\underbrace{{10}^7}_c*\underbrace{n^2}_{g(n)}$
+	\end{itemize}
+\end{example}
+
+\noindent
+Упражнете се с другите четири класа.
+
+\begin{boxnotation}{Основни релации над асимптотично неотрицателни функции}{}
+	Въвеждаме следните пет релации за удобство:
+	\begin{itemize}
+		\item $f\preccurlyeq g\overset{\text{def}}\leftrightarrow f=O(g)$
+		\item $f\prec g\overset{\text{def}}\leftrightarrow f=o(g)$
+		\item $f\succcurlyeq g\overset{\text{def}}\leftrightarrow f=\Omega(g)$
+		\item $f\succ g\overset{\text{def}}\leftrightarrow f=\omega(g)$
+		\item $f\asymp g\overset{\text{def}}\leftrightarrow f=\theta(g)$ (асимптотично равенство с точност до константа)
+	\end{itemize}
+\end{boxnotation}
+
+\begin{boxnotation}{Асимптотично равенство}{}
+	$f\sim g\overset{\text{def}}\leftrightarrow\lim\limits_{n\to\infty}\frac{f(n)}{g(n)}=1$
+\end{boxnotation}
+
+\begin{boxmainproperties}{Асимптотични релации}{}\label{mprop-1}
+Нека $f$ и $g$ са асимптотично положителни (ще делим на $g$ и затова полож.). Тогава:
+	\begin{enumerate}
+		\item $f\,\sigma\,g\land g\,\sigma\,h\rightarrow f\,\sigma\,h,\,\sigma\in\{\preccurlyeq,\prec,\succcurlyeq,\succ,\asymp\}$
+		\item $f\,\sigma\,f,\,\sigma\in\{\preccurlyeq,\succcurlyeq,\asymp\}$
+		\item $f\preccurlyeq g\land g\preccurlyeq f\rightarrow f\asymp g$
+		\item $f\asymp g\leftrightarrow g\asymp f$
+		\item $f\preccurlyeq g\leftrightarrow g\succcurlyeq f\,(\text{аналогично }f\prec g\leftrightarrow g\succ f)$
+		\item $f+g\asymp max(f,g)$\\
+			  $\textbf{Док: }\frac{f(n)+g(n)}2\le max(f(n),g(n))\le f(n)+g(n)$
+		\item $\lim\limits_{n\to\infty}\frac{f(n)}{g(n)}=0\leftrightarrow f\prec g\,(f=o(g))$\\
+			  $\textbf{Док:}$ От деф. на лимит имаме: $\forall\varepsilon>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0:-\varepsilon<\frac{f(n)}{g(n)}<\varepsilon$. Сега умножаваме двете страни по $g(n)$ и получаваме $-g(n)*\varepsilon<0<f(n)<g(n)*\varepsilon$, откъдето имаме $\forall\varepsilon>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0:0\le f(n)\le g(n)*\varepsilon$, което е точно дефиницията на $\hyperref[bdef-asymp-classes]{o(g)}$. Обратната посока е аналогична.
+		\item $\lim\limits_{n\to\infty}\frac{f(n)}{g(n)}=c>0\rightarrow f\asymp g\,(f=\theta(g))$\\
+			  $\textbf{Док:}$ От деф. на лимит имаме: $\forall\varepsilon>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0:c-\varepsilon<\frac{f(n)}{g(n)}<c+\varepsilon$. Сега умножаваме двете страни по $g(n)$ и получаваме $g(n)*(c-\varepsilon)<f(n)<g(n)*(c+\varepsilon)$. Тъй като $c>0$, то е ясно че има $\varepsilon>0:c-\varepsilon>0$. Тоест получихме следното: $\exists\varepsilon>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0:0<g(n)*\underbrace{(c-\varepsilon)}_{c_1}<f(n)<g(n)*\underbrace{(c+\varepsilon)}_{c_2}$, което е точно 
+			  \vspace{-0.72cm}%-1.5\baselineskip}%
+			  
+			  дефиницията на $\hyperref[bdef-asymp-classes]{\theta(g)}$.
+			  \vspace{-0.15cm}
+			  
+			  Обратната посока $\textbf{не}$ е вярна.
+		\item Нека $g$ не е ограничена отгоре и нека $a>1$. Тогава:
+			  \begin{enumerate}
+			  	\item $f\prec g\rightarrow a^{f(n)}\prec a^{g(n)}$ (нестрогия аналог $\textbf{не}$ е верен)
+			  	\item $log_a\,f(n)\prec log_a\,g(n)\rightarrow f(n)\prec g(n)$ (нестрогия аналог $\textbf{не}$ е верен)
+			  \end{enumerate}
+		\item $\forall a>1\,\forall t>0\,\forall\varepsilon>0\,\big(log_a^t(n)\prec n^\varepsilon\big)$
+	\end{enumerate}
+\end{boxmainproperties}
+
+\begin{boxfact}{Апроксимация на Стирлинг}{}
+	$n!=\sqrt{2\pi n}\big(\frac{n}{e}\big)^n(1+\frac{1}{12n}+\frac{1}{288n^2}+\dots)$
+\end{boxfact}
+
+\begin{boxcorollary}{Асимптотична апроксимация на Стирлинг}{stirling}%\label{bcor-stirling}
+	$n!\sim\sqrt{2\pi n}\big(\frac{n}{e}\big)^n$
+\end{boxcorollary}
+
+\begin{application*}
+	\leavevmode
+	\begin{itemize}
+		\item $log(n!)\asymp nlog(n)$ (докажете за упражнение)
+		\item $\binom{2n}{n}=\frac{(2n)!}{n!n!}\sim\frac{\sqrt{4\pi n}\big(\frac{2n}{e}\big)^{2n}}{2\pi n\big(\frac{n}{e}\big)^{2n}}=\frac{2^{2n}n^{2n}}{\sqrt{\pi n}\,n^{2n}}=\frac{2^{2n}}{\sqrt{\pi n}}=\frac{4^n}{\sqrt{\pi n}}$
+	\end{itemize}
+\end{application*}
+
+\begin{boxfact}{Логаритми и техните свойства}{}\label{fact-log-props}
+	$\forall a\in\mathbb{R}^+\backslash\{1\}\,\forall b\in\mathbb{R}^+:a^x=b\leftrightarrow x=log_a(b)$
+	\begin{enumerate}
+		\item $a^{log_a(b)}=b$
+		\item $log_{a^n}(b^m)=\frac mnlog_a(b)$
+		\item
+		\begin{enumerate}
+			\item $log_a(x)+log_a(y)=log_a(xy)$
+			\item $log_a(x)-log_a(y)=log_a(\frac{x}{y})$
+		\end{enumerate}
+		\item $log_a(x)=\frac{log_b(x)}{log_b(a)},\,b\in\mathbb{R}^+\backslash\{1\}$
+		\begin{enumerate}
+			\item $log_a(b)=\frac{1}{log_b(a)}$
+			\item $log_b(a)*log_a(x)=log_b(x)$
+		\end{enumerate}
+		\item $a^{log_b(x)}=x^{log_b(a)}$
+	\end{enumerate}
+\end{boxfact}\leavevmode\newline
+
+
+\section{Задачи}
+
+\begin{problem}
+	Нека $p(x)=a_0x^k+\dots+a_k$ е асимптотично положителен полином (т.е. $a_0>0$). Да се докаже, че $p(n)\asymp n^k$.
+\end{problem}
+\begin{solution}
+	$\lim\limits_{n\to\infty}\frac{p(n)}{n^k}=\lim\limits_{n\to\infty}\frac{a_0x^k+\dots+a_k}{n^k}=\underbrace{\lim\limits_{n\to\infty}\frac{a_0n^k}{n^k}}_{a_0}+\underbrace{\lim\limits_{n\to\infty}\frac{a_1n^{k-1}}{n^k}}_0+\dots+\underbrace{\lim\limits_{n\to\infty}\frac{a_n}{n^k}}_0=a_0>0$.\\
+	От основно свойство $\hyperref[mprop-1]{8}$ следва, че $p(n)\asymp n^k$.
+\end{solution}\leavevmode\newline
+
+\begin{problem}
+	Нека $k\in\mathbb{N}^+$. Да се докаже, че $\binom nk\asymp n^k$.
+\end{problem}
+\begin{solution}
+	$\lim\limits_{n\to\infty}\frac{\binom nk}{n^k}=\lim\limits_{n\to\infty}\frac{n(n-1)\dots(n-k+1)}{n^kk!}=\frac1{k!}>0$.
+	От основно свойство $\hyperref[mprop-1]{8}$ следва, че $\binom nk\asymp n^k$.
+\end{solution}\leavevmode\newline
+
+\begin{problem}
+	Да се докаже, че $(n+1)^n\asymp n^n$.
+\end{problem}
+\begin{solution}
+	$\lim\limits_{n\to\infty}\frac{(n+1)^n}{n^n}=\lim\limits_{n\to\infty}\big(\frac{n+1}n\big)^n=e>0$.
+	От основно свойство $\hyperref[mprop-1]{8}$ следва, че $(n+1)^n\asymp n^n$.
+\end{solution}\leavevmode\newline
+
+\begin{problem}
+	Нека $f(n)=\begin{cases}
+	1&,\lfloor n\rfloor\equiv0(2)\\
+	n^2&,\lfloor n\rfloor\equiv1(2)
+	\end{cases}$ и $g(n)=n$. Да се докаже, че те са асимптотично несравними.
+\end{problem}
+\begin{solution}
+	За упражнение...
+\end{solution}\leavevmode\newline
+
+\begin{problem}
+	Вярна ли е следната импликация: $f=O(g)\rightarrow(f=o(g)\lor f=\theta(g))$?
+\end{problem}
+\begin{solution}
+	Не е вярна!	Проверете за упражнение със следния контрапример:
+	
+	\noindent
+	$f(n)=\begin{cases}
+	n&,\lfloor n\rfloor\equiv0(2)\\
+	1/n&,\lfloor n\rfloor\equiv1(2)
+	\end{cases}$ и $g(n)=n$.
+\end{solution}\leavevmode\newline
+
+\begin{problem}
+	Да се сортират по асимптотика следните функции:
+	\vspace{0.25cm}
+	\noindent
+	\begin{center}
+		$\begin{array}{llll}
+			f_1(n)=n^3\qquad          & f_2(n)=\sqrt n\qquad    & f_3(n)=log(n)\qquad    & f_4(n)=log^2(n)      \vspace{0.2cm}\\
+			f_5(n)=log^{(2)}(n)\qquad & f_6(n)=n!\qquad         & f_7(n)=a^n\qquad       & f_8(n)=a             \vspace{0.2cm}\\
+			f_9(n)=n^n\qquad          & f_{10}(n)=n^{-2}\qquad  & f_{11}(n)=n^2\qquad    & f_{12}(n)=n^{log(n)}
+		\end{array}$
+	\end{center}
+\end{problem}
+\vspace{0.25cm}
+\begin{solution}
+	\leavevmode\newline
+	$n^n\succ n!\succ a^n\succ n^{log(n)}\succ n^3\succ n^2\succ\sqrt n\succ log^2(n)\succ log(n)\succ log^{(2)}(n)\succ a\succ n^{-2}$\\
+	Ще опишем подробно решенията:
+	\begin{enumerate}[label=\textbf{\arabic*.}]
+		\item $\bm{n^n\succ n!}$
+		
+		От анализа знаем, че $\lim\limits_{n\to\infty}\frac{n!}{n^n}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $n!\prec n^n$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{n!\succ a^n}$
+		
+		Ще приложим основно свойство $\hyperref[mprop-1]{9}\dots$ т.е. логаритмуваме двете страни и получаваме
+		\begin{equation*}
+			log(n!)\,\textbf?\,log(a^n)
+		\end{equation*}
+		\begin{equation*}
+			nlog(n)\,\textbf?\,nlog(a)
+		\end{equation*}
+		Знаем, че $\lim\limits_{n\to\infty}\frac{nlog(a)}{nlog(n)}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $nlog(a)\prec nlog(n)$. Оттук и от основно свойство $\hyperref[mprop-1]{9}$ следва, че $a^n\prec n!$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{a^n\succ n^{log(n)}}$
+		
+		Ще приложим основно свойство $\hyperref[mprop-1]{9}\dots$ т.е. логаритмуваме двете страни и получаваме
+		\begin{equation*}
+			log(a^n)\,\textbf?\,log(n^{log(n)})
+		\end{equation*}
+		\begin{equation*}
+			nlog(a)\,\textbf?\,log(n)log(n)
+		\end{equation*}
+		От основно свойство $\hyperref[mprop-1]{10}$ имаме $log(n)log(n)\prec nlog(a)$. Оттук и от основно свойство $\hyperref[mprop-1]{9}$ следва, че $n^{log(n)}\prec a^n$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{n^{log(n)}\succ n^3}$
+		
+		Ще приложим основно свойство $\hyperref[mprop-1]{9}\dots$ т.е. логаритмуваме двете страни и получаваме
+		\begin{equation*}
+			log(n^{log(n)})\,\textbf?\,log(n^3)
+		\end{equation*}
+		\begin{equation*}
+			log^2(n)\,\textbf?\,3log(n)
+		\end{equation*}
+		Знаем, че $\lim\limits_{n\to\infty}\frac{3log(n)}{log^2(n)}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $3log(n)\prec log^2(n)$. Оттук и от основно свойство $\hyperref[mprop-1]{9}$ следва, че $n^3\prec n^{log(n)}$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{n^3\succ n^2}$
+		
+		 Знаем, че $\lim\limits_{n\to\infty}\frac{n^2}{n^3}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $n^2\prec n^3$.
+
+
+		\vspace{0.2cm}
+		\item $\bm{n^2\succ\sqrt n}$
+		
+		Знаем, че $\lim\limits_{n\to\infty}\frac{\sqrt n}{n^2}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $\sqrt n\prec n^2$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{\sqrt n\succ log^2(n)}$
+		
+		От основно свойство $\hyperref[mprop-1]{9}$ директно следва, че $log^2(n)\prec\sqrt n$.
+
+		
+		\vspace{0.2cm}
+		\item $\bm{log^2(n)\succ log(n)}$
+
+		Знаем, че $\lim\limits_{n\to\infty}\frac{log(n)}{log^2(n)}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $log(n)\prec log^2(n)$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{log(n)\succ log(log(n))}$
+		
+		Полагаме $m=log(n)$ и получаваме
+		\begin{equation*}
+			m\,\textbf?\,log(m)
+		\end{equation*}
+		От основно свойство $\hyperref[mprop-1]{10}$ следва, че $log(m)\prec m$. Сега като върнем полагането получаваме $log(log(n))\prec log(n)$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{log(log(n))\succ a}$
+		
+		Знаем, че $\lim\limits_{n\to\infty}\frac{a}{log^{(2)}(n)}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $a\prec log^{(2)}(n)$.
+		
+
+		\vspace{0.2cm}
+		\item $\bm{a\succ n^{-2}}$
+
+		Знаем, че $\lim\limits_{n\to\infty}\frac{n^{-2}}{a}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $n^{-2}\prec a$.
+	\end{enumerate}
+\end{solution}\leavevmode\newline
+
+\begin{problem}
+	Да се сортират по асимптотика следните функции:
+	\vspace{0.25cm}
+	\noindent
+	\begin{center}
+		$\begin{array}{llll}
+			f_1(n)=(\sqrt2)^{log(n)}\qquad  & f_2(n)=n^3\qquad             & f_3(n)=n!\qquad                         & f_4(n)=(log(n))!              \vspace{0.2cm}\\
+			f_5(n)=e^{-2ln(n)}\qquad        & f_6(n)=log^2(n)\qquad        & f_7(n)=log(n!)\qquad                    & f_8(n)=2^{2^n}                \vspace{0.2cm}\\
+			f_9(n)=n^{\frac1{log(n)}}\qquad & f_{10}(n)=log^{(2)}(n)\qquad & f_{11}(n)=\big(\frac{3}{2}\big)^n\qquad & f_{12}(n)=n2^n                \vspace{0.2cm}\\
+			f_{13}(n)=4^{log(n)}\qquad      & f_{14}(n)=(n+1)!\qquad       & f_{15}(n)=\sqrt{log(n)}\qquad           & f_{16}(n)=2^{\sqrt{2log(n)}}  \vspace{0.2cm}\\
+			f_{17}(n)=n^{log(log(n))}\qquad & f_{18}(n)=log(n)\qquad       & f_{19}(n)=2^{log(n)}\qquad              & f_{20}(n)=(log(n))^{log(n)}
+		\end{array}$
+	\end{center}
+\end{problem}
+\vspace{0.25cm}
+\begin{solution}
+	\leavevmode\newline
+	$e^{-2ln(n)}\prec n^{\frac{1}{log(n)}}\prec log^{(2)}(n)\prec \sqrt{log(n)}\prec log(n)\prec log^2(n)\prec 2^{\sqrt{2log(n)}}\prec (\sqrt2)^{log(n)}\prec 2^{log(n)}\prec log(n!)\prec 4^{log(n)}\prec n^3\prec (log(n))!\prec (log(n))^{log(n)}\asymp n^{log(log(n))}\prec \big(\frac{3}{2}\big)^n\prec n2^n\prec n!\prec (n+1)!\prec 2^{2^n}$ Ще опишем подробно решенията:
+	\begin{enumerate}[label=\textbf{\arabic*.}]
+		
+		\item $\bm{e^{-2ln(n)}\prec n^{\frac{1}{log(n)}}}$
+		
+		Ще преобразуваме функциите използвайки основните свойства на логаритмите:
+		\begin{equation*}
+			(e^{ln(n)})^{-2}\,\textbf?\,n^{log_n(2)}
+		\end{equation*}
+		\begin{equation*}
+			(n^{ln(e)})^{-2}\,\textbf?\,2^{log_n(n)}
+		\end{equation*}
+		\begin{equation*}
+			n^{-2}\,\textbf?\,2
+		\end{equation*}
+		Сега знаем, че $\lim\limits_{n\to\infty}\frac{n^{-2}}{2}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $n^{-2}\prec2$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{n^{\frac{1}{log(n)}}\prec log^{(2)}(n)}$
+		
+		Вече показахме, че $n^{\frac{1}{log(n)}}=2$. Сега знаем, че $\lim\limits_{n\to\infty}\frac2{log^{(2)}(n)}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $2\prec log^{(2)}(n)$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{log^{(2)}(n)\prec\sqrt{log(n)}}$
+		
+		Полагаме $m=log(n)$ и получаваме
+		\begin{equation*}
+			log(m)\,\textbf?\,\sqrt m
+		\end{equation*}
+		От основно свойство $\hyperref[mprop-1]{10}$ следва, че $log(m)\prec m$. Сега като върнем полагането получаваме $log^{(2)}(n)\prec\sqrt{log(n)}$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{\sqrt{log(n)}\prec log(n)}$
+		
+		Директно прилагаме основно свойство $\hyperref[mprop-1]{7}$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{log(n)\prec log^2(n)}$
+		
+		Директно прилагаме основно свойство $\hyperref[mprop-1]{7}$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{(log(n))^2\prec2^{\sqrt{2log(n)}}}$
+		
+		Ще приложим основно свойство $\hyperref[mprop-1]{9}\dots$ т.е. логаритмуваме двете страни и получаваме
+		\begin{equation*}
+			log((log(n))^2)\,\textbf?\,log(2^{\sqrt{2log(n)}})
+		\end{equation*}
+		\begin{equation*}
+			2log(log(n))\,\textbf?\,\sqrt{2log(n)}log(2)
+		\end{equation*}
+		Полагаме $m=log(n)$ и получаваме
+		\begin{equation*}
+			2log(m)\,\textbf?\,\sqrt{2m}
+		\end{equation*}
+		От основно свойство $\hyperref[mprop-1]{10}$ имаме $2log(m)\prec\sqrt{2m}$. Сега като върнем полагането имаме $2log(log(n))\prec\sqrt{2log(n)}$. Оттук и от основно свойство $\hyperref[mprop-1]{9}$ следва, че $(log(n))^2\prec2^{\sqrt{2log(n)}}$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{2^{\sqrt{2log(n)}}\prec(\sqrt2)^{log(n)}}$
+		
+		Ще приложим основно свойство $\hyperref[mprop-1]{9}\dots$ т.е. логаритмуваме двете страни и получаваме
+		\begin{equation*}
+			log(2^{\sqrt{2log(n)}})\,\textbf?\,log(\sqrt n)
+		\end{equation*}
+		\begin{equation*}
+			\sqrt{2log(n)}\,\textbf?\,\frac12log(n)
+		\end{equation*}
+		Знаем, че $\lim\limits_{n\to\infty}\frac{\sqrt{2log(n)}}{\frac12log(n)}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $\sqrt{2log(n)}\prec \frac12log(n)$. Оттук и от основно свойство $\hyperref[mprop-1]{9}$ следва, че $2^{\sqrt{2log(n)}}\prec(\sqrt2)^{log(n)}$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{(\sqrt2)^{log(n)}\prec2^{log(n)}}$
+		
+		Ще преобразуваме функциите използвайки основните свойства на логаритмите:
+		\begin{equation*}
+			n^{log(\sqrt2)}\,\textbf?\,n^{log(2)}
+		\end{equation*}
+		\begin{equation*}
+			\sqrt n\,\textbf?\,n
+		\end{equation*}
+		Сега знаем, че $\lim\limits_{n\to\infty}\frac{\sqrt n}{n}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $\sqrt n\prec n$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{2^{log(n)}\prec log(n!)}$
+		
+		Вече показахме, че $2^{log(n)}=n$ и $log(n!)\asymp nlog(n)$. Сега знаем, че $\lim\limits_{n\to\infty}\frac n{nlog(n)}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $n\prec nlog(n)$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{log(n!)\prec 4^{log(n)}}$
+		
+		Ще преобразуваме $4^{log(n)}$ използвайки основните свойства на логаритмите:
+		\begin{equation*}
+			log(n!)\,\textbf?\,n^{log(4)}
+		\end{equation*}
+		\begin{equation*}
+			nlog(n)\,\textbf?\,n^2
+		\end{equation*}
+		Тогава от основно свойство $\hyperref[mprop-1]{10}$ следва, че $nlog(n)\prec n^2$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{4^{log(n)}\prec n^3}$
+		
+		Вече показахме, че $4^{log(n)}=n^2$. Сега знаем, че $\lim\limits_{n\to\infty}\frac{n^2}{n^3}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $n^2\prec n^3$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{n^3\prec(log(n))!}$
+		
+		Ще преобразуваме $(log(n))!$ използвайки $\hyperref[cor:stirling]{\text{апроксимацията на Стирлинг}}$:
+		\begin{equation*}
+			(log(n))!\sim\sqrt{2\pi log(n)}\bigg(\frac{log(n)}{e}\bigg)^{log(n)}
+		\end{equation*}
+		Ще приложим основно свойство $\hyperref[mprop-1]{9}\dots$ т.е. логаритмуваме двете страни и получаваме
+		\begin{equation*}
+			log(n^3)\,\textbf?\,log\Bigg(\sqrt{2\pi log(n)}\bigg(\frac{log(n)}{e}\bigg)^{log(n)}\Bigg)
+		\end{equation*}
+		\begin{equation*}
+			3log(n)\,\textbf?\,\underbrace{log\big(\sqrt{2\pi log(n)}\big)}_{\asymp log(log(n))}+log(n)\,log(log(n))-log(n)log(e)
+		\end{equation*}
+		\begin{equation*}
+			log(n)\,\textbf?\,log(n)\,log(log(n))
+		\end{equation*}
+		Знаем, че $\lim\limits_{n\to\infty}\frac{log(n)}{log(n)\,log(log(n))}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $log(n)\prec log(n)\,log(log(n))$. Оттук и от основно свойство $\hyperref[mprop-1]{9}$ следва, че $n^3\prec(log(n))!$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{(log(n))!\prec(log(n))^{log(n)}}$
+		
+		Полагаме $m=log(n)$ и получаваме
+		\begin{equation*}
+			m!\,\textbf?\,m^m
+		\end{equation*}
+		От анализа знаем, че $\lim\limits_{n\to\infty}\frac{m!}{m^m}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $m!\prec m^m$.
+		Сега като върнем полагането получаваме $(log(n))!\prec(log(n))^{log(n)}$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{(log(n))^{log(n)}\asymp n^{log(log(n))}}$
+		
+		Директно прилагаме основно свойство $\hyperref[fact-log-props]{5}$ на логаритмите.
+		
+
+		\vspace{0.2cm}
+		\item $\bm{n^{log(log(n))}\prec \big(\frac{3}{2}\big)^n}$
+
+		Ще приложим основно свойство $\hyperref[mprop-1]{9}\dots$ т.е. логаритмуваме двете страни и получаваме
+		\begin{equation*}
+			log(n)\,log(log(n))\,\textbf?\,n
+		\end{equation*}
+		От основно свойство $\hyperref[mprop-1]{10}$ следва, че $log(n)\,log(log(n))\prec log^2(n)\prec n$. Оттук и от основно свойство $\hyperref[mprop-1]{9}$ следва, че $n^{log(log(n))}\prec \big(\frac{3}{2}\big)^n$.
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{\big(\frac{3}{2}\big)^n\prec n2^n}$
+		
+		Директно прилагаме основно свойство $\hyperref[mprop-1]{7}$. //$\big(\frac{3}{2}\big)^n\prec 2^n\prec n2^n$
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{n2^n\prec n!}$
+		
+		Ще приложим основно свойство $\hyperref[mprop-1]{9}\dots$ т.е. логаритмуваме двете страни и получаваме
+		\begin{equation*}
+			log(n2^n)\,\textbf?\,log(n!)
+		\end{equation*}
+		\begin{equation*}
+			log(n)+nlog(2)\,\textbf?\,nlog(n)
+		\end{equation*}
+		Знаем, че $\lim\limits_{n\to\infty}\frac n{nlog(n)}=0$. Тогава от основно свойство $\hyperref[mprop-1]{7}$ следва, че $n\prec log(n)$. Оттук и от основно свойство $\hyperref[mprop-1]{9}$ следва, че $n2^n\prec n!$.
+	
+	
+		\vspace{0.2cm}
+		\item $\bm{n!\prec (n+1)!}$
+
+		Директно прилагаме основно свойство $\hyperref[mprop-1]{7}$
+		
+		
+		\vspace{0.2cm}
+		\item $\bm{(n+1)!\prec2^{2^n}}$
+		
+		Ще приложим основно свойство $\hyperref[mprop-1]{9}\dots$ т.е. логаритмуваме двете страни и получаваме
+		\begin{equation*}
+			(n+1)log(n+1)\,\textbf?\,2^n
+		\end{equation*}
+		Логаритмуваме още веднъж
+		\begin{equation*}
+			log(n+1)\,log(log(n+1))\,\textbf?\,n
+		\end{equation*}
+		От основно свойство $\hyperref[mprop-1]{10}$ следва, че $log(n)\,log(log(n))\prec log^2(n)\prec n$. Оттук и от основно свойство $\hyperref[mprop-1]{9}$ следва, че $log(n)\,log(log(n))\prec2^n$. И отново от основно свойство $\hyperref[mprop-1]{9}$ следва, че $(n+1)!\prec2^{2^n}$.
+	\end{enumerate}
+\end{solution}

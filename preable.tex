@@ -1,0 +1,217 @@
+%add counter to subsubsection and it in the table of contents
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Теорема}[chapter]
+\newtheorem{definition}{Дефиниция}[chapter]
+\newtheorem{problem}{{\bf Задача}}[chapter]
+\newtheorem{proposition}{Твърдение}[chapter]
+\newtheorem{corollary}[theorem]{Следствие}
+\newtheorem{lemma}{Лема}[chapter]
+\newtheorem{example}{Пример}[chapter]
+\newtheorem*{solution}{Решение}
+\newtheorem*{base}{База}
+\newtheorem*{indhypothesis}{Индуктивна хипотеза}
+\newtheorem*{indstep}{Индуктивна стъпка}
+\newtheorem*{maintenance}{Поддръжка}
+\newtheorem*{termination}{Терминация}
+
+
+%\theoremstyle{remark}
+\newtheorem{remark}{Забележка}[chapter]
+\newtheorem*{remark*}{Забележка}%[chapter]
+\newtheorem{application}{Приложение}[chapter]
+\newtheorem*{application*}{Приложение}%[chapter]
+
+\newcommand{\remref}[1]{\hyperref[#1]{\textbf{Забележка }}\textbf{\ref{#1}}}
+\newcommand{\probref}[1]{\hyperref[#1]{\textbf{Задача }}\textbf{\ref{#1}}}
+\newcommand{\thmref}[1]{\hyperref[#1]{\textbf{Теорема }}\textbf{\ref{#1}}}
+\newcommand{\exmref}[1]{\hyperref[#1]{\textbf{Пример }}\textbf{\ref{#1}}}
+\newcommand{\aplref}[1]{\hyperref[#1]{\textbf{Приложение }}\textbf{\ref{#1}}}
+
+
+
+%remove "Chapter X" and "Section X".. decided to have them stay..
+%\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Large}
+%\titleformat{\section}[display]{\normalfont\bfseries}{}{0pt}{\Large}
+
+%useful colors
+\definecolor{mycol1}{RGB}{203, 22, 243}
+\definecolor{mybrown}{RGB}{102, 45, 0}
+\definecolor{mygreen}{RGB}{0, 80, 40}
+\definecolor{myblue}{RGB}{0,100,255}
+\definecolor{mydarkblue}{RGB}{0,0,189}
+\definecolor{myred}{RGB}{220,35,35}
+\definecolor{mybordertheorem}{RGB}{80,45,22}
+\definecolor{mybackgroundtheorem}{RGB}{244,227,215}
+\definecolor{myborderfigure}{RGB}{68,85,00}
+\definecolor{mybackgroundfigure}{RGB}{238,255,170}
+
+%no idea what are those used for...
+%\definecolor{myCgreen}{rgb}{0,0.6,0}
+%\definecolor{myCgray}{rgb}{0.5,0.5,0.5}
+%\definecolor{myCmauve}{rgb}{0.58,0,0.82}
+
+%rename Глава to Семинар
+%\makeatletter
+%\renewcommand{\@chapapp}{Семинар}
+%\makeatother
+
+%something for the table of contents (to be as Minko's)
+\makeatletter
+\renewcommand*\l@section{\@dottedtocline{1}{1.42em}{2.7em}}
+\makeatother
+
+%something for the table of contents (to be as Minko's)
+\makeatletter
+\renewcommand*\l@subsection{\@dottedtocline{2}{4.086em}{3.2em}}
+\makeatother
+
+%style for the color box "Допълнение"
+\tcbset{mytcbbox/.style={
+		breakable, enhanced,
+		enhanced jigsaw,
+		colbacktitle=red!60!black,%black!1!white,
+		fonttitle=\bfseries,coltitle=white,%mygreen,
+		coltext=mygreen,colback=mygreen!2!white,colframe=red!60!black, arc is angular,
+		attach boxed title to top center=
+		{yshift=-0.25mm-\tcboxedtitleheight/2,yshifttext=2mm-\tcboxedtitleheight/2},
+		boxed title style={enhanced,boxrule=0.5mm,
+			frame code={ \path[tcb fill frame] ([xshift=-4mm]frame.west)
+				-- (frame.north west) -- (frame.north east) -- ([xshift=4mm]frame.east)
+				-- (frame.south east) -- (frame.south west) -- cycle; },
+			interior code={ \path[tcb fill interior] ([xshift=-2mm]interior.west)
+				-- (interior.north west) -- (interior.north east)
+				-- ([xshift=2mm]interior.east) -- (interior.south east) -- (interior.south west)
+				-- cycle;}} 
+}}
+
+%color box "Допълнение"
+\newtcolorbox[auto counter,
+number within=chapter,
+list inside=myframe %used if in future needed to print table of contents for Допълнения
+]{insertedframe}[2][]{%
+	mytcbbox,
+	list text = {#2},
+	title=Допълнение \thetcbcounter: #2, #1,
+}
+
+%color box for everything else
+%LABELS:
+%the automatic label is <prefix> "th" (the last thing in curly brackets) then <separator> : (or change with label separator=<char>) and then <marker> (the random bonus curly brackets when making new boxtheorem).. <prefix><separator><marker>
+%to use specific label when making new boxtheorem add in square brackets label=<labelname> in the begining like that:
+%\begin{boxtheorem}[label=th-integral-criterion]{Интегрален критерий (частен случай)}{}
+\newtcbtheorem[number within=chapter, list inside=mytheo]{boxtheorem}{Теорема}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{th}
+\newtcbtheorem[number within=chapter]{boxlemma}{Лема}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{lem}
+\newtcbtheorem[number within=chapter]{boxcorollary}{Следствие}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{cor}
+\newtcbtheorem[number within=chapter, list inside=mynotation]{boxnotation}{Нотация}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{not}
+\newtcbtheorem[number within=chapter]{boxdefinition}{Дефиниция}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{def}
+\newtcbtheorem[number within=chapter]{boxconvention}{Конвенция}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{conv}
+\newtcbtheorem[number within=chapter]{boxproblem}{Задача}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{probl}
+\newtcbtheorem[number within=chapter, list inside=mycompproblem]{boxcompproblem}{Изч.\ Задача}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{compprobl}
+\newtcbtheorem[number within=chapter]{boxremark}{Забележка}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{rem}
+\newtcbtheorem[number within=chapter]{boxobservation}{Наблюдение}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{obs}
+\newtcbtheorem[number within=chapter]{boxclarification}{Разяснение}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{clarification}
+\newtcbtheorem[number within=chapter]{boxalgorithm}{Алгоритъм}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{alg}
+\newtcbtheorem[number within=chapter]{boxhypothesis}{Хипотеза}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{hyp}
+\newtcbtheorem[number within=chapter]{boxfact}{Факт}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{fct}
+
+%those two with different style..
+\newtcbtheorem[number within=chapter]{boxinvariant}{Инвариант}%
+{reset, enhanced, every box,
+	colback=gold, colframe=black!85!white, coltext=black!85!white,
+	coltitle=gold, width= 0.92 \linewidth, before=\par\smallskip\centering,after=\par,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{invar}
+\newtcolorbox[number within=chapter, list inside=myreduction]{boxreduction}[2][]{detach title,
+	before upper={Редукция~\thereductioncounter: \tcbtitle},
+	colbacktitle=black,
+	colback=white,coltitle=black,
+	title={#2},#1}
+
+
+%main properties.. removed the counter
+\newtcbtheorem{boxmainproperties}{Основни свойства}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow, theorem name}{mprops}
+
+
+
+%environment for pseudocode (helper)
+\newsavebox{\helpbox}
+\newenvironment{colboxTre}[1]
+{\newcommand\colboxcolor{#1}\begin{lrbox}{\helpbox}}
+{\end{lrbox} \colorbox[HTML]{\colboxcolor}{\usebox{\helpbox}}}
+
+%environment for pseudocode
+\newenvironment{pseudocode}
+{\setlength{\parskip}{-1cm}\SetNlSty{}{}{.}\begin{flushleft}\begin{colboxTre}{EFF0F1}\begin{algorithm}[H]}
+{\end{algorithm}\end{colboxTre}\end{flushleft}\setlength{\parskip}{0cm}}
+
+%pseudocode bonus things
+\SetKwBlock{Mybegin}{}{}
+\SetKwRepeat{Do}{do}{while}
+\SetKwFor{Myfor}{for}{}{}
+\SetKwFor{Myforstep}{for}{with step}{}
+\SetKw{Withstep}{$\KwSty{with step}$}
+\SetKw{True}{$\KwSty{TRUE}$}
+\SetKw{False}{$\KwSty{FALSE}$}
+
+
+
+%my cases - сл.2.1.1.3
+\newlist{mycase}{enumerate}{4}
+\setlist[mycase,1]{label=\textbf{сл.\arabic*}}
+\setlist[mycase,2]{label=\textbf{сл.\arabic{mycasei}.\arabic*}}
+\setlist[mycase,3]{label=\textbf{сл.\arabic{mycasei}.\arabic{mycaseii}.\arabic*}}
+\setlist[mycase,4]{label=\textbf{сл.\arabic{mycasei}.\arabic{mycaseii}.\arabic{mycaseiii}.\arabic*}}
+%next one is mycaseiv
+
+%for flow chars (блок схеми)
+\tikzstyle{io} = [ellipse, minimum width=3cm, minimum height=1cm, text centered, draw=black] %input-output box
+\tikzstyle{st} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black] %state box
+\tikzstyle{if} = [diamond, minimum size=2cm, text centered, draw=black] %if box
+\tikzstyle{arrow} = [thick, ->, >=stealth] %obviously :D

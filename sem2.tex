@@ -1,0 +1,582 @@
+\section{Итеративни алгоритми}
+
+Коректност на итеративни алгоритми ще доказваме чрез $\textbf{\emph{инвариант}}$. Това е пособие, което много наподобява доказателство чрез индукция. Аналогично на индукцията имаме $\textbf{\emph{база}}$. Индуктивната хипотеза и индуктивната стъпка тук са обединени в една фаза - $\textbf{\emph{поддръжка}}$. Имаме нова фаза наречена $\textbf{\emph{терминация}}$.
+
+\begin{boxremark}{}{}\label{brem-iter-only-cycle}
+	Важно е да отбележим, че инварианта е пособие за доказателство за коректност на итеративен цикъл, а $\textbf{не}$ за цял алгоритъм!
+\end{boxremark}\leavevmode\newline
+
+\begin{problem}
+	Даден е следния алгоритъм  (зададен чрез $\textbf{\emph{псевдокод}}$):
+	\begin{pseudocode}
+		\SetKwData{ds}{s}
+		\SetKwData{dn}{n}
+		
+		$Alg1(\dn)://\,\dn\in\mathbb{N}_0$
+		\Mybegin
+		{
+			$\ds\leftarrow1$\;
+			\Myfor{$i\leftarrow1$ $\KwTo$ $\dn$}
+			{
+				$\ds\leftarrow\ds*2$\;
+			}
+		\KwRet{$\ds$}\;
+		}
+	\end{pseudocode}
+	Какво връща той? Да се докаже формално.
+\end{problem}
+\begin{solution}
+	Ще докажем, че $Alg1(n)=2^n$.
+	\noindent
+	\begin{boxinvariant*}{}{}
+		При всяко $k$-то достигане на ред 3 имаме, че $s=2^{k-1}$ ($k$ броим от 1)
+	\end{boxinvariant*}
+\end{solution}
+\begin{base}
+	При $k=1$-во достигане на ред 3 имаме, че $s\overset{\text{ред 3}}=1=2^0=2^{k-1}$.
+\end{base}
+\begin{maintenance}
+	Нека е вярно за някое $k$-то $\underline{\text{непоследно}}$ достигане на ред 3, т.е. имаме $s=2^{k-1}$. Сега се изпълнява тялото на цикъла, т.е. $s_{new}\overset{\text{ред 4}}=s_{old}*2\overset{\text{ИП}}=2^{k-1}*2=2^k=2^{(k+1)-1}$. След изпълнение на тялото на цикъла отново се връщаме на ред 3 като вече го достигаме за $(k+1)$-ви път (може да е последно достигане) и имаме $s=2^{(k+1)-1}$.
+\end{maintenance}
+\begin{termination}
+	При $k=(n+1)$-то достигане на ред 3 тялото на цикъла няма да се изпълни. От инварианта имаме, че $s=2^{(n+1)-1}=2^n$. Директно връщаме $s=2^n$ на ред 5.
+\end{termination}\leavevmode\newline
+
+\begin{problem}
+	Даден е следния алгоритъм:
+	\begin{pseudocode}
+		\SetKwData{ds}{s}
+		\SetKwData{dn}{n}
+		\SetKwData{dA}{A}
+		
+		$Alg2(\dA[1..\dn])://\,\dn\in\mathbb{N}^+\,,\dA\in\mathbb{R}^{\dn}$
+		\Mybegin
+		{
+			$\ds\leftarrow0$\;
+			\Myfor{$i\leftarrow1$ $\KwTo$ $\dn$}
+			{
+				$\ds\leftarrow\ds+\dA[i]$\;
+			}
+			\KwRet{$\ds$}\;
+		}
+	\end{pseudocode}
+	Какво връща той? Да се докаже формално.
+\end{problem}
+\begin{solution}
+	Ще докажем, че $Alg2(A[1..n])=\sum\limits_{i=1}^{n}A[i]$.
+\end{solution}
+\begin{boxinvariant*}{}{}
+	При всяко $k$-то достигане на ред 3 имаме:
+	\begin{itemize}
+		\item $i=k$ (в рамките на курса ще го считаме за тривиално при $\emph{стандартни}$ for-цикли и няма да го доказваме)
+		\item $s=\sum\limits_{i=1}^{k-1}A[i]$
+	\end{itemize}
+\end{boxinvariant*}
+\begin{base}
+	При $k=1$-во достигане на ред 3 имаме, че $s\overset{\text{ред 2}}=0=\sum\limits_{i=1}^{0}A[i]=\sum\limits_{i=1}^{k-1}A[i]$.
+\end{base}
+\begin{maintenance}
+	Нека е вярно за някое непоследно достигане на ред 3, т.е. имаме $s=\sum\limits_{i=1}^{k-1}A[i]$. Сега се изпълнява тялото на цикъла $s_{new}\overset{\text{ред 4}}=s_{old}+A[i]=s_{old}+A[k]\overset{\text{ИП}}=\sum\limits_{i=1}^{k-1}A[i]+A[k]=\sum\limits_{i=1}^kA[i]$.
+\end{maintenance}
+\begin{termination}
+	При $k=(n+1)$-то достигане на ред 3 тялото на цикъла няма да се изпълни. От инварианта имаме, че $s=\sum\limits_{i=1}^nA[i]$. Директно връщаме $s$ на ред 5.
+\end{termination}\leavevmode\newline
+
+%\leavevmode\newline\newline\newline
+
+\section{Рекурсивни алгоритми}
+
+За разлика от итеративните алгоритми, коректност на рекурсивни алгоритми ще доказваме чрез добре познатата ни $\textbf{\emph{пълна математическа индукция}}$ състояща се от три фази - $\textbf{\emph{база}}$, $\textbf{\emph{индуктивна хипотеза}}$ и $\textbf{\emph{индуктивна стъпка}}$.
+
+\begin{boxremark}{}{}\label{brem-recu-whole-alg}
+	Индукцията е пособие за доказателство за коректност на цял алгоритъм!
+\end{boxremark}
+
+\begin{boxremark}{Рекурсивен алгоритъм, съдържащ итеративен цикъл}{}
+	За да докажем рекурсивен алгоритъм, съдържащ итеративен (един или повече) цикъл, то трябва да направим доказателство за коректност на всеки итеративен цикъл (използвайки $\textbf{\emph{инвариант}}$) след което да използваме $\textbf{\emph{пълна математическа индукция}}$ за доказателство за коректност на целия алгоритъм.
+\end{boxremark}\leavevmode\newline
+
+\begin{problem}
+	Даден е следния алгоритъм:
+	\begin{pseudocode}
+		\SetKwData{da}{a}
+		\SetKwData{dn}{n}
+		
+		$Alg3(\da,\dn)://\,\da\in\mathbb{R}\,,\dn\in\mathbb{N}_0$
+		\Mybegin
+		{
+			\If{$\dn=0$}{\KwRet{$1$}\;}
+			
+			\If{$\dn\equiv0\,(mod\,2)$}{\KwRet{$Alg3(\da*\da,\dn/2)$}\;}
+			
+			\KwRet{$\da*Alg3(\da,\dn-1)$\;}
+		}
+	\end{pseudocode}
+	Какво връща той? Да се докаже формално.
+\end{problem}
+\begin{solution}
+	Ще докажем, че $Alg3(a,n)=\begin{cases}
+		a^n &,a\ne0\land n\ne0\\
+		1   &,a=0\lor n=0
+	\end{cases}$ чрез пълна математическа индукция по $n$.
+\end{solution}
+\begin{base}
+	$(n=0)$\\Разглеждаме два случая:
+	\begin{mycase}
+		\item $(a=0)$ - $Alg3(a,0)\underset{\text{ред}}{\overset{\text{2-3}}=}1$.
+		\item $(a\ne0)$ - $Alg3(a,0)\underset{\text{ред}}{\overset{\text{2-3}}=}1$.
+	\end{mycase}
+\end{base}
+\begin{indhypothesis}
+	Нека $\forall m\le n$ е изпълнено, че $Alg3(a,m)=\begin{cases}
+		a^m &,a\ne0\land m\ne0\\
+		1   &,a=0\lor m=0
+	\end{cases}$
+\end{indhypothesis}
+\begin{indstep}
+	Ще докажем за $n+1>0$. Отново разглеждаме два случая:
+	\begin{mycase}
+		\item $(n+1)\equiv0\,(mod\,2)$\\
+		Тъй като $n+1>0$, то не влизаме в тялото на if на ред 2-3. Знаем, че $n+1>0$ и $(n+1)\equiv0\,(mod\,2)$, значи имаме $n+1\ge2$. Откъдето заключваме, че $\frac{n+1}2>0$. Влизаме в тялото на if на ред 4-5, като директно връщаме $Alg3(a*a,\underbrace{\frac{n+1}2}_{>\,0})\overset{\text{ИХ}}=(a*a)^{\frac{n+1}2}=a^{n+1}$.
+		
+		\item $(n+1)\equiv1\,(mod\,2)$\\
+		Тъй като $n+1>0$, то не влизаме в тялото на if на ред 2-3. От друга страна не влизаме в тялото на if на ред 4-5 заради $(n+1)\equiv1\,(mod\,2)$. Тоест достигаме ред 6, където директно връщаме $a*Alg3(a,(n+1)-1)=a*Alg3(a,n)\overset{\text{ИХ}}=a*\begin{cases}
+			a^n &,a\ne0\land n\ne0\\
+			1   &,a=0\lor n=0
+		\end{cases}=a^{n+1}$ (отново е важно, че $n+1>0$.. т.е. не е нужно да разглеждаме два случая).
+	\end{mycase}
+\end{indstep}\leavevmode\newline
+
+
+\section{Блок схеми}
+В $\remref{brem-iter-only-cycle}$ споменахме, че $\textbf{\emph{инвариант}}$ ни служи за доказване само на итеративни цикли, а не на цели алгоритми, а в $\remref{brem-recu-whole-alg}$ казахме, че използваме $\textbf{\emph{индукция}}$ за доказване на коректността на цели алгоритми. Това поражда въпроса: ''С какво пособие доказваме итеративни алгоритми?''. Отговора: чрез $\textbf{\emph{блок схеми}}$.
+
+\begin{boxremark}{}{}
+	Разглежданите итеративни алгоритми в настоящия курс са достатъчно прости, т.е. целия алгоритъм всъщност е само един (най-много два) цикъл(а). За тези алгоритми е напълно приемливо да се използва $\textbf{\emph{инвариант}}$ за доказателство за коректност на целия алгоритъм, но когато алгоритъма не е просто един цикъл, то тогава се налага да доказваме коректност чрез $\textbf{\emph{блок схеми}}$. Поради тази причина в рамките на текущия курс не се изискват познания за $\textbf{\emph{блок схеми}}$.
+\end{boxremark}\leavevmode\newline
+
+\begin{problem}
+	Даден е следния алгоритъм (зададен чрез $\textbf{\emph{блок схема}}$):
+	\begin{figure}[H]
+		\centering
+		\scalebox{1}{\begin{tikzpicture}[node distance=2cm]
+			\node (input) [io] {Вход: $n\in\mathbb{N}_0$};
+			\node (st1) [st, below of=input] {$i=0$};
+			\node (if1) [if, below of=st1, yshift=-0.5cm] {$i\ne n$};
+			\node (st2) [st, below of=if1, yshift=-0.5cm] {$i\leftarrow i+1$};
+			\node (output) [io, right of=if1, xshift=2cm] {Изход: $i$};
+			
+			\draw[arrow] (input) -- (st1);
+			\draw[arrow] (st1) -- (if1) coordinate[pos=0.5] (ar1){};
+			\draw[arrow] (if1) -- node[anchor=west]{да} (st2);
+			\draw[arrow] (if1) -- node[anchor=south]{не} (output);
+			\draw[arrow] (st2) -- ++(-2,0) |- (ar1);
+		\end{tikzpicture}}
+	\end{figure}
+	\noindent
+	Какво връща той? Да се докаже формално.
+\end{problem}
+\begin{solution}
+	Ще докажем, че алгоритъма връща $n$.\vspace{0.2cm}
+	
+	\noindent
+	Дефинираме три предиката (по един за всяка $\emph{не правоъгълна кутийка}$):
+	\begin{itemize}
+		\item $I(n)\overset{def}\leftrightarrow n\in\mathbb{N}_0$
+		\item $L(n,i)\overset{def}\leftrightarrow (n\in\mathbb{N}_0\land i\in\mathbb{N}_0)$
+		\item $O(n,i)\overset{def}\leftrightarrow i=n$
+	\end{itemize}
+	Ще докажем следните три импликации (връзките между $\emph{не правоъгълните кутийки}$):
+	\begin{itemize}
+		\item $(I(n)\land i=0)\rightarrow L(n,i)$
+		\item $(L(n,i)\land i\ne n)\rightarrow L(n,i+1)$
+		\item $(L(n,i)\land \lnot(i\ne n))\rightarrow O(n,i)$
+	\end{itemize}
+	Ето и пълното доказателство на горните три импликации:
+	\begin{itemize}
+		\item $(I(n)\land i=0)\rightarrow L(n,i)$\\
+		Нека са изпълнени $\underbrace{n\in\mathbb{N}_0}_{I(n)}$ и $i=0$. Чудим се дали е изпълнено $\underbrace{n\in\mathbb{N}_0\text{ и }i\in\mathbb{N}_0}_{L(n,i)}$.\\
+		Очевидно е изпълнено.
+		
+		\item $(L(n,i)\land i\ne n)\rightarrow L(n,i+1)$\\
+		Нека са изпълнени $\underbrace{n\in\mathbb{N}_0\text{ и }i\in\mathbb{N}_0}_{L(n,i)}$ и $i\ne n$. Чудим се дали е изпълнено $\underbrace{n\in\mathbb{N}_0\text{ и }(i+1)\in\mathbb{N}_0}_{L(n,i)}$. Очевидно е изпълнено.
+		
+		\item $(L(n,i)\land \lnot(i\ne n))\rightarrow O(n,i)$\\
+		Нека са изпълнени $\underbrace{n\in\mathbb{N}_0\text{ и }i\in\mathbb{N}_0}_{L(n,i)}$ и $\underbrace{\lnot(i\ne n)}_{\text{т.е. }i=n}$. Чудим се дали е изпълнено $\underbrace{i=n}_{O(n,i)}$.\\
+		Очевидно е изпълнено.
+	\end{itemize}
+	Тоест доказахме, че достигайки $\emph{кутийката за изход}$ е изпълнен предиката $\underbrace{i=n}_{O(n,i)}$. Тоест връщания резултат наистина е $n$.
+\end{solution}\leavevmode\newline
+
+
+\section{Често срещани грешки}
+
+\subsection{Бъркане на позицията на инварианта при do-while цикъл}
+
+Без да се замисли човек е лесно да се направи тази грешка от невнимание. Да разгледаме следния псевдокод за илюстрация:
+
+\begin{pseudocode}
+	\SetKwData{dn}{n}
+	\SetKwData{di}{i}
+	
+	$Alg4(\dn)://\,\dn\in\mathbb{N}_0$
+	\Mybegin
+	{
+		$\di\leftarrow0$\;
+		
+		\Do{$\di<\dn$}
+		{
+			$\di\leftarrow\di+1$\;
+		}
+	
+		\KwRet{$\dn$\;}
+	}
+\end{pseudocode}
+
+\begin{boxinvariant*}{ГРЕШЕН}{}
+	При всяко $k$-то достигане на ред $\textbf3$...
+\end{boxinvariant*}
+\vspace{0.3cm}
+\begin{boxinvariant*}{КОРЕКТЕН}{}
+	При всяко $k$-то достигане на ред $\textbf5$...
+\end{boxinvariant*}
+\vspace{0.3cm}\noindent
+Съобразете защо!\newpage
+
+\subsection{Некоректна терминация}
+
+За разлика от предходната грешка, тази е значително по-трудна за съобразяване. Да разгледаме следния алгоритъм:
+\begin{pseudocode}
+	\SetKwData{dn}{n}
+	\SetKwData{di}{i}
+	
+	$Alg5(\dn)://\,\dn\in\mathbb{N}_0$
+	\Mybegin
+	{
+		$\di\leftarrow0$\;
+		
+		\While{$\di<\dn$}
+		{
+			$\di\leftarrow\di+1$\;
+		}
+		
+		\KwRet{$\dn$\;}
+	}
+\end{pseudocode}
+Ясно е, че $Alg5(n)=n$. Проблем настъпва, когато се опитаме да съставим инвариант. Първоначалната ни идея би била да направим следния инвариант:
+
+\begin{boxinvariant*}{НЕПЪЛЕН}{}
+	При всяко $k$-то достигане на ред 3 имаме, че $i=k-1$
+\end{boxinvariant*}
+
+\noindent
+Този инвариант е абсолютно верен. Нека го докажем.
+
+\begin{base}
+	При $k=1$-во достигане на ред 3 имаме, че $i=0=1-1=k-1$.
+\end{base}
+
+\begin{maintenance}
+	Нека е изпълнено за някое $k$-то $\underline{\text{непоследно}}$ достигане на ред 3. Тъй като е непоследно достигане, то тялото на цикъла се изпълнява и достигаме отново ред 3, като имаме $i_{new}\overset{\text{ред 4}}{=}i_{old}+1\overset{\text{ИХ}}{=}(k-1)+1=k=(k+1)-1$.
+\end{maintenance}
+
+\begin{termination}
+	При $(n+1)$-вото достигане на ред 3 за първи път не влизаме в тялото на while-a. От инварианта знаем, че $i=(n+1)-1=n$, което и връщаме директно след цикъла.
+\end{termination}
+
+\leavevmode\newline\noindent
+Забелязахте ли проблема?\\
+\leavevmode\newline\noindent
+Проблема е, че не знаем кое е де факто $\textbf{последното}$ достигане на ред 3. При текущия алгоритъм е очевидно за съобразяване, но аналогичен проблем може да възникне при много по-сложни алгоритми. Инварианта е абсолютно коректно доказан (съобразете защо поддръжката е коректно доказана), но терминацията е грешна! Ето как би изглеждал правилен инвариант за алгоритъма:
+
+\begin{boxinvariant*}{}{}
+	При всяко $k$-то достигане на ред 3 имаме:
+	\begin{itemize}
+		\item $i=k-1$
+		\item $i<n+1$
+	\end{itemize}
+\end{boxinvariant*}
+
+\noindent
+Докажете, използвайки този инвариант.
+
+\leavevmode\newline
+
+\noindent
+Тъй като е трудно да се съобрази точно къде е проблема, нека да разгледаме същия проблем, но зададен чрез блок схема:
+
+\begin{figure}[H]
+	\centering
+	\scalebox{1}{\begin{tikzpicture}[node distance=2cm]
+			\node (input) [io] {Вход: $n\in\mathbb{N}_0$};
+			\node (st1) [st, below of=input] {$i=0$};
+			\node (if1) [if, below of=st1, yshift=-0.5cm] {$i< n$};
+			\node (st2) [st, below of=if1, yshift=-0.5cm] {$i\leftarrow i+1$};
+			\node (output) [io, right of=if1, xshift=2cm] {Изход: $i$};
+			
+			\draw[arrow] (input) -- (st1);
+			\draw[arrow] (st1) -- (if1) coordinate[pos=0.5] (ar1){};
+			\draw[arrow] (if1) -- node[anchor=west]{да} (st2);
+			\draw[arrow] (if1) -- node[anchor=south]{не} (output);
+			\draw[arrow] (st2) -- ++(-2,0) |- (ar1);
+	\end{tikzpicture}}
+\end{figure}
+
+\noindent
+Нека да разгледаме грешната идея първо:\vspace{0.2cm}
+
+\noindent
+Дефинираме три предиката (по един за всяка $\emph{не правоъгълна кутийка}$):
+\begin{itemize}
+	\item $I(n)\overset{def}\leftrightarrow n\in\mathbb{N}_0$
+	\item $L(n,i)\overset{def}\leftrightarrow (n\in\mathbb{N}_0\land i\in\mathbb{N}_0)$
+	\item $O(n,i)\overset{def}\leftrightarrow i=n$
+\end{itemize}
+Ще докажем следните три импликации (връзките между $\emph{не правоъгълните кутийки}$):
+\begin{itemize}
+	\item $(I(n)\land i=0)\rightarrow L(n,i)$
+	\item $(L(n,i)\land i<n)\rightarrow L(n,i+1)$
+	\item $(L(n,i)\land \lnot(i<n))\rightarrow O(n,i)$
+\end{itemize}
+Ето и опит за пълно доказателство на горните три импликации:
+\begin{itemize}
+	\item $(I(n)\land i=0)\rightarrow L(n,i)$\\
+	Нека са изпълнени $\underbrace{n\in\mathbb{N}_0}_{I(n)}$ и $i=0$. Чудим се дали е изпълнено $\underbrace{n\in\mathbb{N}_0\text{ и }i\in\mathbb{N}_0}_{L(n,i)}$.\\
+	Очевидно е изпълнено.
+	
+	\item $(L(n,i)\land i<n)\rightarrow L(n,i+1)$\\
+	Нека са изпълнени $\underbrace{n\in\mathbb{N}_0\text{ и }i\in\mathbb{N}_0}_{L(n,i)}$ и $i<n$. Чудим се дали е изпълнено $\underbrace{n\in\mathbb{N}_0\text{ и }(i+1)\in\mathbb{N}_0}_{L(n,i)}$. Очевидно е изпълнено.
+	
+	\item $(L(n,i)\land \lnot(i<n))\rightarrow O(n,i)$\\
+	Нека са изпълнени $\underbrace{n\in\mathbb{N}_0\text{ и }i\in\mathbb{N}_0}_{L(n,i)}$ и $\underbrace{\lnot(i<n)}_{\text{т.е. }i\ge n}$. Чудим се дали е изпълнено $\underbrace{i=n}_{O(n,i)}$. Не знаем! Единствно имаме, че $i\ge n$ (и че е естествено число), но не знаем дали е $n$ или $n+1$ или дори може да е $n+10000$.
+\end{itemize}
+Тоест не се получи, използвайки тези 3 предиката.. ще трябва да опитаме нещо по-силно.\vspace{0.2cm}
+
+\noindent
+Дефинираме три предиката (по един за всяка $\emph{не правоъгълна кутийка}$):
+\begin{itemize}
+	\item $I(n)\overset{def}\leftrightarrow n\in\mathbb{N}_0$
+	\item $L(n,i)\overset{def}\leftrightarrow (n\in\mathbb{N}_0\land i\in\mathbb{N}_0\land \boldsymbol{i\le n})$
+	\item $O(n,i)\overset{def}\leftrightarrow i=n$
+\end{itemize}
+Ще докажем следните три импликации (връзките между $\emph{не правоъгълните кутийки}$):
+\begin{itemize}
+	\item $(I(n)\land i=0)\rightarrow L(n,i)$
+	\item $(L(n,i)\land i<n)\rightarrow L(n,i+1)$
+	\item $(L(n,i)\land \lnot(i<n))\rightarrow O(n,i)$
+\end{itemize}
+Ето и пълното доказателство на горните три импликации:
+\begin{itemize}
+	\item $(I(n)\land i=0)\rightarrow L(n,i)$\\
+	Нека са изпълнени $\underbrace{n\in\mathbb{N}_0}_{I(n)}$ и $i=0$. Чудим се дали е изпълнено $\underbrace{n\in\mathbb{N}_0\text{ и }i\in\mathbb{N}_0\text{ и }i\le n}_{L(n,i)}$.\\
+	Тъй като $n\in\mathbb{N}_0$, то знаем, че $n\ge 0$, но $i=0$, тоест имаме $n\ge i$.
+	
+	\item $(L(n,i)\land i<n)\rightarrow L(n,i+1)$\\
+	Нека са изпълнени $\underbrace{n\in\mathbb{N}_0\text{ и }i\in\mathbb{N}_0\text{ и }i\le n}_{L(n,i)}$ и $i<n$. Чудим се дали е изпълнено следното $\underbrace{n\in\mathbb{N}_0\text{ и }(i+1)\in\mathbb{N}_0\text{ и }(i+1)\le n}_{L(n,i)}$. Тъй като имаме, че $i<n$ (и $i\in\mathbb{N}_0$), то е еквивалентно с $(i+1)\le n$. Очевидно е, че $(i+1)\in\mathbb{N}_0$.
+	
+	\item $(L(n,i)\land \lnot(i<n))\rightarrow O(n,i)$\\
+	Нека са изпълнени $\underbrace{n\in\mathbb{N}_0\text{ и }i\in\mathbb{N}_0\text{ и }i\le n}_{L(n,i)}$ и $\underbrace{\lnot(i<n)}_{\text{т.е. }i\ge n}$. Чудим се дали е изпълнено $\underbrace{i=n}_{O(n,i)}$. Очевидно е, тъй като имаме $i\ge n$ и $i\le n$, то е ясно, че $i=n$.
+\end{itemize}
+Доказахме, че алгоритъма връща $n$ (при вход $n$).
+
+\newpage
+
+\section{Задачи}
+
+\begin{problem}
+	Даден е следния алгоритъм:
+	\begin{pseudocode}
+		\SetKwData{dA}{A}
+		\SetKwData{dn}{n}
+		\SetKwData{dc}{c}
+		\SetKwData{dm}{m}
+		\SetKwData{di}{i}
+		
+		$Kadane(\dA[1..\dn])://\,\dn\in\mathbb{N}^+\,,\dA\in\mathbb{Z}^{\dn}$
+		\Mybegin
+		{
+			$\dc\leftarrow\dA[1]$\;
+			$\dm\leftarrow\dA[1]$\;
+			
+			\Myfor{$\di\leftarrow2$ \KwTo $\dn$}
+			{
+				\If{$\dA[\di]+\dc>\dA[i]$}{$\dc\leftarrow\dc+\dA[\di]$\;}
+				\Else{$\dc\leftarrow\dA[\di]$\;}
+				
+				\If{$\dc>\dm$}{$\dm\leftarrow\dc$\;}
+			}
+			
+			\KwRet{$\dm$\;}
+		}
+	\end{pseudocode}
+	Какво връща той? Да се докаже формално.
+\end{problem}
+
+\begin{solution}
+	Ще докажем, че $Kadane(A[1..n])$ връща най-голяма сума на непразен подмасив (последователни елементи) на $A[1..n]$.
+\end{solution}
+
+\begin{boxinvariant*}{}{}
+	При всяко $k$-то достигане на ред 4 имаме:
+	\begin{itemize}
+		\item $i=k+1$
+		\item $c$ е най-голяма сума на непразен подмасив на $A[1..k]$, завършващ в индекс$\,k$
+		\item $m$ е най-голяма сума на непразен подмасив на $A[1..k]$
+	\end{itemize}
+\end{boxinvariant*}
+
+\begin{base}
+	При $k=1$-во достигане на ред 4 имаме:
+	\begin{itemize}
+		\item $i\overset{\text{ред 4}}=2=k+1$
+		\item $c$ изпълнява инварианта
+		\item $m$ изпълнява инварианта
+	\end{itemize}
+\end{base}
+
+\begin{maintenance}
+%	\leavevmode
+	Нека са изпълнени за някое $k$-то непоследно достигане на ред 4 следните:
+	\begin{itemize}
+		\item $i_{old}=k+1$
+		\item $c_{old}$ е най-голяма сума на непразен подмасив на $A[1..k]$, завършващ в индекс $k$
+		\item $m_{old}$ е най-голяма сума на непразен подмасив на $A[1..k]$
+	\end{itemize}
+	Ще докажем за $(k+1)$-во достигане на ред 4:
+	\begin{itemize}
+		\item $i_{new}=i_{old}+1\overset{\text{ИХ}}=(k+1)+1$
+		\item Ще използваме следния факт наготово: $c_{new}=max\{c_{old}+A[i_{old}],A[i_{old}]\}$ (докажете).
+		Допускаме, че $c_{new}$ не е най-голяма сума на непразен подмасив на $A[1..k+1]$, завършваща в индекс $k+1$ и нека означим с $t$ тази най-голяма сума. Тоест имаме, че $t>c_{new}=max\{c_{old}+A[i_{old}],A[i_{old}]\}\ge c_{old}+A[i_{old}]$. Като прехвърлим $A[i_{old}]$ от другата страна получаваме $t-A[i_{old}]>c_{old}$.
+		Допуснахме, че $t$ е най-голяма сума сума на непразен подмасив на $A[1..k+1]$, завършващ в индекс $k+1$. Тогава $t-A[i_{old}]\overset{\text{ИХ}}=t-A[k+1]$ е сума на $\textbf{(потенциално празен)}$ подмасив на $A[1..k]$, завършващ в индекс $k$. Разглеждаме два случая:
+		\begin{mycase}
+			\item (подмасива е празен)\\
+			Тогава имаме, че $t$ е сума само на последния елемент, т.е. $t=A[k+1]$.
+			Знаем, че $c_{new}=max\{c_{old}+A[i_{old}],A[i_{old}]\}$. Нека разгледаме два подслучая:
+			\begin{mycase}
+				\item ($c_{old}>0$)\\
+				Тогава имаме $c_{new}=\{c_{old}+A[i_{old}],A[i_{old}]\}=c_{old}+A[i_{old}]>A[i_{old}]\overset{\text{ИХ}}=A[k+1]=t$. Тоест излезе, че $c_{new}>t$ - противоречие (с това, че $t>c_{new})$.
+				
+				\item ($c_{old}\le0$)\\
+				Тогава имаме $c_{new}=\{c_{old}+A[i_{old}],A[i_{old}]\}=A[i_{old}]\overset{\text{ИХ}}=A[k+1]=t$. Тоест излезе, че $c_{new}=t$ - противоречие (с това, че $t>c_{new}$).
+			\end{mycase}
+			
+			\item (подмасива не е празен)\\
+			Тогава имаме, че $t-A[k+1]$ е сума на непразен подмасив на $A[1..k]$, завършваща в индекс $k$ и знаем още, че $t-A[k+1]>c_{old}$. От друга страна от ИХ имаме, че $c_{old}$ е максима сума на непразен подмасив на $A[1..k]$, завършваща в индекс $k$, т.е. $c_{old}\ge t-A[k+1]=t-A[i_{old}]$ - противоречие (с това, че $t-A[i_{old}]>c_{old}$).
+		\end{mycase}
+		Следователно $c_{new}$ най-голяма сума на непразен подмасив на $A[1..k+1]$, завършващ в индекс $k+1$.
+		
+		\item Ще използваме следния факт наготово: $m_{new}=max\{c_{new},m_{old}\}$ (докажете). Опитваме се да докажем, че $m_{new}$ е максимална сума на непразен подмасив на $A[1..k+1]$. Разглеждаме следните два случая:
+		\begin{mycase}
+			\item ($A[k+1]$ участва в някоя максимална сума на непразен подмасив на $A[1..k+1]$)\\
+			Тогава е ясно, че $c_{new}$ е тази сума. За пълнота разглеждаме два подслучая:
+			\begin{mycase}
+				\item (има точно една максимална сума на непразен подмасив на $A[1..k+1]$)\\
+				Тогава ще влезем в тялото на if-а на ред 9-10 и ще имаме $m_{new}=c_{new}$.
+				
+				\item (има повече от една)\\
+				Тогава няма да влезем в тялото на същия if и ще имаме $m_{new}=m_{old}(=c_{new})$.
+			\end{mycase}
+		
+			\item ($A[k+1]$ не участва в никоя максимална сума на непразен подмасив на $A[1..k+1]$)\\
+			Тогава имаме $m_{new}=m_{old}$, но от ИХ за $m_{old}$ директно имаме твърдението за $m_{new}$.
+		\end{mycase}
+		Следователно $m_{new}$ е най-голяма сума на непразен подмасив на $A[1..k+1]$
+	\end{itemize}
+\end{maintenance}
+
+\begin{termination}
+	При $k=n$ за първия път не влизаме в тялото на for-а. Директно връщаме $m$, което от инварианта знаем, че е максимална сума на непразен подмасив на $A[1..n]$.
+\end{termination}\leavevmode\newline\newline
+
+\begin{problem}\label{prob-balls-in-box}
+	Дадена е кутия с 53 сини топки и 42 червени топки. В кутията няма други топки. Извън кутията имаме неограничен брой сини и червени топки. Даден е следния алгоритъм:
+	
+	\begin{pseudocode}
+		\SetKwData{dA}{A}
+		\SetKwData{dn}{n}
+		\SetKwData{dc}{c}
+		\SetKwData{dm}{m}
+		\SetKwData{di}{i}
+		
+		$AlgBall():$
+		\Mybegin
+		{
+			\While{не остане една топка в кутията}
+			{
+				\emph{извади две случайни топки}\;
+				\If{двете топки са еднакъв цвят}{\emph{добави една червена}\;}
+				\Else{\emph{добави една синя}\;}
+			}
+		}
+	\end{pseudocode}
+	Какъв е цвета на топката, която е останала самичка?
+\end{problem}
+
+\begin{solution}
+	Ще докажем, че цвета на топката, която е останала е син.
+\end{solution}
+
+\begin{boxinvariant*}{}{}
+	При всяко $k$-то достигане на ред 2 имаме:
+	\begin{itemize}
+		\item броя топки в кутията е $max\{95-k+1,1\}$
+		\item броя сини топки в кутията е нечетен
+	\end{itemize}
+\end{boxinvariant*}\leavevmode\newline
+Докажете за упражнение инварианта и покажете как от него следва цвета на останалата самичка топка!\\\\
+
+\begin{problem}\label{prob-2-1}
+	Даден е следния алгоритъм:
+	\begin{pseudocode}
+		\SetKwData{dA}{A}
+		\SetKwData{dn}{n}
+		\SetKwData{dj}{j}
+		\SetKwData{di}{i}
+		
+		$Pred(\dA[1..\dn])://\,\dn\in\mathbb{N}_0\,,\dA\in\mathbb{R}^{\dn}$
+		\Mybegin
+		{
+			\Myfor{$\di\leftarrow1$ \KwTo $\dn-1$}
+			{
+				\Myfor{$\dj\leftarrow\di+1$ \KwTo $\dn$}
+				{
+					\If{$\dA[\di]=\dA[\dj]$}{\KwRet{\True\;}}
+				}
+			}
+			\KwRet{\False\;}
+		}
+	\end{pseudocode}
+	Какво връща той? Да се докаже формално.
+\end{problem}
+
+\begin{solution}
+	Ще докажем, че $Pred(A[1..n])$ връща истина тогава и само тогава когато има повтарящи се елементи (и лъжа иначе) в $A[1..n]$. За целта ще ни трябват два инварианта - един за външния цикъл и един за вътрешния цикъл.
+\end{solution}
+
+\begin{boxinvariant*}{Вътрешен цикъл}{}
+	При всяко $k$-то достигане на ред 3 имаме, че елементите $A[i+1],\dots,A[i+k-1]$ са различни от $A[i]$ и $i<j$
+\end{boxinvariant*}
+
+
+\begin{boxinvariant*}{Външен цикъл}{}
+	При всяко $k$-то достигане на ред 2 имаме, че елементите $A[1],\dots,A[k-1]$ са уникални в $A[1..n]$
+\end{boxinvariant*}
+
+\noindent
+Доказателството на двата инварианта остава за упражнение. Сега остана да използваме инвариантите за да докажем коректността. Имаме две възможни места за изход от програмата - ред 5 и ред 6. Нека да ги разгледаме:
+
+\begin{mycase}
+	\item (излизаме през ред 5)\\
+	От вътрешния инвариант, знаем че $i<j$. Също така знаем, че $A[i]=A[j]$ тъй като сме в тялото на if от ред 4-5. Тоест имаме два еднакви елемента в масива и връщаме истина, к.т.д.д. (Тук $\textbf{измамихме}$! Можете ли да откриете проблема и да го оправите?)
+	
+	\item (излизаме през ред 5)\\
+	От външния инвариант директно следва, че в масива всички елементи са уникални и връщаме лъжа, к.т.д.д.
+\end{mycase}
+
+\begin{remark*}
+	При ограничено време на контролно приоритизирайте доказателството на най-външния инвариант.
+\end{remark*}\leavevmode\newline
+
+\begin{boxremark}{Инварианта не е всичко}{}
+	Понякога трябва бонус работа (след инварианта) за да се докаже коректност на алгоритъм! Примери за това са $\probref{prob-balls-in-box}$ и $\probref{prob-2-1}$.
+\end{boxremark}
