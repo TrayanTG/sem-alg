@@ -1130,13 +1130,97 @@
 	Имаме $f(n)=2\sqrt n\,log^3(n)=\theta(\sqrt n\,log^3(n))\overset{EMT\,4}{\Longrightarrow}T(n)=\theta(\sqrt n\,log^4(n))$.
 \end{solution}\leavevmode\newline
 
+%\DeclareFixedFootnote{\repnote}{Може да докажем тези две твърдения с индукция и да докажем формално сумата от всички върхове, че е в интервала $[n\,log_6(n),n\,log_2(n)]$, откъдето да получим асимптотиката $\theta(n\,log(n))$. В текущия курс няма да правим индукции от такъв характер.}
 
+\subsection{Дърво на рекурсия}
 
+Аналогично на метода с развиване, текущия метод не е формален. Той служи само за придобиване на интуиция. Необходимо е формално доказателство с индукция след като се заподозрее асимптотиката.
 
+\begin{problem}
+	Каква е асимптотиката на $T(n)=T\big(\frac n6\big)+T\big(\frac n3\big)+T\big(\frac n2\big)+n$?
+\end{problem}
 
-
-
-
+\begin{solution}
+	Нека разгледаме дървото на рекурсия на $T(n)$:
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[every node/.style={circle,draw,minimum size=1cm},level 1/.style={sibling distance=35mm},level 2/.style={sibling distance=11mm}]
+			\node(Root){$n$}		
+				child { node{$\frac n6$}
+					child { node{$\frac n{36}$} }
+					child { node{$\frac n{18}$} }
+					child { node{$\frac n{12}$} }
+				}
+				child { node{$\frac n3$}
+					child { node{$\frac n{18}$} }
+					child { node{$\frac n9$} }
+					child { node{$\frac n6$} }
+				}
+				child { node{$\frac n2$}
+					child { node{$\frac n{12}$} }
+					child { node{$\frac n6$} }
+					child { node{$\frac n4$} }
+				}
+			;
+			\begin{scope}[every node/.style={right}]
+				\path (Root    -| Root-3-3) ++(7mm,0) node {$\Longrightarrow$} ++(10mm,0) node {sums up to $n$};
+				\path (Root-1  -| Root-3-3) ++(7mm,0) node {$\Longrightarrow$} ++(10mm,0) node {sums up to $n$};
+				\path (Root-1-1-| Root-3-3) ++(7mm,0) node {$\Longrightarrow$} ++(10mm,0) node {sums up to $n$};
+			\end{scope}
+		\end{tikzpicture}
+	\end{figure}
+	\noindent
+	Може да забележим, че на всяко ниво сбора на нехомогенните части дава точно $n$. Освен това дървото е пълно до ниво $\lceil log_6(n)\rceil$\footnote{Може да докажем тези две твърдения с индукция и да докажем формално сумата от всички върхове, че е в интервала $[n\,log_6(n),n\,log_2(n)]$, откъдето да получим асимптотиката $\theta(n\,log(n))$. В текущия курс няма да правим индукции от такъв характер.\label{footnote-recursion-tree}} (при база $n=1$), съответно дървото е с височина $\lceil log_2(n)\rceil$\hyperref[footnote-recursion-tree]{\footnotemark[\thefootnote]}. Тоест заподозряхме, че $T(n)=\theta(n\,log_2(n))+O\big(n(log_6(n)-log_2(n))\big)=\theta(n\,log(n))$. Сега ще го докажем формално. Нека $n_{st}\in\mathbb{N}_0$ е достатъчно голямо.
+	\begin{itemize}
+		\item $T(n)=O(n\,log(n))$
+		
+		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $O(n\,log(n))=\{f\,|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,(0\le f(n)\le c.n\,log(n))\}$. Тоест търсим $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\forall n\ge n_0\,(T(n)\le n\,log(n))$.
+		
+		Нека $b=\max\Bigl\{\frac{T(2)}{2log(2)},\frac{T(3)}{3log(3)},\dots,\frac{T(n_{\text{st}}-1)}{(n_{\text{st}}-1)log(n_{\text{st}}-1)},1\Bigr\}$. (виж $\remref{rem:rec-base}$)
+		
+		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\forall n\ge n_0\,(T(n)\le n\,log(n))$.
+		
+		\begin{base}
+			Нека $k\in\{2,3,\dots,n_{st}-1\}$. Ще докажем, че $T(k)\le b.k.log(k)$.
+			
+			От дефиницията на $b=\max\Bigl\{\frac{T(2)}{2log(2)},\frac{T(3)}{3log(3)},\dots,\frac{T(n_{\text{st}}-1)}{(n_{\text{st}}-1)log(n_{\text{st}}-1)},1\Bigr\}$ знаем, че $b\ge \frac{T(k)}{k.log(k)}$ откъдето $b.k.log(k)\ge T(k)$ или още $T(k)\le b.k.log(k)$.
+		\end{base}
+		
+		\begin{indhypothesis}
+			Нека допуснем, че е изпълнено $\forall m<n\,(T(m)\le b.m.log(m))$.
+		\end{indhypothesis}
+		
+		\begin{indstep}
+			Ще докажем, че е изпълнено за $n$, тоест че $T(n)\le b.n.log(n)$.
+			\begin{equation*}
+				T(n)\overset{\text{def}}{=}T\Big(\frac n6\Big)+T\Big(\frac n3\Big)+T\Big(\frac n2\Big)+n\overset{\text{ИХ}}{\le}\frac {bn}6log\Big(\frac n6\Big)+\frac {bn}3log\Big(\frac n3\Big)+\frac {bn}2log\Big(\frac n2\Big)+n\overset{?}{\le}b.n.log(n)
+			\end{equation*}
+			\begin{equation*}
+				\frac{bn}6\big(log(n)-log(6)\big)+\frac{bn}3\big(log(n)-log(3)\big)+\frac{bn}2\big(log(n)-log(2)\big)+n\overset{?}{\le}b.n.log(n)
+			\end{equation*}
+			\begin{equation*}
+				b.n.log(n)+\bigg(1-\frac{b.log(6)}6-\frac{b.log(3)}3-\frac{b.log(2)}2\bigg)n\overset{?}{\le}b.n.log(n)
+			\end{equation*}
+			\begin{equation*}
+				\bigg(1-\frac{b.log(6)}6-\frac{b.log(3)}3-\frac{b.log(2)}2\bigg)n\overset{?}{\le}0
+			\end{equation*}
+			
+			
+			Може да забележим, че при $\frac{b.log(6)}6+\frac{b.log(3)}3+\frac{b.log(2)}2\ge1$ горното неравенство ще е изпълнено за всяко $n\ge1$. Оттук си избираме $n_0=2$ (при $n_0=1$ имаме $\frac{T(1)}{1log(1)}=\frac{T(1)}0$).
+			
+			Остана да видим кога е изпълнено $\frac{b.log(6)}6+\frac{b.log(3)}3+\frac{b.log(2)}2\ge1$. Очевидно е изпълнено когато $b\ge1$. Това сме си го подсигурили от дефиницията на $b=\max\{\dots,1\}\Rightarrow b\ge1$.
+		\end{indstep}
+		
+		Тоест доказахме, че за $c=b\land n_0=1$ е изпълнено $\forall n\ge n_0\,(0\le T(n)\le c.n.log(n))$. Казано с други думи $T(n)=O(n\,log(n))$.
+		
+		\vspace{0.35cm}
+		\item $T(n)=\Omega(n\,log(n))$
+		
+		Докажете за упражнение.
+	\end{itemize}
+	
+	
+\end{solution}
 
 
 
