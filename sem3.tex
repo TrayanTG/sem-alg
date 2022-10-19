@@ -463,7 +463,7 @@
 	Тук имаме само хомогенна част: $x^2=2x+1\ \mapsto\ x_{1,2}=1\pm\sqrt2\ \mapsto\ \{1+\sqrt2,1-\sqrt2\}_M$. Оттук получаваме $T(n)=c_1(1+\sqrt2)^n+c_2(1-\sqrt2)^n=\theta((1+\sqrt2)^n)$.
 \end{solution}\leavevmode\newline
 
-\begin{problem}
+\begin{problem}\label{prob-rec-eq-full-history}
 	Каква е асимптотиката на $T(n)=T(n-2)+T(n-4)+\dots+\underbrace{T(n\%2)}_{T(0)\text{ или }T(1)}$?
 \end{problem}
 \begin{solution}
@@ -1130,7 +1130,6 @@
 	Имаме $f(n)=2\sqrt n\,log^3(n)=\theta(\sqrt n\,log^3(n))\overset{EMT\,4}{\Longrightarrow}T(n)=\theta(\sqrt n\,log^4(n))$.
 \end{solution}\leavevmode\newline
 
-%\DeclareFixedFootnote{\repnote}{Може да докажем тези две твърдения с индукция и да докажем формално сумата от всички върхове, че е в интервала $[n\,log_6(n),n\,log_2(n)]$, откъдето да получим асимптотиката $\theta(n\,log(n))$. В текущия курс няма да правим индукции от такъв характер.}
 
 \subsection{Дърво на рекурсия}
 
@@ -1214,26 +1213,151 @@
 		Тоест доказахме, че за $c=b\land n_0=1$ е изпълнено $\forall n\ge n_0\,(0\le T(n)\le c.n.log(n))$. Казано с други думи $T(n)=O(n\,log(n))$.
 		
 		\vspace{0.35cm}
-		\item $T(n)=\Omega(n\,log(n))$
-		
-		Докажете за упражнение.
+		\item $T(n)=\Omega(n\,log(n))$ - Докажете за упражнение.
 	\end{itemize}
 	
 	
-\end{solution}
+\end{solution}\vspace{0.2cm}
 
 
+\subsection{Теорема на Akra-Bazzi}
 
+Сега ще разгледаме метод, който е строго по-силен от Мастър теоремата, която е твърде ограничена - има една единствена поява вдясно. Теоремата на Akra-Bazzi позволява решаването на частен случай рекурентни уравнения с една или повече появи вдясно.
 
+\begin{boxtheorem}{Akra-Bazzi}{akra-bazzi}
+	Нека
+	\begin{equation*}
+		T(n)=\!\begin{cases}
+			\theta(1)                   &\,,1\le n\le n_0\\
+			a_1T(b_1n)+\dots+a_kT(b_kn)+f(n) &\,,n>n_0
+		\end{cases}
+	\end{equation*}
+	където
+	\begin{enumerate}[label=\textbf{\arabic*.}]
+		\item $1\le n\in\mathbb{R}$
+		\item $\forall i\in\{1,\dots,k\}\,\Big(n_0\ge\frac1{b_i}\land n_0\ge\frac1{1-b_i}\Big)$
+		\item $\forall i\in\{1,\dots,k\}\,\big(a_i>0\big)$
+		\item $\forall i\in\{1,\dots,k\}\,\big(b_i\in(0,1)\big)$
+		\item $k\in\mathbb{N}^+$
+		\item $f(n)$ е неотрицателна функция, удволетворяваща условието за полиномиално нарастване
+		\vspace{-0.22cm}
+		\item $p$ е уникално число, за което $\sum\limits_{i=1}^ka_ib_i^p=1$
+	\end{enumerate}
+	Тогава
+	\begin{equation*}
+		T(n)\asymp n^p\bigg(1+\displaystyle\int_1^n\frac{f(t)}{t^{p+1}}dt\bigg)
+	\end{equation*}
+\end{boxtheorem}
 
+\hypersetup{linkcolor=green}
+%\vspace{-1cm}
+\begin{boxdefinition}{Условие за полиномиално нарастване (в$\,$контекста$\,$на $\thmref{th:akra-bazzi}$)}{poly-growth}
+	Ще казваме, че $f(n)$ удволетворява условието за полиномиално нарастване, т.с.т.к. $\exists c_1>0\,\exists c_2>0\,\forall n\ge1\,\forall i\in\{1,\dots,k\}\,\forall t\in[b_in,n]\big(c_1f(n)\le f(t)\le c_2f(n)\big)$.
+\end{boxdefinition}
 
+\hypersetup{linkcolor=mydarkblue}
 
+\begin{problem}
+Каква е асимптотиката на $T(n)=\frac14T\big(\frac n4\big)+\frac34T\big(\frac{3n}4\big)+1$? 
+\end{problem}
 
+\begin{solution}
+	Ще покажем, че седемте условия от $\hyperref[th:akra-bazzi]{\text{теоремата на Akra-Bazzi}}$ са изпълнени:
+	\begin{enumerate}
+		\item Това условие няма какво да го проверяваме.
+		\vspace{-0.15cm}
+		\item Проверяваме, че $n_0=4$ ни върши работа: $\forall i\in\{1,2\}\,\Big(4\ge\frac1{b_i}\land 4\ge\frac1{1-b_i}\Big)$.
+		\vspace{-0.15cm}
+		\item Директно проверяваме $\forall i\in\{1,2\}\,\big(a_i>0\big)$.
+		\item Директно проверяваме $\forall i\in\{1,2\}\,\big(b_i\in(0,1)\big)$.
+		\item Това условие няма какво да го проверяваме.
+		\item Проверяваме, че $c_1=c_2=1$ ни вършат работа: $\forall n\ge1\,\forall i\in\{1,2\}\,\forall t\in[b_in,n]\big(1\le1\le1\big)$.
+		\vspace{-0.5cm}
+		\item Проверяваме, че $p=0$ ни върши работа: $\frac14\big(\frac14\big)^0+\frac34\big(\frac34\big)^0=1$.
+	\end{enumerate}
+	\vspace{-0.2cm}
+	Тогава прилагаме теоремата на Akra-Bazzi и получаваме $T(n)\asymp n^0\bigg(1+\displaystyle\int_1^n\frac1tdt\bigg)=\theta(log(n))$.
+\end{solution}\leavevmode\newline
 
-
-
-
-
-\newpage
 
 \subsection{Задачи}
+
+Основната идея за строене на рекурентно уравнение за сложността на рекурсивен алгоритъм е за всяко рекурсивно извикване с параметър $k$ да добавим отдясно на равенството $T(k)$. Останалата \emph{работа} ще представлява нехомогенната част на рекурентното уравнение.\\
+
+\begin{problem}
+	Даден е следния алгоритъм:
+	\begin{pseudocode}
+		\SetKwData{di}{i}
+		\SetKwData{dn}{n}
+		\SetKwData{dnn}{n\,-\,1}
+		\SetKwData{ds}{s}
+		
+		
+		$Func(\dn)://\,\dn\in\mathbb{N}^+$
+		\Mybegin
+		{
+			$\ds\leftarrow0$\;
+			\Myfor{$\di\leftarrow1$ \KwTo $\dnn$}{$\ds\leftarrow\ds+2*Func(\di)+1$\;}
+			\KwRet{$\ds$}\;
+		}
+	\end{pseudocode}
+	Каква е сложността му по време (спрямо големината на входа $n$)?
+\end{problem}
+
+\begin{solution}
+	Имаме $n-1$ на брой рекурсивни извиквания.. това означава, че за всяко едно от тях трябва да добавим отдясно на равенството $T(\text{\emph{подходящ параметър}})$. Останалата \emph{работа} в случая е инициализацията на $s$, инкрементацията на $i$ и актуализацията на $s$, т.е. $\theta(n)$. Тоест рекурентното уравнение е $T(n)=T(n-1)+T(n-2)+\dots+T(1)+\theta(n)$. Вече намерихме асимптотиката на подобно рекурентно уравнение в $\probref{prob-rec-eq-full-history}$.
+	\begin{center}
+		$\begin{array}{|l}
+			T(n)=T(n-1)+T(n-2)+\dots+T(1)+\theta(n)\\
+			T(n-1)=T(n-2)+T(n-3)+\dots+T(1)+\theta(n-1)
+		\end{array}$
+	\end{center}
+	Тогава $T(n)-T(n-1)=T(n-1)+\theta(n)-\theta(n-1)$ или още $T(n)=2T(n-1)+\theta(1)$\footnote{В общия случай получаваме произволна функция (та може дори асимптотично отрицателна).. преценете защо тук знаем, че имаме $\theta(1)$.\label{footnote-recursion-full-history}}. Вече може да го решим чрез метода с характеристично уравнение.
+	\begin{itemize}
+		\item (Хомогенна част)\\
+		$x=2\ \mapsto\ \{2\}_M$
+		
+		\item (Нехомогенна част)\\
+		$\theta(1)\ \mapsto\ \{1\}_M$
+	\end{itemize}
+	Оттук получаваме, че $T(n)=c_11^n+c_22^n=\theta(2^n)$.
+\end{solution}\leavevmode\newline
+
+\begin{problem}
+	Даден е следния алгоритъм:
+	\begin{pseudocode}
+		\SetKwData{di}{i}
+		\SetKwData{dn}{n}
+		\SetKwData{dnn}{n\,-\,1}
+		\SetKwData{ds}{s}
+		
+		
+		$Func(\dn)://\,\dn\in\mathbb{N}^+$
+		\Mybegin
+		{
+			$\ds\leftarrow0$\;
+			\Myfor{$\di\leftarrow1$ \KwTo $\dnn$}{$\ds\leftarrow\ds+Func(\di)+Func(\di)+1$\;}
+			\KwRet{$\ds$}\;
+		}
+	\end{pseudocode}
+	Каква е сложността му по време (спрямо големината на входа $n$)?
+\end{problem}
+
+\begin{solution}
+	Имаме $2(n-1)$ на брой рекурсивни извиквания.. това означава, че за всяко едно от тях трябва да добавим отдясно на равенството $T(\text{\emph{подходящ параметър}})$. Останалата \emph{работа} в случая е инициализацията на $s$, инкрементацията на $i$ и актуализацията на $s$, т.е. $\theta(n)$. Тоест рекурентното уравнение е $T(n)=2T(n-1)+2T(n-2)+\dots+2T(1)+\theta(n)$.
+	\begin{center}
+		$\begin{array}{|l}
+			T(n)=2T(n-1)+2T(n-2)+\dots+2T(1)+\theta(n)\\
+			T(n-1)=2T(n-2)+2T(n-3)+\dots+2T(1)+\theta(n-1)
+		\end{array}$
+	\end{center}
+	Тогава $T(n)-T(n-1)=2T(n-1)+\theta(n)-\theta(n-1)$ или още $T(n)=3T(n-1)+\theta(1)\hyperref[footnote-recursion-full-history]{\footnotemark[\thefootnote]}$. Вече може да го решим чрез метода с характеристично уравнение.
+	\begin{itemize}
+		\item (Хомогенна част)\\
+		$x=3\ \mapsto\ \{3\}_M$
+		
+		\item (Нехомогенна част)\\
+		$\theta(1)\ \mapsto\ \{1\}_M$
+	\end{itemize}
+	Оттук получаваме, че $T(n)=c_11^n+c_23^n=\theta(3^n)$.
+\end{solution}
