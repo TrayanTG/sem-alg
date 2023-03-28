@@ -5,26 +5,27 @@
 Започваме с припомняне на две дефинции от математическия анализ.
 
 \begin{boxdefinition}{Асимптотично неотрицателна функция}{asym-non-negative}
-	Ще казваме, че $f:\mathbb{R}^+\rightarrow\mathbb{R}$ е асимптотично неотрицателна, ако $\exists n_0\in\mathbb{N}_0:\forall n\ge n_0$ е изпълнено $f(n)\ge0$
+	Ще казваме, че $f:\mathbb{R}^+\to\mathbb{R}$ е асимптотично неотрицателна, т.с.т.к. $\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(f(n)\ge0\big)$, където $\mathbb{R}^+$ са неотрицателнителните реални числа.
 \end{boxdefinition}
 
 \begin{boxdefinition}{Асимптотично положителна функция}{asym-positive}\label{asym-positive}
-	Ще казваме, че $f:\mathbb{R}^+\rightarrow\mathbb{R}$ е асимптотично положителна, ако $\exists n_0\in\mathbb{N}_0:\forall n\ge n_0$ е изпълнено $f(n)>0$
+	Ще казваме, че $f:\mathbb{R}^+\rightarrow\mathbb{R}$ е асимптотично положителна, т.с.т.к. $\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(f(n)>0\big)$, където $\mathbb{R}^+$ са неотрицателнителните реални числа.
 \end{boxdefinition}
 
 \noindent
-В настоящия курс ще се интересуваме от горните два типа функции, тъй като тези функции ще са със семантика на $\emph{брой стъпки до приключване изпълнението на дадена програма}$, което очевидно няма как да ни върне отрицателен резултат.
-Също така ще се интересуваме да сравняваме асимптотично неотрицателни/положителни функции. За целта въвеждаме следните пет класа от фунции спрямо дадена функция.
+С $\mathscr{F}^+$ и $\mathscr{F}_0$ ще означаваме съответно множествата от всички асимптотично положителни и множествата от всички асимптотично неотрицателни функции. Функции в тези класове ще имат семантика на $\emph{брой стъпки до приключване изпълнението на дадена програма}$, което очевидно няма как да ни върне отрицателен резултат.
+Също така ще се интересуваме да сравняваме (асимптотично) такива функции. За целта въвеждаме пет (несобствени) класа от фунции спрямо асимптотиката на дадена функция.
 
-\begin{boxdefinition}{Основни класове от функции, спрямо асимптотиката}{}\label{bdef-asymp-classes}
-	Нека $g$ е асимптотично неотрицателна функция. Петте основни класа спрямо асимптотиката на $g$ са следните:
+\begin{boxdefinition}{Основни класове от функции, спрямо асимптотиката на фукнция}{}\label{bdef-asymp-classes}
+	Нека $g\in\mathscr{F}^+$. Дефинираме следните пет класа:
 	\begin{itemize}
-		\item $O(g)\!=\{f$ - неотр. $|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,\big(0\le f(n)\le c.g(n)\big)\}$
-		\item $o(g)=\{f$ - неотр. $|\,\forall c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,\big(0\le f(n)\le c.g(n)\big)\}$
-		\item $\Omega(g)\!=\{f$ - неотр. $|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,\big(0\le c.g(n)\le f(n)\big)\}$
-		\item $\omega(g)\!=\{f$ - неотр. $|\,\forall c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,\big(0\le c.g(n)\le f(n)\big)\}$
-		\item $\theta(g)=\{f$ - неотр. $|\,\exists c_1>0\,\exists c_2>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,\big(0\le c_1.g(n)\le f(n)\le c_2.g(n)\big)\}$
+		\item $O(g)\leftrightharpoons\{f\in\mathscr{F}^+|\big(\exists c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le f(n)\le cg(n)\big)\}$
+		\item $o(g)\leftrightharpoons\{f\in\mathscr{F}^+|\big(\forall c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le f(n)\le cg(n)\big)\}$
+		\item $\Omega(g)\leftrightharpoons\{f\in\mathscr{F}^+|\big(\exists c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le cg(n)\le f(n)\big)\}$
+		\item $\omega(g)\leftrightharpoons\{f\in\mathscr{F}^+|\big(\forall c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le cg(n)\le f(n)\big)\}$
+		\item $\Theta(g)\leftrightharpoons$\\$\{f\in\mathscr{F}^+|\big(\exists c_1>0\big)\big(\exists c_2>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le c_1g(n)\le f(n)\le c_2g(n)\big)\}$
 	\end{itemize}
+	
 \end{boxdefinition}
 
 \begin{remark*}
@@ -35,7 +36,7 @@
 	$O(n^2)=\{n^2,100n^2,\frac{n^2}5,n,{10}^6n,1,5n^2-1000n-1000,\dots\}$.
 
 	\noindent
-	Нека разгледаме при какви стойности на $c$ и $n_0\emph{ работи}$ дефинициятаза за $g(n)=n^2$ и $f(n)$ съответно:
+	Нека разгледаме примерни свидетели $c$ и $n_0$ за $f=O(n^2)$ съответно за $g(n)=n^2$ и $f(n)$:
 	\begin{itemize}
 		\item $f(n)=n^2$
 		
@@ -65,14 +66,14 @@
 \noindent
 Упражнете се с другите четири класа.
 
-\begin{boxnotation}{Основни релации над асимптотично неотрицателни функции}{}
+\begin{boxnotation}{Основни релации над асимптотично положителни функции}{}
 	Въвеждаме следните пет релации за удобство:
 	\begin{itemize}
 		\item $f\preccurlyeq g\overset{\text{def}}\leftrightarrow f=O(g)$
 		\item $f\prec g\overset{\text{def}}\leftrightarrow f=o(g)$
 		\item $f\succcurlyeq g\overset{\text{def}}\leftrightarrow f=\Omega(g)$
 		\item $f\succ g\overset{\text{def}}\leftrightarrow f=\omega(g)$
-		\item $f\asymp g\overset{\text{def}}\leftrightarrow f=\theta(g)$ (асимптотично равенство с точност до константа)
+		\item $f\asymp g\overset{\text{def}}\leftrightarrow f=\Theta(g)$ (асимптотично равенство с точност до константа)
 	\end{itemize}
 \end{boxnotation}
 
@@ -81,7 +82,7 @@
 \end{boxnotation}
 
 \begin{boxmainproperties}{Асимптотични релации}{}\label{mprop-1}
-Нека $f$ и $g$ са асимптотично положителни (ще делим на $g$ и затова полож.). Тогава:
+Нека $f,g\in\mathscr{F}^+$. Тогава:
 	\begin{enumerate}
 		\item $f\,\sigma\,g\land g\,\sigma\,h\rightarrow f\,\sigma\,h,\,\sigma\in\{\preccurlyeq,\prec,\succcurlyeq,\succ,\asymp\}$
 		\item $f\,\sigma\,f,\,\sigma\in\{\preccurlyeq,\succcurlyeq,\asymp\}$
@@ -91,12 +92,12 @@
 		\item $f+g\asymp max(f,g)$\\
 			  $\textbf{Док: }\frac{f(n)+g(n)}2\le max(f(n),g(n))\le f(n)+g(n)$
 		\item $\lim\limits_{n\to\infty}\frac{f(n)}{g(n)}=0\leftrightarrow f\prec g\,(f=o(g))$\\
-			  $\textbf{Док:}$ От деф. на лимит имаме: $\forall\varepsilon>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0:-\varepsilon<\frac{f(n)}{g(n)}<\varepsilon$. Сега умножаваме двете страни по $g(n)$ и получаваме $-g(n)*\varepsilon<0<f(n)<g(n)*\varepsilon$, откъдето имаме $\forall\varepsilon>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0:0\le f(n)\le g(n)*\varepsilon$, което е точно дефиницията на $\hyperref[bdef-asymp-classes]{o(g)}$. Обратната посока е аналогична.
-		\item $\lim\limits_{n\to\infty}\frac{f(n)}{g(n)}=c>0\rightarrow f\asymp g\,(f=\theta(g))$\\
-			  $\textbf{Док:}$ От деф. на лимит имаме: $\forall\varepsilon>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0:c-\varepsilon<\frac{f(n)}{g(n)}<c+\varepsilon$. Сега умножаваме двете страни по $g(n)$ и получаваме $g(n)*(c-\varepsilon)<f(n)<g(n)*(c+\varepsilon)$. Тъй като $c>0$, то е ясно че има $\varepsilon>0:c-\varepsilon>0$. Тоест получихме следното: $\exists\varepsilon>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0:0<g(n)*\underbrace{(c-\varepsilon)}_{c_1}<f(n)<g(n)*\underbrace{(c+\varepsilon)}_{c_2}$, което е точно 
+			  $\textbf{Док:}$ От деф. на лимит имаме: $\big(\forall\varepsilon>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(-\varepsilon<\frac{f(n)}{g(n)}<\varepsilon\big)$. Сега умножаваме двете страни по $g(n)$ и получаваме $-g(n)*\varepsilon<0<f(n)<g(n)*\varepsilon$, откъдето имаме $\big(\forall\varepsilon>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le f(n)\le\varepsilon g(n)\big)$, което е точно дефиницията на $\hyperref[bdef-asymp-classes]{o(g)}$. Обратната посока е аналогична.
+		\item $\lim\limits_{n\to\infty}\frac{f(n)}{g(n)}=c>0\rightarrow f\asymp g\,(f=\Theta(g))$\\
+			  $\textbf{Док:}$ От деф. на лимит имаме: $\big(\forall\varepsilon>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(c-\varepsilon<\frac{f(n)}{g(n)}<c+\varepsilon\big)$. Сега умножаваме двете страни по $g(n)$ и получаваме $g(n)*(c-\varepsilon)<f(n)<g(n)*(c+\varepsilon)$. Тъй като $c>0$, то е ясно че има $\varepsilon>0:c-\varepsilon>0$. Тоест получихме $\big(\exists\varepsilon>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0<\underbrace{(c-\varepsilon)}_{c_1}g(n)<f(n)<\underbrace{(c+\varepsilon)}_{c_2}g(n)\big)$, което е
 			  \vspace{-0.72cm}%-1.5\baselineskip}%
 			  
-			  дефиницията на $\hyperref[bdef-asymp-classes]{\theta(g)}$.
+			  точно дефиницията на $\hyperref[bdef-asymp-classes]{\Theta(g)}$.
 			  \vspace{-0.15cm}
 			  
 			  Обратната посока $\textbf{не}$ е вярна.
@@ -105,7 +106,7 @@
 			  	\item $f\prec g\rightarrow a^{f(n)}\prec a^{g(n)}$ (нестрогия аналог $\textbf{не}$ е верен)
 			  	\item $log_a\,f(n)\prec log_a\,g(n)\rightarrow f(n)\prec g(n)$ (нестрогия аналог $\textbf{не}$ е верен)
 			  \end{enumerate}
-		\item $\forall a>1\,\forall t>0\,\forall\varepsilon>0\,\big(log_a^t(n)\prec n^\varepsilon\big)$
+		\item $\big(\forall a>1\big)\big(\forall t>0\big)\big(\forall\varepsilon>0\big)\big(log_a^t(n)\prec n^\varepsilon\big)$
 	\end{enumerate}
 \end{boxmainproperties}
 
@@ -126,8 +127,9 @@
 \end{application*}
 
 \begin{boxfact}{Логаритми и техните свойства}{}\label{fact-log-props}
-	$\forall a\in\mathbb{R}^+\backslash\{1\}\,\forall b\in\mathbb{R}^+:a^x=b\leftrightarrow x=log_a(b)$
 	\begin{enumerate}
+		\setcounter{enumi}{-1}
+		\item $\big(\forall a\in\mathbb{R}^+\backslash\{1\}\big)\big(\forall b\in\mathbb{R}^+\big)\big(a^x=b\leftrightarrow x=log_a(b)\big)$
 		\item $a^{log_a(b)}=b$
 		\item $log_{a^n}(b^m)=\frac mnlog_a(b)$
 		\item
@@ -182,7 +184,7 @@
 \end{solution}\leavevmode\newline
 
 \begin{problem}
-	Вярна ли е следната импликация: $f=O(g)\rightarrow(f=o(g)\lor f=\theta(g))$?
+	Вярна ли е следната импликация: $f=O(g)\rightarrow(f=o(g)\lor f=\Theta(g))$?
 \end{problem}
 \begin{solution}
 	Не е вярна!	Проверете за упражнение със следния контрапример:

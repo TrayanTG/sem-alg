@@ -63,23 +63,23 @@
 	Какво връща той? Да се докаже формално.
 \end{problem}
 \begin{solution}
-	Ще докажем, че $Alg2(A[1..n])=\sum\limits_{i=1}^{n}A[i]$.
+	Ще докажем, че $Alg2(A[1..n])=\sum\limits_{j=1}^{n}A[j]$.
 \end{solution}
 \begin{boxinvariant*}{}{}
 	При всяко $k$-то достигане на ред 3 имаме:
 	\begin{itemize}
 		\item $i=k$ (в рамките на курса ще го считаме за тривиално при $\emph{стандартни}$ for-цикли и няма да го доказваме)
-		\item $s=\sum\limits_{i=1}^{k-1}A[i]$
+		\item $s=\sum\limits_{j=1}^{k-1}A[j]$
 	\end{itemize}
 \end{boxinvariant*}
 \begin{base}
-	При $k=1$-во достигане на ред 3 имаме, че $s\overset{\text{ред 2}}=0=\sum\limits_{i=1}^{0}A[i]=\sum\limits_{i=1}^{k-1}A[i]$.
+	При $k=1$-во достигане на ред 3 имаме, че $s\overset{\text{ред 2}}=0=\sum\limits_{j=1}^{0}A[j]=\sum\limits_{j=1}^{k-1}A[j]$.
 \end{base}
 \begin{maintenance}
-	Нека е вярно за някое непоследно достигане на ред 3, т.е. имаме $s=\sum\limits_{i=1}^{k-1}A[i]$. Сега се изпълнява тялото на цикъла $s_{new}\overset{\text{ред 4}}=s_{old}+A[i]=s_{old}+A[k]\overset{\text{ИП}}=\sum\limits_{i=1}^{k-1}A[i]+A[k]=\sum\limits_{i=1}^kA[i]$.
+	Нека е вярно за някое непоследно достигане на ред 3, т.е. имаме $s=\sum\limits_{j=1}^{k-1}A[j]$. Сега се изпълнява тялото на цикъла $s_{new}\!\overset{\text{ред 4}}=s_{old}+A[i]=s_{old}+A[k]\overset{\text{ИП}}=\sum\limits_{j=1}^{k-1}A[j]+A[k]=\sum\limits_{j=1}^kA[j]$.
 \end{maintenance}
 \begin{termination}
-	При $k=(n+1)$-то достигане на ред 3 тялото на цикъла няма да се изпълни. От инварианта имаме, че $s=\sum\limits_{i=1}^nA[i]$. Директно връщаме $s$ на ред 5.
+	При $k=(n+1)$-то достигане на ред 3 тялото на цикъла няма да се изпълни. От инварианта имаме, че $s=\sum\limits_{j=1}^nA[j]$. Директно връщаме $s$ на ред 5.
 \end{termination}\leavevmode\newline
 
 %\leavevmode\newline\newline\newline
@@ -115,35 +115,22 @@
 	Какво връща той? Да се докаже формално.
 \end{problem}
 \begin{solution}
-	Ще докажем, че $Alg3(a,n)=\begin{cases}
-		a^n &,a\ne0\land n\ne0\\
-		1   &,a=0\lor n=0
-	\end{cases}$ чрез пълна математическа индукция по $n$.
+	Ще докажем, че $Alg3(a,n)=a^n$ чрез пълна математическа индукция по $n$. Забележете, че $0^0=1$ по теоретико-множествена дефиниция (броят функции от $\emptyset$ в $\emptyset$ е единица).
 \end{solution}
 \begin{base}
-	$(n=0)$\\Разглеждаме два случая:
-	\begin{mycase}
-		\item $(a=0)$ - $Alg3(a,0)\underset{\text{ред}}{\overset{\text{2-3}}=}1$.
-		\item $(a\ne0)$ - $Alg3(a,0)\underset{\text{ред}}{\overset{\text{2-3}}=}1$.
-	\end{mycase}
+	$(n=0)$	Директно имаме $Alg3(a,0)\underset{\text{ред}}{\overset{\text{2-3}}=}1$.
 \end{base}
 \begin{indhypothesis}
-	Нека $\forall m\le n$ е изпълнено, че $Alg3(a,m)=\begin{cases}
-		a^m &,a\ne0\land m\ne0\\
-		1   &,a=0\lor m=0
-	\end{cases}$
+	Нека $\big(\forall m\le n\big)\big(Alg3(a,m)=a^m\big)$.
 \end{indhypothesis}
 \begin{indstep}
-	Ще докажем за $n+1>0$. Отново разглеждаме два случая:
+	Ще докажем за $n+1>0$. Разглеждаме два случая:
 	\begin{mycase}
 		\item $(n+1)\equiv0\,(mod\,2)$\\
 		Тъй като $n+1>0$, то не влизаме в тялото на if на ред 2-3. Знаем, че $n+1>0$ и $(n+1)\equiv0\,(mod\,2)$, значи имаме $n+1\ge2$. Откъдето заключваме, че $\frac{n+1}2>0$. Влизаме в тялото на if на ред 4-5, като директно връщаме $Alg3(a*a,\underbrace{\frac{n+1}2}_{>\,0})\overset{\text{ИХ}}=(a*a)^{\frac{n+1}2}=a^{n+1}$.
 		
 		\item $(n+1)\equiv1\,(mod\,2)$\\
-		Тъй като $n+1>0$, то не влизаме в тялото на if на ред 2-3. От друга страна, не влизаме в тялото на if на ред 4-5 заради $(n+1)\equiv1\,(mod\,2)$. Тоест достигаме ред 6, където директно връщаме $a*Alg3(a,(n+1)-1)=a*Alg3(a,n)\overset{\text{ИХ}}=a*\begin{cases}
-			a^n &,a\ne0\land n\ne0\\
-			1   &,a=0\lor n=0
-		\end{cases}=a^{n+1}$ (отново е важно, че $n+1>0$.. т.е. не е нужно да разглеждаме два случая).
+		Тъй като $n+1>0$, то не влизаме в тялото на if на ред 2-3. От друга страна, не влизаме в тялото на if на ред 4-5 заради $(n+1)\equiv1\,(mod\,2)$. Тоест достигаме ред 6, където директно връщаме $a*Alg3(a,(n+1)-1)=a*Alg3(a,n)\overset{\text{ИХ}}=a*a^n=a^{n+1}$.
 	\end{mycase}
 \end{indstep}\leavevmode\newline
 
@@ -554,11 +541,11 @@
 \end{solution}
 
 \begin{boxinvariant*}{Вътрешен цикъл}{}
-	При всяко $k$-то достигане на ред 3 имаме, че елементите $A[i+1],\dots,A[i+k-1]$ са различни от $A[i]$ и $i<j$
+	При всяко $k$-то достигане на ред 3 (релативно за текущото изпълнение на външният цикъл) имаме, че $A[i+1],\dots,A[i+k-1]$ са различни от $A[i]$ и $i<j$
 \end{boxinvariant*}
 
 \begin{boxinvariant*}{Външен цикъл}{}
-	При всяко $k$-то достигане на ред 2 имаме, че елементите $A[1],\dots,A[k-1]$ са уникални в $A[1..n]$
+	При всяко $k$-то достигане на ред 2 имаме, че $A[1],\dots,A[k-1]$ са уникални в $A[1..n]$
 \end{boxinvariant*}
 
 \noindent

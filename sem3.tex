@@ -4,13 +4,13 @@
 
 \begin{center}
 	$\begin{array}{lll}
-		\sum\limits_{i=1}^n1=n=\theta(n)\qquad & \sum\limits_{i=1}^n\theta(1)=\theta(n)\qquad & \sum\limits_{i=c}^n=n-c+1=\theta(n) \vspace{0.2cm}\\
+		\sum\limits_{i=1}^n1=n=\Theta(n)\qquad & \sum\limits_{i=1}^n\Theta(1)=\Theta(n)\qquad & \sum\limits_{i=c}^n=n-c+1=\Theta(n) \vspace{0.2cm}\\
 		
-		\sum\limits_{i=c}^n\theta(1)=\theta(n)\qquad & \sum\limits_{i=1}^ni=\frac{n(n+1)}2=\theta(n^2)\qquad & \sum\limits_{i=1}^n\theta(i)=\theta(n^2) \vspace{0.2cm}\\
+		\sum\limits_{i=c}^n\Theta(1)=\Theta(n)\qquad & \sum\limits_{i=1}^ni=\frac{n(n+1)}2=\Theta(n^2)\qquad & \sum\limits_{i=1}^n\Theta(i)=\Theta(n^2) \vspace{0.2cm}\\
 		
-		\sum\limits_{\mathclap{i=1}}^ni^2=\frac{n(n+1)(2n+1)}6=\theta(n^3)\qquad & \sum\limits_{i=1}^n\theta(i^2)=\theta(n^3)\qquad & \sum\limits_{\mathclap{\substack{i=1\\i=i+k}}}^n1=\lfloor\frac nk\rfloor=\theta(n)\\
+		\sum\limits_{\mathclap{i=1}}^ni^2=\frac{n(n+1)(2n+1)}6=\Theta(n^3)\qquad & \sum\limits_{i=1}^n\Theta(i^2)=\Theta(n^3)\qquad & \sum\limits_{\mathclap{\substack{i=1\\i=i+k}}}^n1=\lfloor\frac nk\rfloor=\Theta(n)\\
 		
-		\sum\limits_{\mathclap{\substack{i=1\\i=i+k}}}^n\theta(1)=\theta(n)\qquad & \sum\limits_{i=1}^n\frac1i=\theta(ln(n))\qquad & \sum\limits_{i=1}^n\theta(\frac1i)=\theta(ln(n))\qquad
+		\sum\limits_{\mathclap{\substack{i=1\\i=i+k}}}^n\Theta(1)=\Theta(n)\qquad & \sum\limits_{i=1}^n\frac1i=\Theta(ln(n))\qquad & \sum\limits_{i=1}^n\Theta(\frac1i)=\Theta(ln(n))\qquad
 	\end{array}$
 \end{center}
 
@@ -20,21 +20,21 @@
 
 \subsection{Интегрален критерий}
 
-В настоящия курс ще разглеждаме само частен случай на интегралния критерий, който ще ни бъде достатъчен. Това е един от най-силните инструменти, с който ще разполагаме за да намирате асимптотика на дадена сума.
+В настоящия курс ще разглеждаме само частен случай на интегралния критерий, който ще ни бъде достатъчен. Това е един от най-силните инструменти, с които разполагаме, за да намираме асимптотиката на дадена сума.
 
 %\begin{boxtheorem}[label=th-integral-criterion]{Интегрален критерий (частен случай)}{}
 \begin{boxtheorem}{Интегрален критерий (частен случай)}{integral-criterion}
-	Нека $f$ е $\hyperref[asym-positive]{\text{асимптотично положителна функция}}$ и нека $n_0\in\mathbb{N}_0$ е свидетел за това. Нека $\exists m>0\,\exists M>0\,\forall n>n_0:mf(n)\le\ \ \min\limits_{x\in[n,n+1]}f(x)\le\max\limits_{x\in[n,n+1]}f(x)\le Mf(n)$.\\
+	Нека $f$ е $\hyperref[asym-positive]{\text{асимптотично положителна функция}}$ и нека $n_0\in\mathbb{N}_0$ е свидетел за това. Нека $\big(\exists m>0\big)\big(\exists M>0\big)\big(\forall n>n_0\big)\big(mf(n)\le\min\limits_{x\in[n,n+1]}f(x)\le\max\limits_{x\in[n,n+1]}f(x)\le Mf(n)\big)$.\\
 	Тогава е изпълнено: $\displaystyle\sum_{i=n_0}^nf(i)\asymp\displaystyle\int_{n_0}^nf(x)dx$.
 \end{boxtheorem}
 
 \begin{remark*}
-	Приложен интегрален критерий без посочени конкретни $m,M$ и $n_0$ и/или без обосновка на трите неравенства, носи $\textbf{нула}$ точки!
+	Приложен интегрален критерий без посочени свидетели $m,M$ и $n_0$ и/или без обосновка на трите неравенства, носи $\textbf{нула}$ точки!
 \end{remark*}\leavevmode\newline
 
 %\vspace{0.2cm}
 \subsubsection{Добре разпределени функции}
-Една функиця ще наричаме $\textbf{\emph{добре разпределена}}$ (локална дефиниция), ако отговаря на допълнителното условие в $\thmref{th:integral-criterion}$ за съществуване на такива константи $m$ и $M$. Нека да разгледаме малко примери да придобием интуиция кои функции са $\textbf{\emph{добре разпределени}}$:\\
+Една функиця ще наричаме $\textbf{\emph{добре разпределена}}$ (между естествените и реалните числа), ако отговаря на допълнителното условие в $\thmref{th:integral-criterion}$ за съществуване на такива константи $m$ и $M$. Нека да разгледаме малко примери за да придобием интуиция кои функции са $\textbf{\emph{добре разпределени}}$:\\
 
 \begin{example}
 	$f(x)=x^2$\\\noindent
@@ -157,9 +157,9 @@
 	Очевидно функията е асимптотично положителна и в $\exmref{exm-3-1}$ доказахме, че тя е добре разпределена. Тогава може да приложим интегралния критерий и в зависимост какво $n_0$ сме избрали получаваме:
 	\begin{equation*}
 		\displaystyle\sum_{i=n_0}^ni^{\alpha}\asymp\displaystyle\int_{n_0}^nx^{\alpha}dx=\begin{cases}
-			\theta(n^{\alpha+1}) &,\alpha>-1\\
-			\theta(ln(n))        &,\alpha=-1\\
-			\theta(1)            &,\alpha<-1
+			\Theta(n^{\alpha+1}) &,\alpha>-1\\
+			\Theta(ln(n))        &,\alpha=-1\\
+			\Theta(1)            &,\alpha<-1
 		\end{cases}
 	\end{equation*}
 \end{application}\leavevmode\newline
@@ -174,27 +174,27 @@
 	\begin{mycase}
 		\item $(\alpha>1)$\\
 		\begin{equation*}
-			\displaystyle\int_{n_0}^n{\alpha}^x\,dx=\frac{{\alpha}^n-{\alpha}^{n_0}}{ln(\alpha)}=\theta({\alpha}^n)
+			\displaystyle\int_{n_0}^n{\alpha}^x\,dx=\frac{{\alpha}^n-{\alpha}^{n_0}}{ln(\alpha)}=\Theta({\alpha}^n)
 		\end{equation*}
 		
 		\item $(\alpha=1)$\\
 		\begin{equation*}
-			\displaystyle\int_{n_0}^n\alpha\,dx=\alpha(n-n_0)=\theta(n)
+			\displaystyle\int_{n_0}^n\alpha\,dx=\alpha(n-n_0)=\Theta(n)
 		\end{equation*}
 		
 		\item $(0<\alpha<1)$\\
 		\begin{equation*}
-			\displaystyle\int_{n_0}^n{\alpha}^x\,dx=\frac{{\alpha}^n-{\alpha}^{n_0}}{ln(\alpha)}=\theta(1)
+			\displaystyle\int_{n_0}^n{\alpha}^x\,dx=\frac{{\alpha}^n-{\alpha}^{n_0}}{ln(\alpha)}=\Theta(1)
 		\end{equation*}
-		Тъй като числителя ${\alpha}^n-{\alpha}^{n_0}$ и знаменателя $ln(\alpha)$ са строго по-малки от $0$, то цялата дроб е строго положителна. Тогава $\lim\limits_{n\to\infty}\frac{{\alpha}^n-{\alpha}^{n_0}}{ln(\alpha)}=\frac{{-\alpha}^{n_0}}{ln(\alpha)}>0$ е просто константа, откъдето имаме асимптотика $\theta(1)$.
+		Тъй като числителя ${\alpha}^n-{\alpha}^{n_0}$ и знаменателя $ln(\alpha)$ са строго по-малки от $0$, то цялата дроб е строго положителна. Тогава $\lim\limits_{n\to\infty}\frac{{\alpha}^n-{\alpha}^{n_0}}{ln(\alpha)}=\frac{{-\alpha}^{n_0}}{ln(\alpha)}>0$ е просто константа, откъдето имаме асимптотика $\Theta(1)$.
 		
 	\end{mycase}
 	Тоест получихме:
 	\begin{equation*}
 		\displaystyle\sum_{i=n_0}^n{\alpha}^i=\begin{cases}
-			\theta({\alpha}^n) &,\alpha>1\\
-			\theta(n)          &,\alpha=1\\
-			\theta(1)          &,0<\alpha<1
+			\Theta({\alpha}^n) &,\alpha>1\\
+			\Theta(n)          &,\alpha=1\\
+			\Theta(1)          &,0<\alpha<1
 		\end{cases}
 	\end{equation*}
 \end{application}\leavevmode\newline
@@ -209,7 +209,7 @@
 \begin{solution}
 	Това е частен случай на $\aplref{apl-3-1}$. Тоест имаме:
 	\begin{eqnarray*}
-		\text{(а) }\sum\limits_{i=1}^n\frac1i=\theta(ln(n))\qquad\qquad\qquad & \text{(б) }\displaystyle\sum_{i=1}^n\frac1{\sqrt{i}}=\theta(\sqrt{n})\qquad\qquad\qquad & \text{(в) }\sum\limits_{i=1}^n\frac1{i^2}=\theta(1)
+		\text{(а) }\sum\limits_{i=1}^n\frac1i=\Theta(ln(n))\qquad\qquad\qquad & \text{(б) }\displaystyle\sum_{i=1}^n\frac1{\sqrt{i}}=\Theta(\sqrt{n})\qquad\qquad\qquad & \text{(в) }\sum\limits_{i=1}^n\frac1{i^2}=\Theta(1)
 	\end{eqnarray*}
 \end{solution}\leavevmode\newline
 
@@ -241,11 +241,11 @@
 	Сега вече може да приложим интегралния критерий, откъдето получаваме:
 	\begin{eqnarray*}
 		\displaystyle\sum_{i=2}^nln(i)\asymp\displaystyle\int_2^nln(x)\,dx & = & ln(x)x\Big|^n_2-\displaystyle\int_2^nx\,d(ln(x))=nln(n)-2ln(2)-\displaystyle\int_2^n\frac xx\,dx= \\
-		& = & nln(n)-2ln(2)-x\Big|^n_2=nln(n)-n+2-2ln(2)=\theta(n.ln(n))
+		& = & nln(n)-2ln(2)-x\Big|^n_2=nln(n)-n+2-2ln(2)=\Theta(n.ln(n))
 	\end{eqnarray*}
 	Забележете, че в оригиналната задача, сумата започваше от 1, а интегралния критерий ни даде асимптотика от 2 нагоре. Това обаче не е проблем, тъй като сме изпуснали $n_0-1$ на брой крайни събираеми (което е константа). Тоест имаме:
 	\begin{equation*}
-		\displaystyle\sum_{i=1}^nln(i)=const+\displaystyle\sum_{i=2}^nln(i)=const+\theta(n.ln(n))=\theta(n.ln(n))
+		\displaystyle\sum_{i=1}^nln(i)=const+\displaystyle\sum_{i=2}^nln(i)=const+\Theta(n.ln(n))=\Theta(n.ln(n))
 	\end{equation*}
 	В случая даже изпуснатото събираемо е $ln(1)=0$, но в общия случай това не е така.
 \end{solution}\leavevmode\newline
@@ -256,7 +256,7 @@
 \begin{solution}
 	За упражнение докажете (използвайки интегралния критерий), че:
 	\begin{equation*}
-		\sum\limits_{i=1}^n\frac{ln(i)}{i}\asymp\theta(ln^2(n))
+		\sum\limits_{i=1}^n\frac{ln(i)}{i}\asymp\Theta(ln^2(n))
 	\end{equation*}
 \end{solution}\leavevmode\newline
 
@@ -266,7 +266,7 @@
 Основната идея е да заместим всяка атомарна операция с константа (или за по-лесно единица - не се отразява на асимптотиката), а циклите с математическа сума. Нека разгледаме няколко примерни задачи:\\
 
 \begin{problem}
-	Даден е следния алгоритъм:
+	Даден е следният алгоритъм:
 	\begin{pseudocode}
 		\SetKwData{di}{i}
 		\SetKwData{dn}{n}
@@ -280,10 +280,10 @@
 			print 'd'\;
 		}
 	\end{pseudocode}
-	Каква е сложността му по време (спрямо големината на входа $n$)?
+	Каква е сложността му по време (спрямо $n$)?
 \end{problem}
 \begin{solution}
-	Сложността му по време е $c_{print}+\sum\limits_{i=1}^n(c_{print}+c_{checkend}+c_{increment})+c_{fastprint}+c_{print}=2c_{print}+n(c_{print}+c_{checkend}+c_{increment})+c_{fastprint}=\theta(n)$.
+	Сложността му по време е $c_{print}+\sum\limits_{i=1}^n(c_{print}+c_{checkend}+c_{increment})+c_{fastprint}+c_{print}=2c_{print}+n(c_{print}+c_{checkend}+c_{increment})+c_{fastprint}=\Theta(n)$.
 \end{solution}
 
 \begin{remark*}
@@ -291,7 +291,7 @@
 \end{remark*}\leavevmode\newline
 
 \begin{problem}
-	Даден е следния алгоритъм:
+	Даден е следният алгоритъм:
 	\begin{pseudocode}
 		\SetKwData{di}{i}
 		\SetKwData{dj}{j}
@@ -306,14 +306,14 @@
 			}
 		}
 	\end{pseudocode}
-	Каква е сложността му по време (спрямо големината на входа $n$)?
+	Каква е сложността му по време (спрямо $n$)?
 \end{problem}
 \begin{solution}
-	Сложността му по време е $\sum\limits_{i=1}^n\sum\limits_{j=1}^n1=\sum\limits_{i=1}^n n=n\sum\limits_{i=1}^n 1=n.n=\theta(n^2)$.
+	Сложността му по време е $\sum\limits_{i=1}^n\sum\limits_{j=1}^n1=\sum\limits_{i=1}^n n=n\sum\limits_{i=1}^n 1=n.n=\Theta(n^2)$.
 \end{solution}\leavevmode\newline
 
 \begin{problem}
-	Даден е следния алгоритъм:
+	Даден е следният алгоритъм:
 	\begin{pseudocode}
 		\SetKwData{di}{i}
 		\SetKwData{dj}{j}
@@ -328,14 +328,14 @@
 			}
 		}
 	\end{pseudocode}
-	Каква е сложността му по време (спрямо големината на входа $n$)?
+	Каква е сложността му по време (спрямо $n$)?
 \end{problem}
 \begin{solution}
-	Сложността му по време е $\sum\limits_{i=1}^n\sum\limits_{j=1}^i1=\sum\limits_{i=1}^n i=\frac{(n+1)n}{2}=\theta(n^2)$.
+	Сложността му по време е $\sum\limits_{i=1}^n\sum\limits_{j=1}^i1=\sum\limits_{i=1}^n i=\frac{(n+1)n}{2}=\Theta(n^2)$.
 \end{solution}\leavevmode\newline
 
 \begin{problem}
-	Даден е следния алгоритъм:
+	Даден е следният алгоритъм:
 	\begin{pseudocode}
 		\SetKwData{di}{i}
 		\SetKwData{dj}{j}
@@ -350,14 +350,18 @@
 			}
 		}
 	\end{pseudocode}
-	Каква е сложността му по време (спрямо големината на входа $n$)?
+	Каква е сложността му по време (спрямо $n$)?
 \end{problem}
 \begin{solution}
-	Сложността му по време$\,$е$\,\sum\limits_{i=1}^n\sum\limits_{\substack{j=1\\j=j+i}}^n1=\sum\limits_{i=1}^n\lfloor\frac ni\rfloor\asymp\sum\limits_{i=1}^n\frac ni=n\sum\limits_{i=1}^n\frac1i\asymp nln(n)=\theta(n.ln(n))$.
-\end{solution}\newpage
+	Сложността му по време$\,$е$\,\sum\limits_{i=1}^n\sum\limits_{\substack{j=1\\j=j+i}}^n1=\sum\limits_{i=1}^n\lfloor\frac ni\rfloor\asymp\sum\limits_{i=1}^n\frac ni=n\sum\limits_{i=1}^n\frac1i\asymp nln(n)=\Theta(n.ln(n))$.
+\end{solution}\leavevmode\newline
+
+\begin{boxremark}{Сложност спрямо големината на входа}{}
+	Забележете, че големината на входа на горните четири задачи (а и на долната) е все $log(n)$. Тоест сложността по време (спрямо големината на входа $m=log(n)$) на горните четири задачи е съответно $\Theta(2^m),\Theta((2^m)^2)=\Theta(4^m),\Theta(4^m)$ и $\Theta(2^mlog(2^m))=\Theta(m2^m)$.
+\end{boxremark}\leavevmode\newline
 
 \begin{problem}
-	Даден е следния алгоритъм:
+	Даден е следният алгоритъм:
 	\begin{pseudocode}
 		\SetKwData{di}{i}
 		\SetKwData{dj}{j}
@@ -384,7 +388,7 @@
 			}
 		}
 	\end{pseudocode}
-	Каква е сложността му по време (спрямо големината на входа $n$)?
+	Каква е сложността му по време (спрямо $n$, а спрямо големината на входа $m=log(n)$)?
 \end{problem}
 \begin{solution}
 	Сложността му по време е:
@@ -393,7 +397,7 @@
 	\end{equation}
 	Нека да разгледаме трите суми поотделно. Да започнем с първата:
 	\begin{equation*}
-		\sum\limits_{i=1}^n\sum\limits_{j=i}^{2^i}1=\sum\limits_{i=1}^n\Big(2^i-i+1\Big)=\sum\limits_{i=1}^n2^i-\sum\limits_{i=1}^ni+\sum\limits_{i=1}^n1\asymp2^n-n^2+n=\theta(2^n)
+		\sum\limits_{i=1}^n\sum\limits_{j=i}^{2^i}1=\sum\limits_{i=1}^n\Big(2^i-i+1\Big)=\sum\limits_{i=1}^n2^i-\sum\limits_{i=1}^ni+\sum\limits_{i=1}^n1\asymp2^n-n^2+n=\Theta(2^n)
 	\end{equation*}
 	Сега да разгледаме втората (като премахнем закръглянето - не променя асимптотиката):
 	\begin{eqnarray*}
@@ -411,7 +415,7 @@
 	\begin{equation*}
 		\sum\limits_{i=1}^{log(n)}\sum\limits_{j=i}^{2^i}\sum\limits_{\substack{k=1\\k=k+i}}^n1=O(n^2)
 	\end{equation*}
-	Обърнете внимание, че е $O(n^2)$, а не $\theta(n^2)$ - това е заради употребата на $\le$. Разбира се може в действителност да е $\theta(n^2)$, но $O(n^2)$ ни е достатъчно (след малко ще видим защо) да определим сложността по време на $\ref{eqn-3-1}$. Остана да разгледаме третата сума (отново махаме закръглянето и константата +1 - не променят асимптотиката):
+	Обърнете внимание, че е $O(n^2)$, а не $\Theta(n^2)$ - това е заради употребата на $\le$. Разбира се може в действителност да е $\Theta(n^2)$, но $O(n^2)$ ни е достатъчно (след малко ще видим защо) да определим сложността по време на $\ref{eqn-3-1}$. Остана да разгледаме третата сума (отново махаме закръглянето и константата +1 - не променят асимптотиката):
 	\begin{eqnarray*}
 		\sum\limits_{i=log(n)}^n\sum\limits_{j=i}^n\sum\limits_{\substack{k=1\\k=k+i}}^n1 &\asymp&
 		\sum\limits_{i=log(n)}^n\sum\limits_{j=i}^n\frac ni =
@@ -420,15 +424,15 @@
 		&=&
 		n\Bigg(n\sum\limits_{i=log(n)}^n\frac1i-\sum\limits_{i=log(n)}^n\frac{log(n)}i+\sum\limits_{i=log(n)}^n\frac1i\Bigg) = 
 		\dots =
-		\theta(n^2log(n))		
+		\Theta(n^2log(n))		
 	\end{eqnarray*}
-	Тоест сложността по време на функцията е $\theta(2^n)+O(n^2)+\theta(n^2log(n))=\theta(2^n)$.
+	Тоест сложността по време на функцията е $\Theta(2^n)+O(n^2)+\Theta(n^2log(n))=\Theta(2^n)=\Theta(2^{2^m})$.
 \end{solution}\newpage
 
 
 \section{Рекурсивни алгоритми}\label{sec-rec-alg}
 
-Сложността на рекурсивни алгоритми ще определяме посредством рекурентни уравнения. По тази причина рекурентните уравнения, които ще разглеждаме ще са със строго намаляващ аргумент, всички събираеми отдясно на $=$ ще се срещат с положителен знак и всички основи на експоненти в нехомогенната част ще бъдат положителни. Също така да обърнем внимание, че за всяко фиксирано $n_0\in\mathbb{N}_0$ е изпълнено: $\forall n\le n_0\,$($T(n)=\theta(1)$), където $T(n)$ е рекурентно уравнение. Може да си мислим за това $n_0$ като базата на рекурсивния алгоритъм. За удобство ще нагласяме $n_0$ да е някое малко число - например $0,1,2$ - в зависимост от конкретната задача. Съставянето на рекурентно уравнение за сложността на рекурсивен алгоритъм е тривиално в повечето случаи. Поради тази причина ще се съсредоточим върху методи за намиране на асимптотиката на рекурентни уравнения.\\
+Сложността на рекурсивни алгоритми ще определяме посредством рекурентни уравнения. По тази причина рекурентните уравнения, които ще разглеждаме ще са със строго намаляващ аргумент, всички нехомогенни събираеми отдясно на $=$ ще се срещат с положителен знак и всички основи на експоненти в нехомогенната част ще бъдат положителни. Също така да обърнем внимание, че за всяко фиксирано $n_0\in\mathbb{N}_0$ е изпълнено $\big(\forall n\le n_0\big)\big(T(n)=\Theta(1)\big)$, където $T(n)$ е рекурентно уравнение. Може да си мислим за това $n_0$ като базата на рекурсивния алгоритъм. За удобство ще нагласяме $n_0$ да е някое малко число - например $0,1,2$ - в зависимост от конкретната задача. Съставянето на рекурентно уравнение за сложността на рекурсивен алгоритъм е тривиално в повечето случаи. Поради тази причина ще се съсредоточим върху методи за намиране на асимптотиката на рекурентни уравнения.\\
 
 \subsection{Характеристично уравнение}
 
@@ -449,7 +453,7 @@
 			\item $4.3^n\ \mapsto\ \{3\}_M$
 		\end{itemize}
 	\end{itemize}
-	Като обединим всички мултимножества получаваме: $\{-2,2,2,2,3\}_M$. Оттук получаваме, че $T(n)=c_1(-2)^n+c_22^n+c_3n2^n+c_4n^22^n+c_53^n=\theta(3^n)$.
+	Като обединим всички мултимножества получаваме: $\{-2,2,2,2,3\}_M$. Оттук получаваме, че $T(n)=c_1(-2)^n+c_22^n+c_3n2^n+c_4n^22^n+c_53^n=\Theta(3^n)$.
 \end{solution}
 
 \begin{remark*}
@@ -460,7 +464,7 @@
 	Каква е асимптотиката на $T(n)=2T(n-1)+T(n-2)$?
 \end{problem}
 \begin{solution}
-	Тук имаме само хомогенна част: $x^2=2x+1\ \mapsto\ x_{1,2}=1\pm\sqrt2\ \mapsto\ \{1+\sqrt2,1-\sqrt2\}_M$. Оттук получаваме $T(n)=c_1(1+\sqrt2)^n+c_2(1-\sqrt2)^n=\theta((1+\sqrt2)^n)$.
+	Тук имаме само хомогенна част: $x^2=2x+1\ \mapsto\ x_{1,2}=1\pm\sqrt2\ \mapsto\ \{1+\sqrt2,1-\sqrt2\}_M$. Оттук получаваме $T(n)=c_1(1+\sqrt2)^n+c_2(1-\sqrt2)^n=\Theta((1+\sqrt2)^n)$.
 \end{solution}\leavevmode\newline
 
 \begin{problem}\label{prob-rec-eq-full-history}
@@ -468,13 +472,13 @@
 \end{problem}
 \begin{solution}
 	Това характеристично уравнение се решава със следния трик:
-	$T(n)-T(n-2)=\underbrace{T(n-2)+T(n-4)+\dots+T(n\%2)}_{T(n)}-(\underbrace{T(n-4)+T(n-6)+\dots+T(n\%2)}_{T(n-2)})=T(n-2)$. Тоест получихме, че $T(n)-T(n-2)=T(n-2)$ или още $T(n)=2T(n-2)$. Решаваме характеристичното уравнение $x^2=2$ и получаваме $x_{1,2}=\pm\sqrt2\ \mapsto\ \{\sqrt2,-\sqrt2\}_M$. Оттук имаме $T(n)=c_1(\sqrt2)^n+c_2(-\sqrt2)^n=\theta((\sqrt2)^n)$.
+	$T(n)-T(n-2)=\underbrace{T(n-2)+T(n-4)+\dots+T(n\%2)}_{T(n)}-(\underbrace{T(n-4)+T(n-6)+\dots+T(n\%2)}_{T(n-2)})=T(n-2)$. Тоест получихме, че $T(n)-T(n-2)=T(n-2)$ или още $T(n)=2T(n-2)$. Решаваме характеристичното уравнение $x^2=2$ и получаваме $x_{1,2}=\pm\sqrt2\ \mapsto\ \{\sqrt2,-\sqrt2\}_M$. Оттук имаме $T(n)=c_1(\sqrt2)^n+c_2(-\sqrt2)^n=\Theta((\sqrt2)^n)$.
 \end{solution}\leavevmode\newline
 
 
 \subsection{Развиване}
 
-Метода за намиране асимптотика на рекурентно уравнение чрез развиване е най-мощния, който ще разгледаме в текущия курс, но и най-хамалския. Изисква сравнително много писане и известна доза $\emph{умен съм бил сетил съм се}$ (зависи от задачата). Самия метод не е формален. Формализацията изисква доказателство чрез индукция, което е трудната част. Идеята е много проста - развиваме докажо не заподозреем сложността и след това доказваме формално.
+Метода за намиране асимптотика на рекурентно уравнение чрез развиване е най-мощният, който ще разгледаме в текущия курс, но и най-хамалският. Изисква сравнително много писане и известна доза $\emph{умен съм бил сетил съм се}$ (зависи от задачата). Самия метод не е формален. Формализацията изисква доказателство чрез индукция, което е трудната част. Идеята е много проста - развиваме докажо не заподозреем сложността и след това доказваме формално.
 
 \begin{problem}
 	Каква е асимптотиката на $T(n)=T(n-1)+n$?
@@ -485,7 +489,7 @@
 		T(n)
 		&=& T(n-1)+n=T(n-2)+(n-1)+n=\\
 		&=& T(n-3)+(n-2)+(n-1)+n=\dots=\\
-		&=& T(0)+1+2+\dots+(n-1)+n=T(0)+\theta(n^2)=\theta(n^2)
+		&=& T(0)+1+2+\dots+(n-1)+n=T(0)+\Theta(n^2)=\Theta(n^2)
 	\end{eqnarray*}
 	\begin{boxremark*}{}{}
 		Дотук $\textbf{НЕ}$ сме доказали нищо! Само сме заподозрели отговора! Проблема е в това, че употребата на "$\dots$"\ е изцяло неформална.. може да сме сбъркали нещо на ум!
@@ -600,7 +604,7 @@
 		T(n)
 		&=& T(n-1)+\frac1n=T(n-2)+\frac1{n-1}+\frac1n=\\
 		&=& T(n-3)+\frac1{n-2}+\frac1{n-1}+\frac1n=\dots=\\
-		&=& T(0)+\frac11+\frac12+\dots+\frac1{n-1}+\frac1n=T(0)+\theta(ln(n))=\theta(log(n))
+		&=& T(0)+\frac11+\frac12+\dots+\frac1{n-1}+\frac1n=T(0)+\Theta(ln(n))=\Theta(log(n))
 	\end{eqnarray*}
 	Нека $n_{st}\in\mathbb{N}_0$ е достатъчно голямо.
 	
@@ -745,7 +749,7 @@
 		&=& 2T(n-1)+\frac1n=4T(n-2)+\frac2{n-1}+\frac1n=\\
 		&=& 8T(n-3)+\frac4{n-2}+\frac2{n-1}+\frac1n=\dots=\\
 		&=& 2^nT(0)+\frac{2^{n-1}}1+\frac{2^{n-2}}2+\dots+\frac2{n-1}+\frac1n=\\
-		&=& 2^n\theta(1)+\underbrace{2^n\sum\limits_{i=1}^n\frac{1}{i2^i}}_{O(2^n)}=\theta(2^n)
+		&=& 2^n\Theta(1)+\underbrace{2^n\sum\limits_{i=1}^n\frac{1}{i2^i}}_{O(2^n)}=\Theta(2^n)
 	\end{eqnarray*}
 	Докажете го формално чрез индукция.
 \end{solution}\leavevmode\newline
@@ -760,7 +764,7 @@
 		&=& \frac{n}{n+1}T(n-1)+1=\frac{n-1}{n+1}T(n-2)+\frac{n}{n+1}+\frac{n+1}{n+1}=\\
 		&=& \frac{n-2}{n+1}T(n-3)+\frac{n-1}{n+1}+\frac{n}{n+1}+\frac{n+1}{n+1}=\dots=\\
 		&=& \frac{1}{n+1}T(0)+\frac{2}{n+1}+\frac{3}{n+1}+\dots+\frac{n}{n+1}+\frac{n+1}{n+1}=\\
-		&=& \theta(n^{-1})+\frac{1}{n+1}\underbrace{(2+3+\dots+(n+1))}_{\theta(n^2)}=\theta(n)
+		&=& \Theta(n^{-1})+\frac{1}{n+1}\underbrace{(2+3+\dots+(n+1))}_{\Theta(n^2)}=\Theta(n)
 	\end{eqnarray*}
 	Докажете го формално чрез индукция.
 \end{solution}\leavevmode\newline
@@ -773,7 +777,7 @@
 	Каква е асимптотиката на $T(n)=2T(n-1)+T(log(n))+n$?
 \end{problem}
 \begin{solution}
-	Заподозряваме, че асимптотиката е $T(n)=\theta(2^n)$.\\
+	Заподозряваме, че асимптотиката е $T(n)=\Theta(2^n)$.\\
 	Нека $n_{st}\in\mathbb{N}_0$ е достатъчно голямо.
 	
 	\begin{itemize}
@@ -846,7 +850,7 @@
 			\end{equation}
 			Тъй като $\alpha\in(1,2)$, то $log(\alpha)=log_2(\alpha)\in(0,1)$. Тогава имаме
 			\begin{equation*}
-				b(\underbrace{\alpha-2}_{<0})\alpha^{n-1}+\underbrace{bn-bn^{log(\alpha)}+n}_{\theta(n)}\overset{\text?}{\le}0
+				b(\underbrace{\alpha-2}_{<0})\alpha^{n-1}+\underbrace{bn-bn^{log(\alpha)}+n}_{\Theta(n)}\overset{\text?}{\le}0
 			\end{equation*}
 			Ясно е, че асимптотиката се определя от $\alpha^{n-1}$ и че за кое да е $b>0$ има подходящо $n_0$. Ако искаме да посочим конкретно $n_0$ трябва да фиксираме $\alpha$. Ще го направим за пълнота. Нека $\alpha=\sqrt2\in(1,2)$ и заместим в неравенство ($\ref{eq-ind-str}$)
 			\begin{equation*}
@@ -911,11 +915,12 @@
 			\end{equation*}
 			Очевидно е изпълнено за кое да е $b>0$ и $n\ge0$. Оттук си избираме $n_0=0$.
 		\end{indstep}
-		
-		\begin{remark*}
-			Обърнете внимание, че този път не добавихме бонус стойност в множеството като образувахме $b$.. не е нужно винаги!
-		\end{remark*}
 	\end{itemize}
+
+	\begin{remark*}
+		Обърнете внимание, че този път не добавихме бонус стойност в множеството като образувахме $b$.. не е нужно винаги!
+	\end{remark*}
+
 \end{solution}\leavevmode\newline
 
 
@@ -934,7 +939,7 @@
 	\begin{equation*}
 		S(m)=2S(m-1)+1
 	\end{equation*}
-	Сега използвайки някой от предните методи (а може и някой от бъдещите) доказваме, че $S(m)=\theta(2^m)$. Тоест $T(n)=S(m)=\theta(2^m)=\theta(2^{log(log(n))})=\theta(log(n))$.
+	Сега използвайки някой от предните методи (а може и някой от бъдещите) доказваме, че $S(m)=\Theta(2^m)$. Тоест $T(n)=S(m)=\Theta(2^m)=\Theta(2^{log(log(n))})=\Theta(log(n))$.
 \end{solution}\leavevmode\newline
 
 \begin{problem}\label{prob-sqrt-semantics}
@@ -948,7 +953,7 @@
 	\begin{equation*}
 		S(m)=S(m-1)+1
 	\end{equation*}
-	Сега използвайки някой от предните методи (а може и някой от бъдещите) доказваме, че $S(m)=\theta(m)$. Тоест $T(n)=S(m)=\theta(m)=\theta(log(log(n)))$.
+	Сега използвайки някой от предните методи (а може и някой от бъдещите) доказваме, че $S(m)=\Theta(m)$. Тоест $T(n)=S(m)=\Theta(m)=\Theta(log(log(n)))$.
 \end{solution}\leavevmode\newline
 
 \begin{insertedframe}{Рекурсивно извикване с корен от аргумента}
@@ -964,11 +969,12 @@
 	\begin{equation*}
 		\hspace{-0.1cm}
 		T(n)=\!\begin{cases}
-			\theta(n^k)       &\!\!\!\!\!,\exists\varepsilon\!>\!0\,\big(f(n)=O(n^{k-\varepsilon})\big)\\
-			\theta(n^klog(n)) &\!\!\!\!\!,f(n)=\theta(n^k)\\
-			\vspace{-0.75cm}
-			\theta(f(n))      &\!\!\!\!\!,\exists\varepsilon\!>\!0\,\big(f(n)=\Omega(n^{k-\varepsilon})\big)\land\underbrace{\exists c \!\in\!(0,1)\,\exists n_0\!\in\!\mathbb{N}_0\,\forall n \!\ge\! n_0\,\big(af(\frac nb)\le cf(n)\big)}_\text{условие за регулярност}\\
-			\emph{не знаем}   &\!\!\!\!\!,\text{иначе}
+			\Theta(n^k)       &,\big(\exists\varepsilon\!>\!0\big)\big(f(n)=O(n^{k-\varepsilon})\big)\\
+			\Theta(n^klog(n)) &,f(n)=\Theta(n^k)\\
+%			\vspace{-0.75cm}
+			\Theta(f(n))      &,\big(\exists\varepsilon\!>\!0\big)\big(f(n)=\Omega(n^{k-\varepsilon})\big)\,\land\\
+			                  &\ \ \underbrace{\big(\exists c \!\in\!(0,1)\big)\big(\exists n_0\!\in\!\mathbb{N}_0\big)\big(\forall n \!\ge\! n_0\big)\big(af(\frac nb)\le cf(n)\big)}_\text{условие за регулярност}\\
+			\emph{не знаем}   &,\text{иначе}
 		\end{cases}
 	\end{equation*}
 \end{boxtheorem}\leavevmode\newline
@@ -987,7 +993,7 @@
 			k=log_b(a)=log_2(4)=2
 		\end{array}$
 	\end{center}
-	Нека $\varepsilon=\frac1{10}$. Тогава имаме $f(n)=n=O(n^{2-0,1})=O(n^{1,9})\overset{MT\,1}{\Longrightarrow}T(n)=\theta(n^2)$.
+	Нека $\varepsilon=\frac1{10}$. Тогава имаме $f(n)=n=O(n^{2-0,1})=O(n^{1,9})\overset{MT\,1}{\Longrightarrow}T(n)=\Theta(n^2)$.
 \end{solution}\leavevmode\newline
 
 \begin{problem}
@@ -1004,10 +1010,8 @@
 			k=log_b(a)=log_{\sqrt2}(4)=4
 		\end{array}$
 	\end{center}
-	Нека $\varepsilon=\frac1{10}$. Тогава имаме $f(n)=n=O(n^{4-0,1})=O(n^{3,9})\overset{MT\,1}{\Longrightarrow}T(n)=\theta(n^4)$.
-\end{solution}
-
-\newpage
+	Нека $\varepsilon=\frac1{10}$. Тогава имаме $f(n)=n=O(n^{4-0,1})=O(n^{3,9})\overset{MT\,1}{\Longrightarrow}T(n)=\Theta(n^4)$.
+\end{solution}\leavevmode\newline
 
 \begin{problem}
 	Каква е асимптотиката на $T(n)=T(\frac n2)+1$?
@@ -1023,7 +1027,7 @@
 			k=log_b(a)=log_2(1)=0
 		\end{array}$
 	\end{center}
-	Имаме $f(n)=1=\theta(1)=\theta(n^0)=\theta(n^k)\overset{MT\,2}{\Longrightarrow}T(n)=\theta(n^klog(n))=\theta(log(n))$.
+	Имаме $f(n)=1=\Theta(1)=\Theta(n^0)=\Theta(n^k)\overset{MT\,2}{\Longrightarrow}T(n)=\Theta(n^klog(n))=\Theta(log(n))$.
 \end{solution}\leavevmode\newline
 
 \begin{problem}
@@ -1047,7 +1051,7 @@
 	\begin{equation*}
 		\forall n\ge n_0\,\bigg(2\frac n8\le cn\bigg)
 	\end{equation*}
-	Ясно е, че $c=\frac14$ и $n_0=0$ ни вършат работа. Тоест от MT\,3 имаме, че $T(n)=\theta(f(n))=\theta(n)$.
+	Ясно е, че $c=\frac14$ и $n_0=0$ ни вършат работа. Тоест от MT\,3 имаме, че $T(n)=\Theta(f(n))=\Theta(n)$.
 \end{solution}\leavevmode\newline
 
 \begin{problem}
@@ -1071,10 +1075,8 @@
 	\begin{equation*}
 		\forall n\ge n_0\,\bigg(4\frac {n^2\sqrt n}{4\sqrt2}\le cn^2\sqrt n\bigg)
 	\end{equation*}
-	Ясно е, че $c=\frac1{\sqrt2}$ и $n_0=0$ ни вършат работа. Тоест от MT\,3 имаме, че $T(n)=\theta(n^2\sqrt n)$.
-\end{solution}
-
-\newpage
+	Ясно е, че $c=\frac1{\sqrt2}$ и $n_0=0$ ни вършат работа. Тоест от MT\,3 имаме, че $T(n)=\Theta(n^2\sqrt n)$.
+\end{solution}\leavevmode\newline
 
 \subsubsection{Разширение на Мастър теоремата}
 Макар и да обхваща по-голям набор от функции, тази теорема все още е твърде ограничена. Въпреки това може да улесни решаването на някои задачи многократно.
@@ -1082,14 +1084,13 @@
 \begin{boxtheorem}{Мастър теорема (разширена)}{extended-master-theorem}
 	Нека $a\ge1,b>1,f(n)$ - положителна и положим $k=log_b(a)$. Тогава за рекурентното уравнение $T(n)=aT(\frac nb)+f(n)$ имаме:
 	\begin{equation*}
-		\hspace{-0.4cm}
 		T(n)=\!\begin{cases}
-			\theta(n^k)                  &\!\!\!\!\!,\exists\varepsilon\!>\!0\,\big(f(n)=O(n^{k-\varepsilon})\big)\\
-			\theta(n^k)                  &\!\!\!\!\!,f(n)=\theta(n^klog^{\alpha}(n))\land\alpha<-1\\
-			\theta(n^klog^{(2)}(n))      &\!\!\!\!\!,f(n)=\theta(n^klog^{\alpha}(n))\land\alpha=-1\\
-			\theta(n^klog^{\alpha+1}(n)) &\!\!\!\!\!,f(n)=\theta(n^klog^{\alpha}(n))\land\alpha>-1\\
-			\vspace{-0.75cm}
-			\theta(f(n))                 &\!\!\!\!\!,\exists\varepsilon\!>\!0\,\big(f(n)=\Omega(n^{k-\varepsilon})\big)\land\underbrace{\exists c \!\in\!(0,1)\,\exists n_0\!\in\!\mathbb{N}_0\,\forall n\!\ge\!n_0\,\big(af(\frac nb)\le cf(n)\big)}_\text{условие за регулярност}\\
+			\Theta(n^k)                  &,\big(\exists\varepsilon\!>\!0\big)\big(f(n)=O(n^{k-\varepsilon})\big)\\
+			\Theta(n^k)                  &,\big(f(n)=\Theta(n^klog^{\alpha}(n))\big)\land\big(\alpha<-1\big)\\
+			\Theta(n^klog^{(2)}(n))      &,\big(f(n)=\Theta(n^klog^{\alpha}(n))\big)\land\big(\alpha=-1\big)\\
+			\Theta(n^klog^{\alpha+1}(n)) &,\big(f(n)=\Theta(n^klog^{\alpha}(n))\big)\land\big(\alpha>-1\big)\\
+			\Theta(f(n))                 &,\big(\exists\varepsilon\!>\!0\big)\big(f(n)=\Omega(n^{k-\varepsilon})\big)\land\\
+			                             &\ \ \underbrace{\big(\exists c \!\in\!(0,1)\big)\big(\exists n_0\!\in\!\mathbb{N}_0\big)\big(\forall n\!\ge\!n_0\big)\big(af(\frac nb)\le cf(n)\big)}_\text{условие за регулярност}\\
 			\emph{не знаем}              &\!\!\!\!\!,\text{иначе}
 		\end{cases}
 	\end{equation*}
@@ -1110,7 +1111,7 @@
 			k=log_b(a)=log_2(1)=0
 		\end{array}$
 	\end{center}
-	Имаме $f(n)=log^{-1}(n)=\theta(n^0log^{-1}(n))\overset{EMT\,3}{\Longrightarrow}T(n)=\theta(log(log(n)))$.
+	Имаме $f(n)=log^{-1}(n)=\Theta(n^0log^{-1}(n))\overset{EMT\,3}{\Longrightarrow}T(n)=\Theta(log(log(n)))$.
 \end{solution}\leavevmode\newline
 
 \begin{problem}
@@ -1127,7 +1128,7 @@
 			k=log_b(a)=log_4(2)=\frac12
 		\end{array}$
 	\end{center}
-	Имаме $f(n)=2\sqrt n\,log^3(n)=\theta(\sqrt n\,log^3(n))\overset{EMT\,4}{\Longrightarrow}T(n)=\theta(\sqrt n\,log^4(n))$.
+	Имаме $f(n)=2\sqrt n\,log^3(n)=\Theta(\sqrt n\,log^3(n))\overset{EMT\,4}{\Longrightarrow}T(n)=\Theta(\sqrt n\,log^4(n))$.
 \end{solution}\leavevmode\newline
 
 
@@ -1169,7 +1170,7 @@
 		\end{tikzpicture}
 	\end{figure}
 	\noindent
-	Може да забележим, че на всяко ниво сбора на нехомогенните части дава точно $n$. Освен това дървото е пълно до ниво $\lceil log_6(n)\rceil$\footnote{Може да докажем тези две твърдения с индукция и да докажем формално сумата от всички върхове, че е в интервала $[n\,log_6(n),n\,log_2(n)]$, откъдето да получим асимптотиката $\theta(n\,log(n))$. В текущия курс няма да правим индукции от такъв характер.\label{footnote-recursion-tree}} (при база $n=1$), съответно дървото е с височина $\lceil log_2(n)\rceil$\hyperref[footnote-recursion-tree]{\footnotemark[\thefootnote]}. Тоест заподозряхме, че $T(n)=\theta(n\,log_2(n))+O\big(n(log_6(n)-log_2(n))\big)=\theta(n\,log(n))$. Сега ще го докажем формално. Нека $n_{st}\in\mathbb{N}_0$ е достатъчно голямо.
+	Може да забележим, че на всяко ниво сбора на нехомогенните части дава точно $n$. Освен това дървото е пълно до ниво $\lceil log_6(n)\rceil$\footnote{Може да докажем тези две твърдения с индукция и да докажем формално сумата от всички върхове, че е в интервала $[n\,log_6(n),n\,log_2(n)]$, откъдето да получим асимптотиката $\Theta(n\,log(n))$. В текущия курс няма да правим индукции от такъв характер.\label{footnote-recursion-tree}} (при база $n=1$), съответно дървото е с височина $\lceil log_2(n)\rceil$\hyperref[footnote-recursion-tree]{\footnotemark[\thefootnote]}. Тоест заподозряхме, че $T(n)=\Theta(n\,log_2(n))+O\big(n(log_6(n)-log_2(n))\big)=\Theta(n\,log(n))$. Сега ще го докажем формално. Нека $n_{st}\in\mathbb{N}_0$ е достатъчно голямо.
 	\begin{itemize}
 		\item $T(n)=O(n\,log(n))$
 		
@@ -1217,7 +1218,7 @@
 	\end{itemize}
 	
 	
-\end{solution}\vspace{0.2cm}
+\end{solution}\vspace{0.1cm}
 
 
 \subsection{Теорема на Akra-Bazzi}
@@ -1225,14 +1226,7 @@
 Сега ще разгледаме метод, който е строго по-силен от Мастър теоремата, която е твърде ограничена - има една единствена поява вдясно. Теоремата на Akra-Bazzi позволява решаването на частен случай рекурентни уравнения с една или повече появи вдясно.
 
 \begin{boxtheorem}{Akra-Bazzi}{akra-bazzi}
-	Нека
-	\begin{equation*}
-		T(n)=\!\begin{cases}
-			\theta(1)                   &\,,1\le n\le n_0\\
-			a_1T(b_1n)+\dots+a_kT(b_kn)+f(n) &\,,n>n_0
-		\end{cases}
-	\end{equation*}
-	където
+	Нека $T(n)=a_1T(b_1n)+\dots+a_kT(b_kn)+f(n)$ за $n>n_0$ и $\Theta(1)$ иначе, където
 	\begin{enumerate}[label=\textbf{\arabic*.}]
 		\item $1\le n\in\mathbb{R}$
 		\item $\forall i\in\{1,\dots,k\}\,\Big(n_0\ge\frac1{b_i}\land n_0\ge\frac1{1-b_i}\Big)$
@@ -1252,7 +1246,7 @@
 \hypersetup{linkcolor=green}
 %\vspace{-1cm}
 \begin{boxdefinition}{Условие за полиномиално нарастване (в$\,$контекста$\,$на $\thmref{th:akra-bazzi}$)}{poly-growth}
-	Ще казваме, че $f(n)$ удволетворява условието за полиномиално нарастване, т.с.т.к. $\exists c_1>0\,\exists c_2>0\,\forall n\ge1\,\forall i\in\{1,\dots,k\}\,\forall t\in[b_in,n]\big(c_1f(n)\le f(t)\le c_2f(n)\big)$.
+	Ще казваме, че $f(n)$ удволетворява условието за полиномиално нарастване, т.с.т.к. $\big(\exists c_1>0\big)\big(\exists c_2>0\big)\big(\forall n\ge1\big)\big(\forall i\in\{1,\dots,k\}\big)\big(\forall t\in[b_in,n]\big)\big(c_1f(n)\le f(t)\le c_2f(n)\big)$.
 \end{boxdefinition}
 
 \hypersetup{linkcolor=mydarkblue}
@@ -1276,7 +1270,7 @@
 		\item Проверяваме, че $p=0$ ни върши работа: $\frac14\big(\frac14\big)^0+\frac34\big(\frac34\big)^0=1$.
 	\end{enumerate}
 	\vspace{-0.2cm}
-	Тогава прилагаме теоремата на Akra-Bazzi и получаваме $T(n)\asymp n^0\bigg(1+\displaystyle\int_1^n\frac1tdt\bigg)=\theta(log(n))$.
+	Тогава прилагаме теоремата на Akra-Bazzi и получаваме $T(n)\asymp n^0\bigg(1+\displaystyle\int_1^n\frac1tdt\bigg)=\Theta(log(n))$.
 \end{solution}\leavevmode\newline
 
 
@@ -1285,7 +1279,7 @@
 Основната идея за строене на рекурентно уравнение за сложността на рекурсивен алгоритъм е за всяко рекурсивно извикване с параметър $k$ да добавим отдясно на равенството $T(k)$. Останалата \emph{работа} ще представлява нехомогенната част на рекурентното уравнение.\\
 
 \begin{problem}
-	Даден е следния алгоритъм:
+	Даден е следният алгоритъм:
 	\begin{pseudocode}
 		\SetKwData{di}{i}
 		\SetKwData{dn}{n}
@@ -1301,30 +1295,30 @@
 			\KwRet{$\ds$}\;
 		}
 	\end{pseudocode}
-	Каква е сложността му по време (спрямо големината на входа $n$)?
+	Каква е сложността му по време (спрямо $n$)?
 \end{problem}
 
 \begin{solution}
-	Имаме $n-1$ на брой рекурсивни извиквания.. това означава, че за всяко едно от тях трябва да добавим отдясно на равенството $T(\text{\emph{подходящ параметър}})$. Останалата \emph{работа} в случая е инициализацията на $s$, инкрементацията на $i$ и актуализацията на $s$, т.е. $\theta(n)$. Тоест рекурентното уравнение е $T(n)=T(n-1)+T(n-2)+\dots+T(1)+\theta(n)$. Вече намерихме асимптотиката на подобно рекурентно уравнение в $\probref{prob-rec-eq-full-history}$.
+	Имаме $n-1$ на брой рекурсивни извиквания.. това означава, че за всяко едно от тях трябва да добавим отдясно на равенството $T(\text{\emph{подходящ параметър}})$. Останалата \emph{работа} в случая е инициализацията на $s$, инкрементацията на $i$ и актуализацията на $s$, т.е. $\Theta(n)$. Тя може да се погълне от рекурсивните извиквания (по единица на извикване). Тоест рекурентното уравнение е $T(n)=T(n-1)+T(n-2)+\dots+T(1)+\Theta(1)$. Вече намерихме асимптотиката на подобно рекурентно уравнение в $\probref{prob-rec-eq-full-history}$.
 	\begin{center}
 		$\begin{array}{|l}
-			T(n)=T(n-1)+T(n-2)+\dots+T(1)+\theta(n)\\
-			T(n-1)=T(n-2)+T(n-3)+\dots+T(1)+\theta(n-1)
+			T(n)=T(n-1)+T(n-2)+\dots+T(1)+\Theta(1)\\
+			T(n-1)=T(n-2)+T(n-3)+\dots+T(1)+\Theta(1)
 		\end{array}$
 	\end{center}
-	Тогава $T(n)-T(n-1)=T(n-1)+\theta(n)-\theta(n-1)$ или още $T(n)=2T(n-1)+\theta(1)$\footnote{В общия случай получаваме произволна функция (та може дори асимптотично отрицателна).. преценете защо тук знаем, че имаме $\theta(1)$.\label{footnote-recursion-full-history}}. Вече може да го решим чрез метода с характеристично уравнение.
+	Тогава $T(n)-T(n-1)=T(n-1)+\Theta(1)-\Theta(1)$ или още $T(n)=2T(n-1)+\Theta(1)$. Вече може да го решим чрез метода с характеристично уравнение.
 	\begin{itemize}
 		\item (Хомогенна част)\\
 		$x=2\ \mapsto\ \{2\}_M$
 		
 		\item (Нехомогенна част)\\
-		$\theta(1)\ \mapsto\ \{1\}_M$
+		$\Theta(1)\ \mapsto\ \{1\}_M$
 	\end{itemize}
-	Оттук получаваме, че $T(n)=c_11^n+c_22^n=\theta(2^n)$.
+	Оттук получаваме, че $T(n)=c_11^n+c_22^n=\Theta(2^n)$.
 \end{solution}\leavevmode\newline
 
 \begin{problem}
-	Даден е следния алгоритъм:
+	Даден е следният алгоритъм:
 	\begin{pseudocode}
 		\SetKwData{di}{i}
 		\SetKwData{dn}{n}
@@ -1340,24 +1334,24 @@
 			\KwRet{$\ds$}\;
 		}
 	\end{pseudocode}
-	Каква е сложността му по време (спрямо големината на входа $n$)?
+	Каква е сложността му по време (спрямо $n$)?
 \end{problem}
 
 \begin{solution}
-	Имаме $2(n-1)$ на брой рекурсивни извиквания.. това означава, че за всяко едно от тях трябва да добавим отдясно на равенството $T(\text{\emph{подходящ параметър}})$. Останалата \emph{работа} в случая е инициализацията на $s$, инкрементацията на $i$ и актуализацията на $s$, т.е. $\theta(n)$. Тоест рекурентното уравнение е $T(n)=2T(n-1)+2T(n-2)+\dots+2T(1)+\theta(n)$.
+	Имаме $2(n-1)$ на брой рекурсивни извиквания.. това означава, че за всяко едно от тях трябва да добавим отдясно на равенството $T(\text{\emph{подходящ параметър}})$. Останалата \emph{работа} в случая е инициализацията на $s$, инкрементацията на $i$ и актуализацията на $s$, т.е. $\Theta(n)$, което отново може да се погълне от рекурсивните извиквания. Тоест рекурентното уравнение е $T(n)=2T(n-1)+2T(n-2)+\dots+2T(1)+\Theta(1)$.
 	\begin{center}
 		$\begin{array}{|l}
-			T(n)=2T(n-1)+2T(n-2)+\dots+2T(1)+\theta(n)\\
-			T(n-1)=2T(n-2)+2T(n-3)+\dots+2T(1)+\theta(n-1)
+			T(n)=2T(n-1)+2T(n-2)+\dots+2T(1)+\Theta(1)\\
+			T(n-1)=2T(n-2)+2T(n-3)+\dots+2T(1)+\Theta(1)
 		\end{array}$
 	\end{center}
-	Тогава $T(n)-T(n-1)=2T(n-1)+\theta(n)-\theta(n-1)$ или още $T(n)=3T(n-1)+\theta(1)\hyperref[footnote-recursion-full-history]{\footnotemark[\thefootnote]}$. Вече може да го решим чрез метода с характеристично уравнение.
+	Тогава $T(n)-T(n-1)=2T(n-1)+\Theta(1)-\Theta(1)$ или още $T(n)=3T(n-1)+\Theta(1)$. Вече може да го решим чрез метода с характеристично уравнение.
 	\begin{itemize}
 		\item (Хомогенна част)\\
 		$x=3\ \mapsto\ \{3\}_M$
 		
 		\item (Нехомогенна част)\\
-		$\theta(1)\ \mapsto\ \{1\}_M$
+		$\Theta(1)\ \mapsto\ \{1\}_M$
 	\end{itemize}
-	Оттук получаваме, че $T(n)=c_11^n+c_23^n=\theta(3^n)$.
+	Оттук получаваме, че $T(n)=c_11^n+c_23^n=\Theta(3^n)$.
 \end{solution}
