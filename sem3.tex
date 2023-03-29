@@ -16,7 +16,7 @@
 
 \begin{remark*}
 	Употребата на тета-нотацията вляво на $=$ се нарича $\textbf{\emph{анонимна функция}}$
-\end{remark*}\leavevmode\newline
+\end{remark*}
 
 \subsection{Интегрален критерий}
 
@@ -309,7 +309,7 @@
 	Каква е сложността му по време (спрямо $n$)?
 \end{problem}
 \begin{solution}
-	Сложността му по време е $\sum\limits_{i=1}^n\sum\limits_{j=1}^n1=\sum\limits_{i=1}^n n=n\sum\limits_{i=1}^n 1=n.n=\Theta(n^2)$.
+	Сложността му по време е $\sum\limits_{i=1}^n\sum\limits_{j=1}^n1=\sum\limits_{i=1}^n n=n\sum\limits_{i=1}^n 1=n\,n=\Theta(n^2)$.
 \end{solution}\leavevmode\newline
 
 \begin{problem}
@@ -353,7 +353,7 @@
 	Каква е сложността му по време (спрямо $n$)?
 \end{problem}
 \begin{solution}
-	Сложността му по време$\,$е$\,\sum\limits_{i=1}^n\sum\limits_{\substack{j=1\\j=j+i}}^n1=\sum\limits_{i=1}^n\lfloor\frac ni\rfloor\asymp\sum\limits_{i=1}^n\frac ni=n\sum\limits_{i=1}^n\frac1i\asymp nln(n)=\Theta(n.ln(n))$.
+	Сложността му по време$\,$е$\,\sum\limits_{i=1}^n\sum\limits_{\substack{j=1\\j=j+i}}^n1=\sum\limits_{i=1}^n\lfloor\frac ni\rfloor\asymp\sum\limits_{i=1}^n\frac ni=n\sum\limits_{i=1}^n\frac1i\asymp nln(n)=\Theta(n\,ln(n))$.
 \end{solution}\leavevmode\newline
 
 \begin{boxremark}{Сложност спрямо големината на входа}{}
@@ -439,7 +439,7 @@
 Започваме с метод, който ви е добре познат от ДСТР. За разлика от ДСТР, тук не ни интересува точното решение, а само асимптотиката.
 
 \begin{problem}\label{prob-3-1}
-	Каква е асимптотиката на $T(n)=4T(n-2)+n2^n+4.3^n$?
+	Каква е асимптотиката на $T(n)=4T(n-2)+n2^n+4\cdot3^n$?
 \end{problem}
 \begin{solution}
 	\noindent
@@ -450,7 +450,7 @@
 		\item (Нехомогенна част)
 		\begin{itemize}
 			\item $n2^n\ \mapsto\ \{2,2\}_M$
-			\item $4.3^n\ \mapsto\ \{3\}_M$
+			\item $4\cdot3^n\ \mapsto\ \{3\}_M$
 		\end{itemize}
 	\end{itemize}
 	Като обединим всички мултимножества получаваме: $\{-2,2,2,2,3\}_M$. Оттук получаваме, че $T(n)=c_1(-2)^n+c_22^n+c_3n2^n+c_4n^22^n+c_53^n=\Theta(3^n)$.
@@ -499,24 +499,24 @@
 	\begin{itemize}
 		\item $T(n)=O(n^2)$
 		
-		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $O(n^2)=\{f\,|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0$ е изпълнено $0\le f(n)\le c.n^2\}$. Тоест търсим константи $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\forall n\ge n_0\,(0\le T(n)\le c.n^2)$. Както се разбрахме в началото на $\ref{sec-rec-alg}$, сложността на рекурсивните алгоритмите, които ще разглеждаме в текущия курс, изпълняват условието $T(n)\ge0$. Тоест търсим константи $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\forall n\ge n_0\,(T(n)\le c.n^2)$.
+		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $O(n^2)=\{f\in\mathscr{F}^+|\big(\exists c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le f(n)\le cn^2\big)\}$. Тоест търсим константи $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\big(\forall n\ge n_0\big)\big(0\le T(n)\le cn^2\big)$. Както се разбрахме в началото на $\ref{sec-rec-alg}$, сложността на рекурсивните алгоритмите, които ще разглеждаме в текущия курс, изпълняват условието $T(n)\ge0$. Тоест търсим константи $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\big(\forall n\ge n_0\big)\big(T(n)\le cn^2\big)$.
 		
 		Нека $b=\max\Bigl\{\frac{T(1)}{1^2},\frac{T(2)}{2^2},\frac{T(3)}{3^2},\dots,\frac{T(n_{\text{st}}-1)}{({n_{\text{st}}-1)^2}},1$\footnote{Надолу ще установим, защо добавяме тази единица.}$\Bigr\}$. (виж $\remref{rem:rec-base}$)
 		
-		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\forall n\ge n_0\,(T(n)\le c.n^2)$.\\\\
+		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\big(\forall n\ge n_0\big)\big(T(n)\le cn^2\big)$.\\\\
 		
 		\begin{base}
-			Нека $k\in\{1,2,\dots,n_{st}-1\}$. Ще докажем, че $T(k)\le b.k^2$.
+			Нека $k\in\{1,2,\dots,n_{st}-1\}$. Ще докажем, че $T(k)\le bk^2$.
 			
-			От дефиницията на $b=\max\Bigl\{\frac{T(1)}{1^2},\frac{T(2)}{2^2},\frac{T(3)}{3^2},\dots,\frac{T(n_{\text{st}}-1)}{({n_{\text{st}}-1)^2}},1\Bigr\}$ знаем, че $b\ge \frac{T(k)}{k^2}$ откъдето $b.k^2\ge T(k)$ или още $T(k)\le b.k^2$.
+			От дефиницията на $b=\max\Bigl\{\frac{T(1)}{1^2},\frac{T(2)}{2^2},\frac{T(3)}{3^2},\dots,\frac{T(n_{\text{st}}-1)}{({n_{\text{st}}-1)^2}},1\Bigr\}$ знаем, че $b\ge \frac{T(k)}{k^2}$ откъдето $bk^2\ge T(k)$ или още $T(k)\le bk^2$.
 		\end{base}
 	
 		\begin{indhypothesis}
-			Нека допуснем, че е изпълнено $\forall m<n\,(T(m)\le b.m^2)$.
+			Нека допуснем, че е изпълнено $\big(\forall m<n\big)\big(T(m)\le bm^2\big)$.
 		\end{indhypothesis}
 	
 		\begin{indstep}
-			Ще докажем, че е изпълнено за $n$, тоест че $T(n)\le b.n^2$.
+			Ще докажем, че е изпълнено за $n$, тоест че $T(n)\le bn^2$.
 			
 			\begin{equation*}
 				T(n)\overset{\text{def}}{=}T(n-1)+n\overset{\text{ИХ}}{\le}b(n-1)^2+n=bn^2-2bn+b+n\overset{?}{\le}bn^2
@@ -533,29 +533,29 @@
 			Остана да видим кога е изпълнено $1-2b\le-b$. Очевидно е изпълнено когато $b\ge1$. Това сме си го подсигурили от дефиницията на $b=\max\{\dots,1\}\Rightarrow b\ge1$.
 		\end{indstep}
 		
-		Тоест доказахме, че за $c=b\land n_0=1$ е изпълнено $\forall n\ge n_0\,(0\le T(n)\le c.n^2)$. Казано с други думи $T(n)=O(n^2)$.
+		Тоест доказахме, че за $c=b\land n_0=1$ е изпълнено $\big(\forall n\ge n_0\big)\big(0\le T(n)\le cn^2\big)$. Казано с други думи $T(n)=O(n^2)$.
 		
 		\vspace{0.35cm}
 		\item $T(n)=\Omega(n^2)$
 		
-		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $\Omega(n^2)=\{f\,|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0$ е изпълнено $0\le c.n^2\le f(n)\}$. Тоест търсим константи $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\forall n\ge n_0\,(c.n^2\le T(n))$.
+		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $\Omega(n^2)=\{f\in\mathscr{F}^+|\big(\exists c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le cn^2\le f(n)\big)\}$. Тоест търсим константи $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\big(\forall n\ge n_0\big)\big(cn^2\le T(n)\big)$.
 		
 		Нека $b=\min\Bigl\{\frac{T(1)}{1^2},\frac{T(2)}{2^2},\frac{T(3)}{3^2},\dots,\frac{T(n_{\text{st}}-1)}{({n_{\text{st}}-1)^2}},\frac12\Bigr\}$. (виж $\remref{rem:rec-base}$)
 		
-		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\forall n\ge n_0\,(c.n^2\le T(n))$.
+		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\big(\forall n\ge n_0\big)\big(cn^2\le T(n)\big)$.
 		
 		\begin{base}
-			Нека $k\in\{1,2,\dots,n_{st}-1\}$. Ще докажем, че $b.k^2\le T(k)$.
+			Нека $k\in\{1,2,\dots,n_{st}-1\}$. Ще докажем, че $bk^2\le T(k)$.
 			
-			От дефиницията на $b=\min\Bigl\{\frac{T(1)}{1^2},\frac{T(2)}{2^2},\frac{T(3)}{3^2},\dots,\frac{T(n_{\text{st}}-1)}{({n_{\text{st}}-1)^2}},\frac12\Bigr\}$ знаем, че $b\le \frac{T(k)}{k^2}$ откъдето $b.k^2\le T(k)$.
+			От дефиницията на $b=\min\Bigl\{\frac{T(1)}{1^2},\frac{T(2)}{2^2},\frac{T(3)}{3^2},\dots,\frac{T(n_{\text{st}}-1)}{({n_{\text{st}}-1)^2}},\frac12\Bigr\}$ знаем, че $b\le \frac{T(k)}{k^2}$ откъдето $bk^2\le T(k)$.
 		\end{base}
 		
 		\begin{indhypothesis}
-			Нека допуснем, че е изпълнено $\forall m<n\,(b.m^2\le T(m))$.
+			Нека допуснем, че е изпълнено $\big(\forall m<n\big)\big(bm^2\le T(m)\big)$.
 		\end{indhypothesis}
 	
 	\begin{indstep}
-		Ще докажем, че е изпълнено за $n$, тоест че $b.n^2\le T(n)$.
+		Ще докажем, че е изпълнено за $n$, тоест че $bn^2\le T(n)$.
 		
 		\begin{equation*}
 			T(n)\overset{\text{def}}{=}T(n-1)+n\overset{\text{ИХ}}{\ge}b(n-1)^2+n=bn^2-2bn+b+n\overset{?}{\ge}bn^2
@@ -572,7 +572,7 @@
 		Остана да видим кога е изпълнено $1-2b\ge0$. Очевидно е изпълнено когато $b\le\frac12$.\qquad Това сме си го подсигурили от дефиницията на $b=\min\{\dots,\frac12\}\Rightarrow b\le\frac12$.
 	\end{indstep}
 
-	Тоест доказахме, че за $c=b\land n_0=1$ е изпълнено $\forall n\ge n_0\,(0\le c.n^2\le T(n))$. Казано с други думи $T(n)=\Omega(n^2)$.
+	Тоест доказахме, че за $c=b\land n_0=1$ е изпълнено $\big(\forall n\ge n_0\big)\big(0\le cn^2\le T(n)\big)$. Казано с други думи $T(n)=\Omega(n^2)$.
 		
 	\end{itemize}
 \end{solution}
@@ -590,7 +590,7 @@
 		
 		\item $T(n)=O(2^n)\mapsto\max\Bigl\{\frac{T(0)}{2^0},\frac{T(1)}{2^1},\frac{T(2)}{2^2},\dots,\frac{T(n_{\text{st}}-1)}{2^{(n_{st}-1)}},\textcolor{red}?\Bigr\}$
 		
-		\item $T(n)=\Omega(n^3-4n^2+3n)\mapsto\min\Bigl\{\frac{T(4)}{4^3-4.4^2+3.4},\frac{T(5)}{5^3-4.5^2+3.5},\dots,\frac{T(n_{\text{st}}-1)}{(n_{st}-1)^3-4(n_{st}-1)^2+3(n_{st}-1)},\textcolor{red}?\Bigr\}$
+		\item $T(n)=\Omega(n^3-4n^2+3n)\mapsto\min\Bigl\{\frac{T(4)}{4^3-4\cdot4^2+3\cdot4},\frac{T(5)}{5^3-4\cdot5^2+3\cdot5},\dots,\frac{T(n_{\text{st}}-1)}{(n_{st}-1)^3-4(n_{st}-1)^2+3(n_{st}-1)},\textcolor{red}?\Bigr\}$
 	\end{itemize}
 	Важно е да обърнем внимание, че при образуването на базата има разлика между $\Omega(n^3-4n^2+3n)$, $\Omega(n^3)$ и $\Omega(5n^3)$. Пример защо това е важно в $O$-посоката на $\probref{prob-ind-str}$.
 \end{boxremark}\leavevmode\newline
@@ -611,63 +611,63 @@
 	\begin{itemize}
 		\item $T(n)=O(log(n))$
 		
-		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $O(log(n))=\{f\,|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,(0\le f(n)\le c.log(n))\}$. Тоест търсим $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\forall n\ge n_0\,(T(n)\le c.log(n))$.
+		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ $O(log(n))\!=\!\{f\in\mathscr{F}^+|\big(\exists c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le f(n)\le c\,log(n)\big)\}$. Тоест търсим $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\big(\forall n\ge n_0\big)\big(T(n)\le c\,log(n)\big)$.
 		
 		Нека $b=\max\Bigl\{\frac{T(2)}{log(2)},\frac{T(3)}{log(3)},\frac{T(4)}{log(4)},\dots,\frac{T(n_{\text{st}}-1)}{log({n_{\text{st}}-1)}},1\Bigr\}$.% (виж $\remref{rem:rec-base}$)
 		
-		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\forall n\ge n_0\,(T(n)\le c.log(n))$.
+		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\big(\forall n\ge n_0\big)\big(T(n)\le c\,log(n)\big)$.
 		
 		\begin{base}
-			Нека $k\in\{2,3,\dots,n_{st}-1\}$. Ще докажем, че $T(k)\le b.log(k)$.
+			Нека $k\in\{2,3,\dots,n_{st}-1\}$. Ще докажем, че $T(k)\le b\,log(k)$.
 			
-			От дефиницията на $b=\max\Bigl\{\frac{T(2)}{log(2)},\frac{T(3)}{log(3)},\frac{T(4)}{log(4)},\dots,\frac{T(n_{\text{st}}-1)}{log({n_{\text{st}}-1)}},1\Bigr\}$ знаем, че $b\ge \frac{T(k)}{log(k)}$ откъдето $b.log(k)\ge T(k)$ или още $T(k)\le b.log(k)$.
+			От дефиницията на $b=\max\Bigl\{\frac{T(2)}{log(2)},\frac{T(3)}{log(3)},\frac{T(4)}{log(4)},\dots,\frac{T(n_{\text{st}}-1)}{log({n_{\text{st}}-1)}},1\Bigr\}$ знаем, че $b\ge \frac{T(k)}{log(k)}$ откъдето $b\,log(k)\ge T(k)$ или още $T(k)\le b\,log(k)$.
 		\end{base}
 	
 		\begin{indhypothesis}
-			Нека допуснем, че е изпълнено $\forall m<n\,(T(m)\le b.log(m))$.
+			Нека допуснем, че е изпълнено $\big(\forall m<n\big)\big(T(m)\le b\,log(m)\big)$.
 		\end{indhypothesis}
 	
 		\begin{indstep}
-			Ще докажем, че е изпълнено за $n$, тоест че $T(n)\le b.log(n)$.
+			Ще докажем, че е изпълнено за $n$, тоест че $T(n)\le b\,log(n)$.
 			
 			\begin{equation*}
-				T(n)\overset{\text{def}}{=}T(n-1)+\frac1n\overset{\text{ИХ}}{\le}b.log(n-1)+\frac1n\overset{?}{\le}b.log(n)
+				T(n)\overset{\text{def}}{=}T(n-1)+\frac1n\overset{\text{ИХ}}{\le}b\,log(n-1)+\frac1n\overset{?}{\le}b\,log(n)
 			\end{equation*}
 			\begin{equation*}
-				b.log(n-1)+\frac1n\overset{?}{\le}b.log(n)
+				b\,log(n-1)+\frac1n\overset{?}{\le}b\,log(n)
 			\end{equation*}
 			Тъй като $n\ge n_0\in\mathbb{N}_0$, то може да умножим по $n$ без да се обърне знака на неравенството.
 			\begin{equation*}
-				b.n.log(n-1)+1\overset{?}{\le}b.n.log(n)
+				bn\,log(n-1)+1\overset{?}{\le}bn\,log(n)
 			\end{equation*}
 			\begin{equation*}
-				1\overset{?}{\le}b.n.log(n)-b.n.log(n-1)
+				1\overset{?}{\le}bn\,log(n)-bn\,log(n-1)
 			\end{equation*}
 			\begin{equation*}
-				1\overset{?}{\le}b.n.log\bigg(\frac{n}{n-1}\bigg)
+				1\overset{?}{\le}bn\,log\bigg(\frac{n}{n-1}\bigg)
 			\end{equation*}
 			Антилогаритмуваме двете страни (със основа 2)
 			\begin{equation*}
-				2\overset{?}{\le}\bigg(\frac{n}{n-1}\bigg)^{b.n}
+				2\overset{?}{\le}\bigg(\frac{n}{n-1}\bigg)^{bn}
 			\end{equation*}
 			От дефиницията на $b=\max\{\dots,1\}\Rightarrow b\ge1$. Ясно е, че $\forall n\ge1\,\big(\frac{n}{n-1}\ge1\big)$. Тоест имаме:
 			\begin{equation*}
-				2\overset{?}{\le}\bigg(\frac{n}{n-1}\bigg)^n\le\bigg(\frac{n}{n-1}\bigg)^{b.n}
+				2\overset{?}{\le}\bigg(\frac{n}{n-1}\bigg)^n\le\bigg(\frac{n}{n-1}\bigg)^{bn}
 			\end{equation*}
 			\begin{equation*}
 				2\overset{?}{\le}\bigg(\frac{n}{n-1}\bigg)^{n-1}\le\bigg(\frac{n}{n-1}\bigg)^n
 			\end{equation*}
 			От анализа знаем, че $\lim\limits_{n\to\infty}\big(\frac{n}{n-1}\big)^{n-1}=e$ и че функцията $\big(\frac{n}{n-1}\big)^{n-1}$ е строго растяща. Тогава директно проверяваме, че $n_0=2$ ни върши работа% Тоест $\forall n\ge n_0\,\big(2\le\big(\frac{n}{n-1}\big)^{n-1}\big)$. 
 			\begin{equation*}
-				\forall n\ge n_0\,\Bigg(2\le\bigg(\frac{n}{n-1}\bigg)^{n-1}\le\bigg(\frac{n}{n-1}\bigg)^{b.n}\Bigg)
+				\big(\forall n\ge n_0\big)\Bigg(2\le\bigg(\frac{n}{n-1}\bigg)^{n-1}\le\bigg(\frac{n}{n-1}\bigg)^{bn}\Bigg)
 			\end{equation*}
 			или още
 			\begin{equation*}
-				\forall n\ge n_0\,\Bigg(2\le\bigg(\frac{n}{n-1}\bigg)^{b.n}\Bigg)
+				\big(\forall n\ge n_0\big)\Bigg(2\le\bigg(\frac{n}{n-1}\bigg)^{bn}\Bigg)
 			\end{equation*}
 			Тъй като логаритмуването е монотонно растяща функция, то можем да запазим неравенството след логаритмуване на двете страни
 			\begin{equation*}
-				\forall n\ge n_0\,\Bigg(1\le b.n.log\bigg(\frac{n}{n-1}\bigg)\Bigg)
+				\big(\forall n\ge n_0\big)\Bigg(1\le bn\,log\bigg(\frac{n}{n-1}\bigg)\Bigg)
 			\end{equation*}
 			което трябваше да докажем.
 		\end{indstep}
@@ -675,35 +675,35 @@
 		\vspace{0.35cm}
 		\item $T(n)=\Omega(log(n))$
 		
-		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $\Omega(log(n))=\{f\,|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,(0\le c.log(n))\le f(n)\}$. Тоест търсим $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\forall n\ge n_0\,(c.log(n)\le T(n))$.
+		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ $\Omega(log(n))\!=\!\{f\in\mathscr{F}^+|\big(\exists c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le c\,log(n)\big)\le f(n)\}$. Тоест търсим $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\big(\forall n\ge n_0\big)\big(c\,log(n)\le T(n)\big)$.
 		
 		Нека $b=\min\Bigl\{\frac{T(2)}{log(2)},\frac{T(3)}{log(3)},\frac{T(4)}{log(4)},\dots,\frac{T(n_{\text{st}}-1)}{log({n_{\text{st}}-1)}},\frac12\Bigr\}$.% (виж $\remref{rem:rec-base}$)
 		
-		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\forall n\ge n_0\,(c.log(n)\le T(n))$.
+		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\big(\forall n\ge n_0\big)\big(c\,log(n)\le T(n)\big)$.
 		
 		\begin{base}
-			Нека $k\in\{2,3,\dots,n_{st}-1\}$. Ще докажем, че $b.log(k)\le T(k)$.
+			Нека $k\in\{2,3,\dots,n_{st}-1\}$. Ще докажем, че $b\,log(k)\le T(k)$.
 			
-			От дефиницията на $b=\min\Bigl\{\frac{T(2)}{log(2)},\frac{T(3)}{log(3)},\frac{T(4)}{log(4)},\dots,\frac{T(n_{\text{st}}-1)}{log({n_{\text{st}}-1)}},\frac12\Bigr\}$ знаем, че $b\le \frac{T(k)}{log(k)}$ откъдето $b.log(k)\le T(k)$.
+			От дефиницията на $b=\min\Bigl\{\frac{T(2)}{log(2)},\frac{T(3)}{log(3)},\frac{T(4)}{log(4)},\dots,\frac{T(n_{\text{st}}-1)}{log({n_{\text{st}}-1)}},\frac12\Bigr\}$ знаем, че $b\le \frac{T(k)}{log(k)}$ откъдето $b\,log(k)\le T(k)$.
 		\end{base}
 		
 		\begin{indhypothesis}
-			Нека допуснем, че е изпълнено $\forall m<n\,(b.log(m)\le T(m))$.
+			Нека допуснем, че е изпълнено $\big(\forall m<n\big)\big(b\,log(m)\le T(m)\big)$.
 		\end{indhypothesis}
 		
 		\begin{indstep}
-			Ще докажем, че е изпълнено за $n$, тоест че $b.log(n)\le T(n)$.
+			Ще докажем, че е изпълнено за $n$, тоест че $b\,log(n)\le T(n)$.
 			
 			\begin{equation*}
-				T(n)\overset{\text{def}}{=}T(n-1)+\frac1n\overset{\text{ИХ}}{\ge}b.log(n-1)+\frac1n\overset{?}{\ge}b.log(n)
+				T(n)\overset{\text{def}}{=}T(n-1)+\frac1n\overset{\text{ИХ}}{\ge}b\,log(n-1)+\frac1n\overset{?}{\ge}b\,log(n)
 			\end{equation*}
 			Аналогично на $O$-посоката стигаме до
 			\begin{equation*}
-				2\overset{?}{\ge}\bigg(\frac{n}{n-1}\bigg)^{b.n}
+				2\overset{?}{\ge}\bigg(\frac{n}{n-1}\bigg)^{bn}
 			\end{equation*}
 			От дефиницията на $b=\min\{\dots,\frac12\}\Rightarrow b\le\frac12$. Ясно е, че $\forall n\ge1\,\big(\frac{n}{n-1}\ge1\big)$. Тоест имаме:
 			\begin{equation*}
-				2\overset{?}{\ge}\bigg(\frac{n}{n-1}\bigg)^{n/2}\ge\bigg(\frac{n}{n-1}\bigg)^{b.n}
+				2\overset{?}{\ge}\bigg(\frac{n}{n-1}\bigg)^{n/2}\ge\bigg(\frac{n}{n-1}\bigg)^{bn}
 			\end{equation*}
 			Вдигаме на квадрат двете страни
 			\begin{equation*}
@@ -721,18 +721,18 @@
 			\end{equation*}
 			Директно проверяваме, че $n_0=4$ ни върши работа
 			\begin{equation*}
-				\forall n\ge n_0\,(n(4-e)\ge4)
+				\big(\forall n\ge n_0\big)\big(n(4-e)\ge4\big)
 			\end{equation*}
 			\begin{equation*}
-				\forall n\ge n_0\,\Bigg(4\ge\bigg(\frac{n}{n-1}\bigg)e\ge\bigg(\frac{n}{n-1}\bigg)^n\Bigg)
+				\big(\forall n\ge n_0\big)\Bigg(4\ge\bigg(\frac{n}{n-1}\bigg)e\ge\bigg(\frac{n}{n-1}\bigg)^n\Bigg)
 			\end{equation*}
 			Тъй като коренуването е монотонно растяща функция, то можем да запазим неравенството след коренуване на двете страни
 			\begin{equation*}
-				\forall n\ge n_0\,\Bigg(2\ge\bigg(\frac{n}{n-1}\bigg)^{n/2}\ge\bigg(\frac{n}{n-1}\bigg)^{b.n}\Bigg)
+				\big(\forall n\ge n_0\big)\Bigg(2\ge\bigg(\frac{n}{n-1}\bigg)^{n/2}\ge\bigg(\frac{n}{n-1}\bigg)^{bn}\Bigg)
 			\end{equation*}
 			Тъй като логаритмуването е монотонно растяща функция, то можем да запазим неравенството след логаритмуване на двете страни
 			\begin{equation*}
-				\forall n\ge n_0\,\Bigg(1\ge b.n.log\bigg(\frac{n}{n-1}\bigg)\Bigg)
+				\big(\forall n\ge n_0\big)\Bigg(1\ge bn\,log\bigg(\frac{n}{n-1}\bigg)\Bigg)
 			\end{equation*}
 			което трябваше да докажем.
 		\end{indstep}
@@ -783,11 +783,11 @@
 	\begin{itemize}
 		\item $T(n)=O(2^n)$
 	
-		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $O(2^n)=\{f\,|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,(0\le f(n)\le c2^n)\}$. Тоест търсим константи $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\forall n\ge n_0\,(T(n)\le c2^n)$.
+		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $O(2^n)=\{f\in\mathscr{F}^+|\big(\exists c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le f(n)\le c2^n\big)\}$. Тоест търсим константи $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\big(\forall n\ge n_0\big)\big(T(n)\le c2^n\big)$.
 		
 		Нека $b=\max\Bigl\{\frac{T(0)}{2^0},\frac{T(1)}{2^1},\frac{T(2)}{2^2},\dots,\frac{T(n_{\text{st}}-1)}{2^{n_{\text{st}}-1}}\Bigr\}$.
 		
-		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\forall n\ge n_0\,(T(n)\le c2^n)$.
+		Ще (се опитаме да) докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\big(\forall n\ge n_0\big)\big(T(n)\le c2^n\big)$.
 		
 		\begin{base}
 			Нека $k\in\{0,1,\dots,n_{st}-1\}$. Ще докажем, че $T(k)\le b2^k$.
@@ -796,7 +796,7 @@
 		\end{base}
 		
 		\begin{indhypothesis}
-			Нека допуснем, че е изпълнено $\forall m<n\,(T(m)\le b2^m)$.
+			Нека допуснем, че е изпълнено $\big(\forall m<n\big)\big(T(m)\le b2^m\big)$.
 		\end{indhypothesis}
 	
 		\begin{indstep}
@@ -811,17 +811,17 @@
 			\begin{equation*}
 				bn+n\overset{\text?}{\le}0
 			\end{equation*}
-			Очевидно не е изпълнено за кое да е $b>0$ и $n>0$. Не стана.. ще трябва да засилим индуктивната хипотеза.
+			Очевидно не е изпълнено за никои $b>0$ и $n>0$. Не стана.. ще трябва да засилим индуктивната хипотеза.
 		\end{indstep}
 
 		\vspace{0.35cm}
 		\item $T(n)=O(2^n-\alpha^n),\,\alpha\in(1,2)$
 		
-		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $O(2^n-\alpha^n)=\{f\,|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,(0\le f(n)\le c(2^n-\alpha^n))\}$. Тоест търсим константи $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\forall n\ge n_0\,(T(n)\le c(2^n-\alpha^n))$.
+		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ $O(2^n-\alpha^n)\!=\!\{f\!\in\!\mathscr{F}^+|\big(\exists c\!>\!0\big)\big(\exists n_0\!\in\!\mathbb{N}_0\big)\big(\forall n\!\ge\! n_0\big)\big(0\le f(n)\le c(2^n-\alpha^n)\big)\}$. Тоест търсим константи $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\big(\forall n\ge n_0\big)\big(T(n)\le c(2^n-\alpha^n)\big)$.
 		
 		Нека $b=\max\Bigl\{\frac{T(1)}{2^1-\alpha^1},\frac{T(2)}{2^2-\alpha^2},\dots,\frac{T(n_{\text{st}}-1)}{2^{n_{\text{st}}-1}-\alpha^{n_{\text{st}}-1}},1\Bigr\}$. (при нула знаменателя е $2^0-\alpha^0=0$)
 		
-		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\forall n\ge n_0\,(T(n)\le c(2^n-\alpha^n))$.
+		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\big(\forall n\ge n_0\big)\big(T(n)\le c(2^n-\alpha^n)\big)$.
 		
 		\begin{base}
 			Нека $k\in\{1,2,\dots,n_{st}-1\}$. Ще докажем, че $T(k)\le b(2^k-\alpha^k)$.
@@ -830,7 +830,7 @@
 		\end{base}
 		
 		\begin{indhypothesis}
-			Нека допуснем, че е изпълнено $\forall m<n\,(T(m)\le b(2^m-\alpha^m))$.
+			Нека допуснем, че е изпълнено $\big(\forall m<n\big)\big(T(m)\le b(2^m-\alpha^m)\big)$.
 		\end{indhypothesis}
 	
 		\begin{indstep}
@@ -864,19 +864,19 @@
 			\begin{equation*}
 				(\sqrt2-2)(\sqrt2)^{n-1}+n-\sqrt n+n\overset{\text?}{\le}0
 			\end{equation*}
-			Ясно е, че $\forall n>1\,(n\ge\sqrt n)$
+			Ясно е, че $\big(\forall n>1\big)\big(n-\sqrt n\le n\big)$
 			\begin{equation*}
-				(\sqrt2-2)(\sqrt2)^{n-1}+n-\sqrt n+n\le(\sqrt2-2)(\sqrt2)^{n-1}+n\overset{\text?}{\le}0
+				(\sqrt2-2)(\sqrt2)^{n-1}+n-\sqrt n+n\le(\sqrt2-2)(\sqrt2)^{n-1}+2n\overset{\text?}{\le}0
 			\end{equation*}
 			\begin{equation*}
-				(\sqrt2-2)(\sqrt2)^{n-1}+n\overset{\text?}{\le}0
+				(\sqrt2-2)(\sqrt2)^{n-1}+2n\overset{\text?}{\le}0
 			\end{equation*}
-			Вече е достатъчно просто да забележим, че $n_0=9$ ни върши работа
+			Вече е достатъчно просто да забележим, че $n_0=12$ ни върши работа
 			\begin{equation*}
-				\forall n\ge n_0\,\big((\sqrt2-2)(\sqrt2)^{n-1}+n\le0\big)
+				\big(\forall n\ge n_0\big)\big((\sqrt2-2)(\sqrt2)^{n-1}+2n\le0\big)
 			\end{equation*}
 			\begin{equation*}
-				\forall n\ge n_0\,\big(b(\sqrt2-2)(\sqrt2)^{n-1}+bn-b\sqrt n+n\le0\big)
+				\big(\forall n\ge n_0\big)\big(b(\sqrt2-2)(\sqrt2)^{n-1}+bn-b\sqrt n+n\le0\big)
 			\end{equation*}
 			което трябваше да докажем.
 		\end{indstep}
@@ -885,11 +885,11 @@
 		\vspace{0.35cm}
 		\item $T(n)=\Omega(2^n)$
 		
-		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $\Omega(2^n)=\{f\,|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,(0\le c2^n\le f(n))\}$. Тоест търсим константи $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\forall n\ge n_0\,(c2^n\le T(n))$.
+		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $\Omega(2^n)=\{f\in\mathscr{F}^+|\big(\exists c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le c2^n\le f(n)\big)\}$. Тоест търсим константи $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\big(\forall n\ge n_0\big)\big(c2^n\le T(n)\big)$.
 		
 		Нека $b=\max\Bigl\{\frac{T(0)}{2^0},\frac{T(1)}{2^1},\frac{T(2)}{2^2},\dots,\frac{T(n_{\text{st}}-1)}{2^{n_{\text{st}}-1}}\Bigr\}$.
 		
-		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\forall n\ge n_0\,(c2^n\le T(n))$.
+		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\big(\forall n\ge n_0\big)\big(c2^n\le T(n)\big)$.
 		
 		\begin{base}
 			Нека $k\in\{0,1,\dots,n_{st}-1\}$. Ще докажем, че $b2^k\le T(k)$.
@@ -898,7 +898,7 @@
 		\end{base}
 		
 		\begin{indhypothesis}
-			Нека допуснем, че е изпълнено $\forall m<n\,(b2^m\le T(m))$.
+			Нека допуснем, че е изпълнено $\big(\forall m<n\big)\big(b2^m\le T(m)\big)$.
 		\end{indhypothesis}
 		
 		\begin{indstep}
@@ -972,7 +972,7 @@
 			\Theta(n^k)       &,\big(\exists\varepsilon\!>\!0\big)\big(f(n)=O(n^{k-\varepsilon})\big)\\
 			\Theta(n^klog(n)) &,f(n)=\Theta(n^k)\\
 %			\vspace{-0.75cm}
-			\Theta(f(n))      &,\big(\exists\varepsilon\!>\!0\big)\big(f(n)=\Omega(n^{k-\varepsilon})\big)\,\land\\
+			\Theta(f(n))      &,\big(\exists\varepsilon\!>\!0\big)\big(f(n)=\Omega(n^{k+\varepsilon})\big)\,\land\\
 			                  &\ \ \underbrace{\big(\exists c \!\in\!(0,1)\big)\big(\exists n_0\!\in\!\mathbb{N}_0\big)\big(\forall n \!\ge\! n_0\big)\big(af(\frac nb)\le cf(n)\big)}_\text{условие за регулярност}\\
 			\emph{не знаем}   &,\text{иначе}
 		\end{cases}
@@ -1044,12 +1044,12 @@
 			k=log_b(a)=log_8(2)=\frac13
 		\end{array}$
 	\end{center}
-	Нека $\varepsilon=\frac16$. Тогава имаме $f(n)=n=\Omega(n^{\frac13+\frac16})=\Omega(\sqrt n)$. Остана да проверим условието за регулятност: $\exists c\in(0,1)\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,\big(af(\frac nb)\le cf(n)\big)$. Тоест търсим $c\in(0,1)$ и $n_0\in\mathbb{N}_0$:
+	Нека $\varepsilon=\frac16$. Тогава имаме $f(n)=n=\Omega(n^{\frac13+\frac16})=\Omega(\sqrt n)$. Остана да проверим условието за регулятност: $\big(\exists c\!\in\!(0,1)\big)\big(\exists n_0\!\in\!\mathbb{N}_0\big)\big(\forall n\!\ge\! n_0\big)\big(af(\frac nb)\!\le\! cf(n)\big)$. Тоест търсим $c\!\in\!(0,1)$ и $n_0\!\in\!\mathbb{N}_0$:
 	\begin{equation*}
-		\forall n\ge n_0\,\bigg(2f\Big(\frac n8\Big)\le cf(n)\bigg)
+		\big(\forall n\ge n_0\big)\bigg(2f\Big(\frac n8\Big)\le cf(n)\bigg)
 	\end{equation*}
 	\begin{equation*}
-		\forall n\ge n_0\,\bigg(2\frac n8\le cn\bigg)
+		\big(\forall n\ge n_0\big)\bigg(2\frac n8\le cn\bigg)
 	\end{equation*}
 	Ясно е, че $c=\frac14$ и $n_0=0$ ни вършат работа. Тоест от MT\,3 имаме, че $T(n)=\Theta(f(n))=\Theta(n)$.
 \end{solution}\leavevmode\newline
@@ -1068,12 +1068,12 @@
 			k=log_b(a)=log_2(4)=2
 		\end{array}$
 	\end{center}
-	Нека $\varepsilon=\frac1{10}$. Тогава имаме $f(n)=n^{2,5}=\Omega(n^{2+0,1})=\Omega(n^{2,1})$. Остана да проверим условието за регулятност: $\exists c\in(0,1)\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,\big(af(\frac nb)\le cf(n)\big)$. Тоест търсим $c\in(0,1)$ и $n_0\in\mathbb{N}_0$:
+	Нека $\varepsilon=\frac1{10}$. Тогава имаме $f(n)\!=\!n^{2,5}\!=\!\Omega(n^{2+0,1})\!=\!\Omega(n^{2,1})$. Остана да проверим условието за регулятност: $\big(\exists c\!\in\!(0,1)\big)\big(\exists n_0\!\in\!\mathbb{N}_0\big)\big(\forall n\!\ge\! n_0\big)\big(af(\frac nb)\!\le\! cf(n)\big)$. Тоест търсим $c\!\in\!(0,1)$ и $n_0\!\in\!\mathbb{N}_0$:
 	\begin{equation*}
-		\forall n\ge n_0\,\bigg(4f\Big(\frac n2\Big)\le cf(n)\bigg)
+		\big(\forall n\ge n_0\big)\bigg(4f\Big(\frac n2\Big)\le cf(n)\bigg)
 	\end{equation*}
 	\begin{equation*}
-		\forall n\ge n_0\,\bigg(4\frac {n^2\sqrt n}{4\sqrt2}\le cn^2\sqrt n\bigg)
+		\big(\forall n\ge n_0\big)\bigg(4\frac {n^2\sqrt n}{4\sqrt2}\le cn^2\sqrt n\bigg)
 	\end{equation*}
 	Ясно е, че $c=\frac1{\sqrt2}$ и $n_0=0$ ни вършат работа. Тоест от MT\,3 имаме, че $T(n)=\Theta(n^2\sqrt n)$.
 \end{solution}\leavevmode\newline
@@ -1086,10 +1086,10 @@
 	\begin{equation*}
 		T(n)=\!\begin{cases}
 			\Theta(n^k)                  &,\big(\exists\varepsilon\!>\!0\big)\big(f(n)=O(n^{k-\varepsilon})\big)\\
-			\Theta(n^k)                  &,\big(f(n)=\Theta(n^klog^{\alpha}(n))\big)\land\big(\alpha<-1\big)\\
-			\Theta(n^klog^{(2)}(n))      &,\big(f(n)=\Theta(n^klog^{\alpha}(n))\big)\land\big(\alpha=-1\big)\\
-			\Theta(n^klog^{\alpha+1}(n)) &,\big(f(n)=\Theta(n^klog^{\alpha}(n))\big)\land\big(\alpha>-1\big)\\
-			\Theta(f(n))                 &,\big(\exists\varepsilon\!>\!0\big)\big(f(n)=\Omega(n^{k-\varepsilon})\big)\land\\
+			\Theta(n^k)                  &,\big(\exists\alpha<-1\big)\big(f(n)=\Theta(n^klog^{\alpha}(n))\big)\land\\
+			\Theta(n^klog^{(2)}(n))      &,\big(\exists\alpha=-1\big)\big(f(n)=\Theta(n^klog^{\alpha}(n))\big)\land\\
+			\Theta(n^klog^{\alpha+1}(n)) &,\big(\exists\alpha>-1\big)\big(f(n)=\Theta(n^klog^{\alpha}(n))\big)\land\\
+			\Theta(f(n))                 &,\big(\exists\varepsilon\!>\!0\big)\big(f(n)=\Omega(n^{k+\varepsilon})\big)\land\\
 			                             &\ \ \underbrace{\big(\exists c \!\in\!(0,1)\big)\big(\exists n_0\!\in\!\mathbb{N}_0\big)\big(\forall n\!\ge\!n_0\big)\big(af(\frac nb)\le cf(n)\big)}_\text{условие за регулярност}\\
 			\emph{не знаем}              &\!\!\!\!\!,\text{иначе}
 		\end{cases}
@@ -1174,67 +1174,76 @@
 	\begin{itemize}
 		\item $T(n)=O(n\,log(n))$
 		
-		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ имаме $O(n\,log(n))=\{f\,|\,\exists c>0\,\exists n_0\in\mathbb{N}_0\,\forall n\ge n_0\,(0\le f(n)\le c.n\,log(n))\}$. Тоест търсим $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\forall n\ge n_0\,(T(n)\le n\,log(n))$.
+		По $\hyperref[bdef-asymp-classes]{\text{дефиниция}}$ $O(n\,log(n))\!=\!\{f\in\mathscr{F}^+|\big(\exists c\!>\!0\big)\big(\exists n_0\!\in\!\mathbb{N}_0\big)\big(\forall n\!\ge\! n_0\big)\big(0\!\le\! f(n)\!\le\! cn\,log(n)\big)\}$. Тоест търсим $c>0$ и $n_0\in\mathbb{N}_0$ такива, че $\big(\forall n\ge n_0\big)\big(T(n)\le n\,log(n)\big)$.
 		
 		Нека $b=\max\Bigl\{\frac{T(2)}{2log(2)},\frac{T(3)}{3log(3)},\dots,\frac{T(n_{\text{st}}-1)}{(n_{\text{st}}-1)log(n_{\text{st}}-1)},1\Bigr\}$. (виж $\remref{rem:rec-base}$)
 		
-		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\forall n\ge n_0\,(T(n)\le n\,log(n))$.
+		Ще докажем с индукция по $n$, че за $c=b$ и някое $n_0$ (което ще установим по-надолу) е изпълнено $\big(\forall n\ge n_0\big)\big(T(n)\le n\,log(n)\big)$.
 		
 		\begin{base}
-			Нека $k\in\{2,3,\dots,n_{st}-1\}$. Ще докажем, че $T(k)\le b.k.log(k)$.
+			Нека $k\in\{2,3,\dots,n_{st}-1\}$. Ще докажем, че $T(k)\le b\,k\,log(k)$.
 			
-			От дефиницията на $b=\max\Bigl\{\frac{T(2)}{2log(2)},\frac{T(3)}{3log(3)},\dots,\frac{T(n_{\text{st}}-1)}{(n_{\text{st}}-1)log(n_{\text{st}}-1)},1\Bigr\}$ знаем, че $b\ge \frac{T(k)}{k.log(k)}$ откъдето $b.k.log(k)\ge T(k)$ или още $T(k)\le b.k.log(k)$.
+			От дефиницията на $b=\max\Bigl\{\frac{T(2)}{2log(2)},\frac{T(3)}{3log(3)},\dots,\frac{T(n_{\text{st}}-1)}{(n_{\text{st}}-1)log(n_{\text{st}}-1)},1\Bigr\}$ знаем, че $b\ge \frac{T(k)}{k\,log(k)}$ откъдето $b\,k\,log(k)\ge T(k)$ или още $T(k)\le b\,k\,log(k)$.
 		\end{base}
 		
 		\begin{indhypothesis}
-			Нека допуснем, че е изпълнено $\forall m<n\,(T(m)\le b.m.log(m))$.
+			Нека допуснем, че е изпълнено $\big(\forall m<n\big)\big(T(m)\le b\,m\,log(m)\big)$.
 		\end{indhypothesis}
 		
 		\begin{indstep}
-			Ще докажем, че е изпълнено за $n$, тоест че $T(n)\le b.n.log(n)$.
+			Ще докажем, че е изпълнено за $n$, тоест че $T(n)\le bn\,log(n)$.
 			\begin{equation*}
-				T(n)\overset{\text{def}}{=}T\Big(\frac n6\Big)+T\Big(\frac n3\Big)+T\Big(\frac n2\Big)+n\overset{\text{ИХ}}{\le}\frac {bn}6log\Big(\frac n6\Big)+\frac {bn}3log\Big(\frac n3\Big)+\frac {bn}2log\Big(\frac n2\Big)+n\overset{?}{\le}b.n.log(n)
+				T(n)\overset{\text{def}}{=}T\Big(\frac n6\Big)+T\Big(\frac n3\Big)+T\Big(\frac n2\Big)+n\overset{\text{ИХ}}{\le}\frac {bn}6log\Big(\frac n6\Big)+\frac {bn}3log\Big(\frac n3\Big)+\frac {bn}2log\Big(\frac n2\Big)+n\overset{?}{\le}bn\,log(n)
 			\end{equation*}
 			\begin{equation*}
-				\frac{bn}6\big(log(n)-log(6)\big)+\frac{bn}3\big(log(n)-log(3)\big)+\frac{bn}2\big(log(n)-log(2)\big)+n\overset{?}{\le}b.n.log(n)
+				\frac{bn}6\big(log(n)-log(6)\big)+\frac{bn}3\big(log(n)-log(3)\big)+\frac{bn}2\big(log(n)-log(2)\big)+n\overset{?}{\le}bn\,log(n)
 			\end{equation*}
 			\begin{equation*}
-				b.n.log(n)+\bigg(1-\frac{b.log(6)}6-\frac{b.log(3)}3-\frac{b.log(2)}2\bigg)n\overset{?}{\le}b.n.log(n)
+				bn\,log(n)+\bigg(1-\frac{b\,log(6)}6-\frac{b\,log(3)}3-\frac{b\,log(2)}2\bigg)n\overset{?}{\le}bn\,log(n)
 			\end{equation*}
 			\begin{equation*}
-				\bigg(1-\frac{b.log(6)}6-\frac{b.log(3)}3-\frac{b.log(2)}2\bigg)n\overset{?}{\le}0
+				\bigg(1-\frac{b\,log(6)}6-\frac{b\,log(3)}3-\frac{b\,log(2)}2\bigg)n\overset{?}{\le}0
 			\end{equation*}
 			
 			
-			Може да забележим, че при $\frac{b.log(6)}6+\frac{b.log(3)}3+\frac{b.log(2)}2\ge1$ горното неравенство ще е изпълнено за всяко $n\ge1$. Оттук си избираме $n_0=2$ (при $n_0=1$ имаме $\frac{T(1)}{1log(1)}=\frac{T(1)}0$).
+			Може да забележим, че при $\frac{b\,log(6)}6+\frac{b\,log(3)}3+\frac{b\,log(2)}2\ge1$ горното неравенство ще е изпълнено за всяко $n\ge1$. Оттук си избираме $n_0=2$ (при $n_0=1$ имаме $\frac{T(1)}{1log(1)}=\frac{T(1)}0$).
 			
-			Остана да видим кога е изпълнено $\frac{b.log(6)}6+\frac{b.log(3)}3+\frac{b.log(2)}2\ge1$. Очевидно е изпълнено когато $b\ge1$. Това сме си го подсигурили от дефиницията на $b=\max\{\dots,1\}\Rightarrow b\ge1$.
+			Остана да видим кога е изпълнено $\frac{b\,log(6)}6+\frac{b\,log(3)}3+\frac{b\,log(2)}2\ge1$. Очевидно е изпълнено когато $b\ge1$. Това сме си го подсигурили от дефиницията на $b=\max\{\dots,1\}\Rightarrow b\ge1$.
 		\end{indstep}
 		
-		Тоест доказахме, че за $c=b\land n_0=1$ е изпълнено $\forall n\ge n_0\,(0\le T(n)\le c.n.log(n))$. Казано с други думи $T(n)=O(n\,log(n))$.
+		Тоест доказахме, че за $c=b$ и $n_0=1$ е изпълнено $\big(\forall n\ge n_0\big)\big(0\le T(n)\le cn\,log(n)\big)$. Казано с други думи $T(n)=O(n\,log(n))$.
 		
 		\vspace{0.35cm}
 		\item $T(n)=\Omega(n\,log(n))$ - Докажете за упражнение.
 	\end{itemize}
 	
 	
-\end{solution}\vspace{0.1cm}
+\end{solution}\vspace{0.25cm}
 
 
 \subsection{Теорема на Akra-Bazzi}
 
-Сега ще разгледаме метод, който е строго по-силен от Мастър теоремата, която е твърде ограничена - има една единствена поява вдясно. Теоремата на Akra-Bazzi позволява решаването на частен случай рекурентни уравнения с една или повече появи вдясно.
+Сега ще разгледаме метод, който е строго по-силен от Мастър теоремата, която е твърде ограничена - има една единствена поява вдясно. Теоремата на Akra-Bazzi позволява решаването на частен случай рекурентни уравнения с една или повече появи вдясно.%\vspace{-2cm}
 
 \begin{boxtheorem}{Akra-Bazzi}{akra-bazzi}
-	Нека $T(n)=a_1T(b_1n)+\dots+a_kT(b_kn)+f(n)$ за $n>n_0$ и $\Theta(1)$ иначе, където
+	%Нека $T(n)=a_1T(b_1n)+\dots+a_kT(b_kn)+f(n)$ за $n>n_0$ и $\Theta(1)$ иначе, където
+	Нека $T(n)=\!\begin{cases}
+		\theta(1)                   &\!\!\!\!\!,1\le n\le n_0\\
+		a_1T(b_1n)+\dots+a_kT(b_kn)+f(n) &\!\!\!\!\!,n>n_0
+	\end{cases}$, където
 	\begin{enumerate}[label=\textbf{\arabic*.}]
 		\item $1\le n\in\mathbb{R}$
-		\item $\forall i\in\{1,\dots,k\}\,\Big(n_0\ge\frac1{b_i}\land n_0\ge\frac1{1-b_i}\Big)$
+		\vspace{-0.24cm}
+		\item $\forall i\in\{1,\dots,k\}\,\big(n_0\ge\frac1{b_i}\land n_0\ge\frac1{1-b_i}\big)$
+		\vspace{-0.25cm}
 		\item $\forall i\in\{1,\dots,k\}\,\big(a_i>0\big)$
+		\vspace{-0.2cm}
 		\item $\forall i\in\{1,\dots,k\}\,\big(b_i\in(0,1)\big)$
+		\vspace{-0.2cm}
 		\item $k\in\mathbb{N}^+$
+		\vspace{-0.2cm}
 		\item $f(n)$ е неотрицателна функция, удволетворяваща условието за полиномиално нарастване
-		\vspace{-0.22cm}
+		\vspace{-0.46cm}
 		\item $p$ е уникално число, за което $\sum\limits_{i=1}^ka_ib_i^p=1$
 	\end{enumerate}
 	Тогава
