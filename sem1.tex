@@ -5,11 +5,11 @@
 Започваме с припомняне на две дефинции от математическия анализ.
 
 \begin{boxdefinition}{Асимптотично неотрицателна функция}{asym-non-negative}
-	Ще казваме, че $f:\mathbb{R}^+\to\mathbb{R}$ е асимптотично неотрицателна, т.с.т.к. $\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(f(n)\ge0\big)$, където $\mathbb{R}^+$ са неотрицателнителните реални числа.
+	Ще казваме, че $f:\mathbb{R}_0^+\to\mathbb{R}$ е асимптотично неотрицателна, т.с.т.к. $\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(f(n)\ge0\big)$, където $\mathbb{R}_0^+$ са неотрицателнителните реални числа.
 \end{boxdefinition}
 
 \begin{boxdefinition}{Асимптотично положителна функция}{asym-positive}\label{asym-positive}
-	Ще казваме, че $f:\mathbb{R}^+\rightarrow\mathbb{R}$ е асимптотично положителна, т.с.т.к. $\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(f(n)>0\big)$, където $\mathbb{R}^+$ са неотрицателнителните реални числа.
+	Ще казваме, че $f:\mathbb{R}+0^+\rightarrow\mathbb{R}$ е асимптотично положителна, т.с.т.к. $\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(f(n)>0\big)$.
 \end{boxdefinition}
 
 \noindent
@@ -23,7 +23,7 @@
 		\item $o(g)\leftrightharpoons\{f\in\mathscr{F}^+|\big(\forall c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le f(n)\le cg(n)\big)\}$
 		\item $\Omega(g)\leftrightharpoons\{f\in\mathscr{F}^+|\big(\exists c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le cg(n)\le f(n)\big)\}$
 		\item $\omega(g)\leftrightharpoons\{f\in\mathscr{F}^+|\big(\forall c>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le cg(n)\le f(n)\big)\}$
-		\item $\Theta(g)\leftrightharpoons$\\$\{f\in\mathscr{F}^+|\big(\exists c_1>0\big)\big(\exists c_2>0\big)\big(\exists n_0\in\mathbb{N}_0\big)\big(\forall n\ge n_0\big)\big(0\le c_1g(n)\le f(n)\le c_2g(n)\big)\}$
+		\item $\Theta(g)\leftrightharpoons\{f\in\mathscr{F}^+|\big(\exists c_1\!>\!0\big)\big(\exists c_2\!>\!0\big)\big(\exists n_0\!\in\!\mathbb{N}_0\big)\big(\forall n\!\ge\! n_0\big)\big(0\!\le\! c_1g(n)\!\le\! f(n)\!\le\! c_2g(n)\big)\}$
 	\end{itemize}
 	
 \end{boxdefinition}
@@ -42,24 +42,24 @@
 		
 		Директно се вижда, че $c=1$ и $n_0=0$ ни вършат работа:
 		
-		$\forall n\ge\underbrace0_{n_0}$ е изпълнено $0\le \underbrace{n^2}_{f(n)}\le\underbrace1_c*\underbrace{n^2}_{g(n)}$
+		$\big(\forall n\ge\underbrace0_{n_0}\big)\big(0\le \underbrace{n^2}_{f(n)}\le\underbrace1_c*\underbrace{n^2}_{g(n)}\big)$
 		\item $f(n)=100n^2$
 		
 		Отново лесно се преценя, че $c=100$ и $n_0=0$ ни вършат работа:
 		
-		$\forall n\ge\underbrace0_{n_0}$ е изпълнено $0\le \underbrace{100n^2}_{f(n)}\le\underbrace{100}_c*\underbrace{n^2}_{g(n)}$
+		$\big(\forall n\ge\underbrace0_{n_0}\big)\big(0\le \underbrace{100n^2}_{f(n)}\le\underbrace{100}_c*\underbrace{n^2}_{g(n)}\big)$
 		
 		\item $f(n)=\frac{n^2}5$
 		
 		Отново $c=1$ и $n_0=0$ ни вършат работа (разбира се и $c=\frac15$ $n_0=0$ също):
 		
-		$\forall n\ge\underbrace0_{n_0}$ е изпълнено $0\le \underbrace{\frac{n^2}5}_{f(n)}\le\underbrace1_c*\underbrace{n^2}_{g(n)}$
+		$\big(\forall n\ge\underbrace0_{n_0}\big)\big(0\le \underbrace{\frac{n^2}5}_{f(n)}\le\underbrace1_c*\underbrace{n^2}_{g(n)}\big)$
 		
 		\item $f(n)=5n^2-1000n-1000$
 		
 		Макар и сташно на първи поглед, отново лесно се преценя, че $c={10}^7$ и $n_0=0$ ни вършат работа (разбира се това не е минимален избор на $c$ и $n_0$.. интересува ни само да намерим кои да е):
 		
-		$\forall n\ge\underbrace0_{n_0}$ е изпълнено $0\le \underbrace{5n^2-1000n-1000}_{f(n)}\le\underbrace{{10}^7}_c*\underbrace{n^2}_{g(n)}$
+		$\big(\forall n\ge\underbrace0_{n_0}\big)\big(0\le \underbrace{5n^2-1000n-1000}_{f(n)}\le\underbrace{{10}^7}_c*\underbrace{n^2}_{g(n)}\big)$
 	\end{itemize}
 \end{example}
 

@@ -42,7 +42,7 @@
 	\begin{equation}\label{eqn-well-distributed}
 		mn^2\le\min\limits_{x\in[n,n+1]}f(x)\le\max\limits_{x\in[n,n+1]}f(x)\le Mn^2
 	\end{equation}
-	е изпълнено за $m=1,M=4,\forall n\ge n_0=1$:
+	е изпълнено за $m=1,M=4$ и произволно $n\ge n_0=1$:
 	\begin{equation*}
 		1n^2\le n^2\le (n+1)^2\le4n^2
 	\end{equation*}
@@ -60,7 +60,7 @@
  	\end{equation*}
  	Сега намираме корените $x_1=-\frac13,x_2=1$ и виждаме, че $3n^2-2n-1\ge0$ за $n\ge1$, което искахме да докажем.\\\\
  	\noindent
- 	Разбира се, не е задължително да има единствени такива $m,M,n_0$. Даже напротив - ако има едно решение, то има безкрай много решения. Да разгледаме друго решение. Ще се убедим, че е изпълнено за $m=\frac13,M=1.005,\forall n\ge n_0=41$:
+ 	Разбира се, не е задължително да има единствени такива $m,M,n_0$. Даже напротив - ако има едно решение, то има безкрай много решения. Да разгледаме друго решение. Ще се убедим, че е изпълнено за $m=\frac13,M=1.005$ и произволно $n\ge n_0=41$:
  	\begin{equation*}
  		\frac13n^2\le n^2\le (n+1)^2\le1.005n^2
  	\end{equation*}
@@ -650,7 +650,7 @@
 			\begin{equation*}
 				2\overset{?}{\le}\bigg(\frac{n}{n-1}\bigg)^{bn}
 			\end{equation*}
-			От дефиницията на $b=\max\{\dots,1\}\Rightarrow b\ge1$. Ясно е, че $\forall n\ge1\,\big(\frac{n}{n-1}\ge1\big)$. Тоест имаме:
+			От дефиницията на $b\!=\!\max\{\dots,1\}\Rightarrow b\ge1$. Ясно е, че $\big(\forall n\ge1\big)\big(\frac{n}{n-1}\ge1\big)$. Тоест имаме:
 			\begin{equation*}
 				2\overset{?}{\le}\bigg(\frac{n}{n-1}\bigg)^n\le\bigg(\frac{n}{n-1}\bigg)^{bn}
 			\end{equation*}
@@ -701,7 +701,7 @@
 			\begin{equation*}
 				2\overset{?}{\ge}\bigg(\frac{n}{n-1}\bigg)^{bn}
 			\end{equation*}
-			От дефиницията на $b=\min\{\dots,\frac12\}\Rightarrow b\le\frac12$. Ясно е, че $\forall n\ge1\,\big(\frac{n}{n-1}\ge1\big)$. Тоест имаме:
+			От дефиницията на $b\!=\!\min\{\dots,\frac12\}\Rightarrow b\le\frac12$. Ясно е, че $\big(\forall n\ge1\big)\big(\frac{n}{n-1}\ge1\big)$. Тоест имаме:
 			\begin{equation*}
 				2\overset{?}{\ge}\bigg(\frac{n}{n-1}\bigg)^{n/2}\ge\bigg(\frac{n}{n-1}\bigg)^{bn}
 			\end{equation*}
@@ -1234,11 +1234,11 @@
 	\begin{enumerate}[label=\textbf{\arabic*.}]
 		\item $1\le n\in\mathbb{R}$
 		\vspace{-0.24cm}
-		\item $\forall i\in\{1,\dots,k\}\,\big(n_0\ge\frac1{b_i}\land n_0\ge\frac1{1-b_i}\big)$
+		\item $\big(\forall i\in\{1,\dots,k\}\big)\big(n_0\ge\frac1{b_i}\land n_0\ge\frac1{1-b_i}\big)$
 		\vspace{-0.25cm}
-		\item $\forall i\in\{1,\dots,k\}\,\big(a_i>0\big)$
+		\item $\big(\forall i\in\{1,\dots,k\}\big)\big(a_i>0\big)$
 		\vspace{-0.2cm}
-		\item $\forall i\in\{1,\dots,k\}\,\big(b_i\in(0,1)\big)$
+		\item $\big(\forall i\in\{1,\dots,k\}\big)\big(b_i\in(0,1)\big)$
 		\vspace{-0.2cm}
 		\item $k\in\mathbb{N}^+$
 		\vspace{-0.2cm}
@@ -1269,13 +1269,12 @@
 	\begin{enumerate}
 		\item Това условие няма какво да го проверяваме.
 		\vspace{-0.15cm}
-		\item Проверяваме, че $n_0=4$ ни върши работа: $\forall i\in\{1,2\}\,\Big(4\ge\frac1{b_i}\land 4\ge\frac1{1-b_i}\Big)$.
+		\item Проверяваме, че $n_0=4$ ни върши работа: $\big(\forall i\in\{1,2\}\big)\Big(4\ge\frac1{b_i}\land 4\ge\frac1{1-b_i}\Big)$.
 		\vspace{-0.15cm}
-		\item Директно проверяваме $\forall i\in\{1,2\}\,\big(a_i>0\big)$.
-		\item Директно проверяваме $\forall i\in\{1,2\}\,\big(b_i\in(0,1)\big)$.
+		\item Директно проверяваме $\big(\forall i\in\{1,2\}\big)\big(a_i>0\big)$.
+		\item Директно проверяваме $\big(\forall i\in\{1,2\}\big)\big(b_i\in(0,1)\big)$.
 		\item Това условие няма какво да го проверяваме.
-		\item Проверяваме, че $c_1=c_2=1$ ни вършат работа: $\forall n\ge1\,\forall i\in\{1,2\}\,\forall t\in[b_in,n]\big(1\le1\le1\big)$.
-		\vspace{-0.5cm}
+		\item Проверяваме, че $c_1\!=\!c_2\!=\!1$ са свидетели: $\big(\forall n\!\ge\!1\big)\big(\forall i\!\in\!\{1,2\}\big)\big(\forall t\!\in\![b_in,n]\big)\big(1\!\le\!1\!\le\!1\big)$.
 		\item Проверяваме, че $p=0$ ни върши работа: $\frac14\big(\frac14\big)^0+\frac34\big(\frac34\big)^0=1$.
 	\end{enumerate}
 	\vspace{-0.2cm}
