@@ -10,6 +10,7 @@
 \newtheorem{corollary}[theorem]{Следствие}
 \newtheorem{lemma}{Лема}[chapter]
 \newtheorem{example}{Пример}[chapter]
+\newtheorem*{examplecp}{Пример} %computational problem
 \newtheorem*{solution}{Решение}
 \newtheorem*{base}{База}
 \newtheorem*{indhypothesis}{Индуктивна хипотеза}
@@ -30,7 +31,9 @@
 \newcommand{\exmref}[1]{\hyperref[#1]{\textbf{Пример }}\textbf{\ref{#1}}}
 \newcommand{\aplref}[1]{\hyperref[#1]{\textbf{Приложение }}\textbf{\ref{#1}}}
 
-
+\newcommand{\cproblem}[2]{\begin{center}$\begin{cases}\textbf{Instance: }#1\\\textbf{Solution: }#2\end{cases}$\end{center}}
+\newcommand{\cproblemquery}[2]{\begin{center}$\begin{cases}\textbf{Given: }#1\\#2\end{cases}$\end{center}}
+\newcommand{\query}[2]{\begin{cases}\textbf{Instance: }#1\\\textbf{Solution: }#2\end{cases}}
 
 %remove "Chapter X" and "Section X".. decided to have them stay..
 %\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Large}
@@ -197,9 +200,12 @@ list inside=myframe %used if in future needed to print table of contents for Д�
 \SetKwFor{Myfor}{for}{}{}
 \SetKwFor{Myforstep}{for}{with step}{}
 \SetKw{Withstep}{$\KwSty{with step}$}
+\SetKw{KwDownTo}{downto}
 \SetKw{True}{$\KwSty{TRUE}$}
 \SetKw{False}{$\KwSty{FALSE}$}
-
+\SetKw{Or}{or}
+\SetKw{And}{and}
+\SetKw{Break}{break}
 
 
 %my cases - сл.2.1.1.3

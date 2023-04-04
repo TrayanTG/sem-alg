@@ -11,12 +11,13 @@
 	\begin{pseudocode}
 		\SetKwData{ds}{s}
 		\SetKwData{dn}{n}
+		\SetKwData{di}{i}
 		
 		$Alg1(\dn)://\,\dn\in\mathbb{N}_0$
 		\Mybegin
 		{
 			$\ds\leftarrow1$\;
-			\Myfor{$i\leftarrow1$ $\KwTo$ $\dn$}
+			\Myfor{$\di\leftarrow1$ $\KwTo$ $\dn$}
 			{
 				$\ds\leftarrow\ds*2$\;
 			}
@@ -48,14 +49,15 @@
 		\SetKwData{ds}{s}
 		\SetKwData{dn}{n}
 		\SetKwData{dA}{A}
+		\SetKwData{di}{i}
 		
 		$Alg2(\dA[1..\dn])://\,\dn\in\mathbb{N}^+\,,\dA\in\mathbb{R}^{\dn}$
 		\Mybegin
 		{
 			$\ds\leftarrow0$\;
-			\Myfor{$i\leftarrow1$ $\KwTo$ $\dn$}
+			\Myfor{$\di\leftarrow1$ $\KwTo$ $\dn$}
 			{
-				$\ds\leftarrow\ds+\dA[i]$\;
+				$\ds\leftarrow\ds+\dA[\di]$\;
 			}
 			\KwRet{$\ds$}\;
 		}

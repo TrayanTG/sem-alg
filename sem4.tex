@@ -1,0 +1,267 @@
+\section{Уводни алгоритми}
+
+Ще започнем с това да изтъкнем разликата между изчислителна задача и алгоритъм. Грубо казано, изчислителна задача е нещо общо, а алгоритъмът е черна кутия, която \emph{"решава"} дадена изчислителна задача. Може да имаме много алгоритми, решаващи една и съща изчислителна задача. За да правим разлика, когато говорим за изчислителна задача ще използваме термините \emph{екземпляр (instance)} и \emph{решение (solution)} вместо \emph{вход} и \emph{изход}. Вторите ще използваме, когато говорим за алгоритъм.\\
+
+\begin{problem}
+	Даден е масив $A[1..n]\in(\mathbb{N}_0)^n$ и много на брой заявки от вида:
+	\cproblem{i,j\in\{1,\dots,n\}}{\sum\limits_{k=1}^jA[k]}
+	Предложете двойка алгоритми (индекс и заявка), решаващи изчислителната задача. Индексирането бива извиквано точно веднъж. Заявки биват извиквани многократно. Заявка не може бъде извикана преди (единственото) извикване на индекса. Разгледайте следния пример, имащ две заявки:
+	\cproblemquery{A[1..7]=[4,2,5,7,1,1,10]}{\query{i=2,j=5}{15\ //\text{since }2+5+7+1=15}\\\query{i=5,j=2}{0\ //\text{since the neutral element of }+\text{ is }0}}
+\end{problem}
+
+\begin{solution}
+	Нека да разгледаме първо индекирането:
+	\begin{pseudocode}
+		\SetKwData{dA}{A}
+		\SetKwData{dn}{n}
+		\SetKwData{dSum}{Sum}
+		\SetKwData{di}{i}
+		
+		$Index(\dA[1..\dn])://\,\dA\in(\mathbb{N}_0)^{\dn},\dn\in\mathbb{N}^+$
+		\Mybegin
+		{
+			$\dSum[1..\dn]\leftarrow[0,\dots,0]$\;
+			$\dSum[1]\leftarrow\dA[1]$\;
+			\Myfor{$i\leftarrow1$ $\KwTo$ $\dn$}
+			{
+				$\dSum[\di]\leftarrow\dSum[\di-1]+\dA[\di]$\;
+			}
+			\KwRet{$\dSum[1..\dn]$}\;
+		}
+	\end{pseudocode}
+	След като направихме индекс (връщаният масив $Sum[1..n]$), трябва да го използваме по подходящ начин в заявката:
+	\begin{pseudocode}
+		\SetKwData{dn}{n}
+		\SetKwData{dSum}{Sum}
+		\SetKwData{di}{i}
+		\SetKwData{dj}{j}
+		
+		$Query(\dSum[1..\dn],\di,\dj)://\,\dSum\in(\mathbb{N}_0)^{\dn},\di,\dj\in\{1,\dots,\dn\},\dn\in\mathbb{N}^+$
+		\Mybegin
+		{
+			$\dSum[1..\dn]\leftarrow[0,\dots,0]$\;
+			
+			\If{$\di<1$ \Or $\dj>\dn$}{\KwRet{$-1$};}
+			\If{$\di>\dj$}{\KwRet{$0$};}
+			\If{$\di=1$}{\KwRet{$\dSum[\dj]$};}
+			
+			\KwRet{$\dSum[\dj]-\dSum[\di-1]$}\;
+		}
+	\end{pseudocode}
+	Алгоритмите са със сложност по време съответно $\langle\underbrace{\ \ \ \Theta(n)\ \ \ }_{Index(A[1..n])},\underbrace{\quad\quad\Theta(1)\quad\quad}_{Query(Sum[1..n],i,j)}\rangle$.
+\end{solution}\vspace{0.5cm}
+
+\begin{problem}\label{prob-4-1}
+	Даден е непразен сортиран масив $A[1..n]\in(\{0,1,\dots,n\})^n$ съставен от уникални елементи. Да се намери $k\in\{0,1,\dots,n\}$ такова, че $k$ не е елемент на $A[1..n]$. Предложете колкото можете по-бърз алгоритъм, решаващ изчислителната задача. Разгледайте следния пример:
+	\cproblem{A[1..7]=[0,1,2,4,5,6,7]}{3\ //\text{since }3\text{ is not an element of }A[1..7]}
+\end{problem}
+\begin{solution}
+	За разлика от предходната задача, тук нямаме много заявки, а точно една. С други думи може да обединим индекса и заявката в едно общо решение:
+	\begin{pseudocode}
+		\SetKwData{dA}{A}
+		\SetKwData{dn}{n}
+		\SetKwData{dleft}{left}
+		\SetKwData{dright}{right}
+		\SetKwData{dmid}{mid}
+		
+		$Task2(\dA[1..\dn])://\,\dA\in(\mathbb{N}_0)^n,\dn\in\mathbb{N}^+$
+		\Mybegin
+		{
+			$\dleft\leftarrow1$\;
+			$\dright\leftarrow\dn$\;
+			
+			\While{$\dleft<\dright$}
+			{
+				$\dmid\leftarrow\lfloor\frac{\dleft+\dright}2\rfloor$\;
+				\If{$\dA[\dmid]+1=\dmid$}{$\dleft\leftarrow\dmid+1$\;}
+				\Else{$\dright\leftarrow\dmid$\;}
+			}
+			\If{$\dA[\dn]+1=\dn$}{\KwRet{$\dleft$\;}}
+			\KwRet{$\dleft-1$\;}
+		}
+	\end{pseudocode}
+	Алгоритъмът е със сложност по време $\Theta(\log n)$.
+\end{solution}\vspace{0.5cm}
+
+\begin{problem}
+	Даден е непразен масив $A[1..n]\in\mathbb{Z}^n$ съставен от уникални елементи. Да се намери множеството от наредени тройки $\{\langle i,j,k\rangle\!\in\!\{1,\dots,n\}^3\,|\,i\!<\!j\!<\!k\land A[i]\!+\!A[j]\!+\!A[k]\!=\!0\}$. Предложете колкото можете по-бърз алгоритъм, решаващ изчислителната задача. Разгледайте следния пример:
+	\cproblem{A[1..7]=[-10,1,2,3,7,8,9]}{\langle1,2,7\rangle,\langle1,3,6\rangle,\langle1,4,5\rangle}
+\end{problem}\newpage
+\begin{solution}
+	Отново, аналогично на $\probref{prob-4-1}$ нямаме нужда от отделен алгоритъм за индексация и заявка, тъй като имаме само една заявка:
+	\begin{pseudocode}
+		\SetKwData{dA}{A}
+		\SetKwData{dn}{n}
+		\SetKwData{dAns}{Ans}
+		\SetKwData{di}{i}
+		\SetKwData{dj}{j}
+		\SetKwData{dk}{k}
+		\SetKwData{dorder}{order}
+		
+		$Task3(\dA[1..\dn])://\,\dA\in\mathbb{Z}^{\dn},\dn\in\mathbb{N}^+$
+		\Mybegin
+		{
+			$sort(\dA[1..\dn],\dorder=ascending)$\;
+			$\dAns\leftarrow List.Init()$\tcp*{лист от наредени тройки}
+
+			\Myfor{$\di\leftarrow1$ $\KwTo$ $\dn-2$}
+			{
+				\If{$\dA[\di]\ge0$}{\Break\;}
+				$\dj\leftarrow\di+1$\;
+				$\dk\leftarrow\dn$\;
+				\While{$\dj<\dk$}
+				{
+					\If{$\dA[\di]+\dA[\dj]+\dA[\dk]=0$}
+					{
+						$\dAns.PushBack(\langle\di,\dj,\dk\rangle)$\;
+						$\dj\leftarrow\dj+1$\;
+						$\dk\leftarrow\dk-1$\;
+					}
+					\ElseIf{$\dA[\di]+\dA[\dj]+\dA[\dk]<0$}{$\dj\leftarrow\dj+1$\;}
+					\Else{$\dk\leftarrow\dk-1$\;}
+				}
+			}
+			\KwRet{$\dAns$}\;
+		}
+	\end{pseudocode}
+	Алгоритъмът е със сложност по време $\Theta(n^2)$.
+\end{solution}\leavevmode\newline
+
+\begin{problem}
+	Даден е непразен масив $A[1..n]\in\mathbb{R}^n$. Да се сортира възходящо масивът, използвайки единствено функцията $reverse\!:\!\mathbb{R}^n\!\times\!\{1,\dots,n\}\!\times\!\{1,\dots,n\}\!\to\!\mathbb{R}^n$, дефинирана по следния начин:
+	\begin{equation*}
+		reverse(A[1..n],i,j)\leftrightharpoons\begin{cases}
+			\big[A[1],\dots,A[i-1],\underbrace{A[j],A[j-1],\dots,A[i+1],A[i]}_{\text{в обратен ред}},A[j+1],\dots,A[n]\big],\, i<j\\
+			A[1..n],\, \text{иначе}\\
+		\end{cases}
+	\end{equation*}
+\end{problem}
+\begin{solution}
+	Идеята е да вземем най-голям елемент и да го сложим на първа позиция, веднага след което на последната свободна такава (с други думи - сортираме отзад напред). Нека да разиграем малък пример. Нека $A[1..3]=[1,3,2]$. Първо поставяме $3$ на пъра позиция чрез $reverse([1,3,2],1,2)$, т.е. получаваме $[3,1,2]$. След това веднага го слагаме най-отзад чрез $reverse([3,1,2],1,3)$, т.е. получаваме $[2,1,3]$. Така вече най-големият (най-голям в общия случай) елемент си е на позицията. Сега намираме втория най-голям елемент и го слагаме на първа позиция, след което го слагаме на предпоследна позиция чрез последнователно извикване на $reverse([2,1,3],1,1)\mapsto[2,1,3]$ и $reverse([2,1,3],1,2)\mapsto[1,2,3]$. Сега откриваме третият най-голям елемент и го слагаме на първа позиция след което на трета позиция отзад напред (в случая е безсмислено разбира, т.е. последователно извикваме $reverse([1,2,3],1,1)\mapsto[1,2,3]$ и $reverse([1,2,3],1,1)\mapsto[1,2,3]$. Така масивът е сортиран. Както сме свикнали от C/C++ ще си дефинираме и използваме спомагателни функции - за чистота на кода и за по-лесно доказателство на коректността. Нека първо си дефинираме функция, намираща индекса на най-левия максимален елемент от префикс на масива:
+	\begin{pseudocode}
+		\SetKwData{dA}{A}
+		\SetKwData{dn}{n}
+		\SetKwData{dmaxIdx}{maxIdx}
+		\SetKwData{di}{i}
+		\SetKwData{dk}{k}
+		
+		$findIdxOfMax(\dA[1..\dn],\dk)://\,\dA\in\mathbb{R}^{\dn},\dk\in\{1,\dots,\dn\},\dn\in\mathbb{N}^+$
+		\Mybegin
+		{
+			$\dmaxIdx\leftarrow1$\;
+			
+			\Myfor{$\di\leftarrow2$ $\KwTo$ $\dk$}
+			{
+				\If{$\dA[\di]>\dA[\dmaxIdx]$}{$\dmaxIdx\leftarrow\di$\;}
+			}
+			\KwRet{$\dmaxIdx$\;}
+		}
+	\end{pseudocode}
+	Използвайки тази функция, вече можем чисто да напишем на код идеята от по-горе:
+	\begin{pseudocode}
+		\SetKwData{dA}{A}
+		\SetKwData{dn}{n}
+		\SetKwData{dmaxIdx}{maxIdx}
+		\SetKwData{dk}{k}
+		
+		$Task4(\dA[1..\dn])://\,\dA\in\mathbb{R}^{\dn},\dn\in\mathbb{N}^+$
+		\Mybegin
+		{	
+			\Myfor{$\dk\leftarrow\dn$ $\KwDownTo$ $2$}
+			{
+				$\dmaxIdx\leftarrow findIdxOfMax(\dA[1..\dn],\dk)$\;
+				$reverse(\dA[1..\dn],1,\dmaxIdx)$\;
+				$reverse(\dA[1..\dn],1,\dk)$\;
+			}
+			\KwRet{$\dA[1..\dn]$\;}
+		}
+	\end{pseudocode}
+	Алгоритъмът е със сложност по време $\Theta(n^2)$.
+\end{solution}\leavevmode\newline
+
+\begin{problem}
+	Нека е дадена непразна булева матрица $A[1..m][1..n]\in(\{0,1\}^n)^m$, чиито колонки са сортирани низходящо, т.е. $\big(\forall r\in\{1,\dots,m-1\}\big)\big(\forall c\in\{1,\dots,n\}\big)\big(A[r+1][c]\le A[r][c]\big)$. Да се намери височината на най-високата колонка от единици, т.е. $\max\{\sum_{r=1}^m\!A[r][c]\,|\,c\in\{1,\dots,n\}\}$. Предложете колкото можете по-бърз алгоритъм, решаващ изчислителната задача. Разгледайте следния пример:
+	\cproblem{A[1..4][1..5]=\begin{bmatrix}
+							1 & 0 & 1 & 1 & 0\\
+							0 & 0 & 1 & 1 & 0\\
+							0 & 0 & 1 & 0 & 0\\
+							0 & 0 & 0 & 0 & 0
+							\end{bmatrix}}{3\ //\text{since that is the highest row of ones}}
+\end{problem}
+\begin{solution}
+	Идеята е много проста. Откриваме височината на първата колонка и я запазваме в променлива $h$. След това проверяваме дали втроата колонка би имала повече единици. Ако има, то преглеждаме нейната височина и обновяваме $h$. Наблюдението, което използваме е, че тъй като търсим максимална по височина колонка, то ако втората колонка има по-малка височина от първата, то директно я прескачаме. Така се движим "стъпаловидно"$\ $от горе-ляво към долу-дясно. За нагледно с червен цвят е отбелязан пътят, който ще "измине"$\ $алгоритъмът на примерния вход:
+	\begin{center}
+		$\begin{bmatrix}
+			\textcolor{red}1 & 0 & 1 & 1 & 0\\
+			\textcolor{red}0 & \textcolor{red}0 & \textcolor{red}1 & 1 & 0\\
+			0 & 0 & \textcolor{red}1 & 0 & 0\\
+			0 & 0 & \textcolor{red}0 & \textcolor{red}0 & \textcolor{red}0
+		\end{bmatrix}$
+	\end{center}
+	Ясно е, че клетките над червената начупена линия няма нужда да бъдат разглеждани. Вече, въоражени с идея, сме готови да реализираме алгоритъм, решаващ изчислителната задача:
+	\begin{pseudocode}
+		\SetKwData{dA}{A}
+		\SetKwData{dn}{n}
+		\SetKwData{dm}{m}
+		\SetKwData{di}{i}
+		\SetKwData{dj}{j}
+		
+		$Task5(\dA[1..\dm][1..\dn])://\,\dA\in(\{0,1\}^{\dn})^{\dm},\dn,\dm\in\mathbb{N}^+$
+		\Mybegin
+		{	
+			$\di\leftarrow0$\;
+			\Myfor{$\dj\leftarrow\1$ $\KwTo$ $\dn$}
+			{
+				\While{$\di<\dm$ \And $\dA[\di+1][\dj]=1$}{$\di\leftarrow\di+1$\;}
+			}
+			\KwRet{$\di$\;}
+		}
+	\end{pseudocode}
+	Алгоритъмът е със сложност по време $\Theta(n)+O(m)=O(n+m)$.
+\end{solution}\vspace{0.35cm}
+
+\begin{problem}
+	Нека е дадена непразна матрица $A[1..m][1..n]\in((\mathbb{N}_0)^n)^m$ от уникални елементи, със свойството, че всеки елемент е по-голям от северните и западните си съседи. Казано формално $\forall r\forall c\big(A[i][j]<A[i+1][j]\land A[i][j]<A[i][j+1]\big)$, за $r$ и $c$ подходящи: да не излизаме извън дефиниционната област. Нека също така е дадено число $k\in\mathbb{N}_0$. Да се провери дали елемента $k$ се среща в матрицата $A[1..m][1..n]$. Предложете колкото можете по-бърз алгоритъм, решаващ изчислителната задача. Разгледайте следния пример:
+	\cproblem{A[1..4][1..5]=\begin{bmatrix}
+							 1 &  2 &  7 & 12 & 14\\
+							 3 &  6 &  8 & 16 & 17\\
+							 5 & 10 & 11 & 20 & 21\\
+							13 & 15 & 19 & 22 & 25
+	\end{bmatrix},k=15}{\text{TRUE}}
+\end{problem}
+\begin{solution}
+	Идеята е да започнем или в най-североизточният или най-югозападният край и стъпаловидно да търсим елемента. Нека за определеност започваме в североизточният ъгъл. Движим се надолу, когато търсения елемент е по-голям от текущия и наляво, ако търсеният елемент е по-малък. Разбира се, ако текущия и търсения елемент съвпадат връщаме \text{TRUE}. Нека да оцветим в червено пътят, който изминава алгоритъмът за да намери 15 в примерната матрица:
+	\begin{center}
+		$\begin{bmatrix}
+			1 &  2 &  7 & 12 & \textcolor{red}{14}\\
+			3 &  6 &  \textcolor{red}8 & \textcolor{red}{16} & \textcolor{red}{17}\\
+			5 & 10 & \textcolor{red}{11} & 20 & 21\\
+			13 & \textcolor{red}{15} & \textcolor{red}{19} & 22 & 25
+		 \end{bmatrix}$
+	\end{center}
+	Защо тази идея работи се убедете за упражнение! Може да го докажете дори формално. Вече сме готови да реализираме алгоритъм, решаващ изчислителната задача:
+	\begin{pseudocode}
+		\SetKwData{dA}{A}
+		\SetKwData{dm}{m}
+		\SetKwData{dn}{n}
+		\SetKwData{di}{i}
+		\SetKwData{dj}{j}
+		\SetKwData{dk}{k}
+		
+		$Task6(\dA[1..\dm][1..\dn],\dk)://\,\dA\in((\mathbb{N}_0)^n)^m,\dn,\dm\in\mathbb{N}^+$
+		\Mybegin
+		{
+			$\di\leftarrow1$\;
+			$\dj\leftarrow\dn$\;
+			
+			\While{$\di\le\dm$ \And $\dj\ge1$}
+			{
+				\If{$\dA[\di][\dj]=\dk$}{\KwRet{\True\;}}
+				\ElseIf{$\dA[\di][\dj]>\dk$}{$\dj\leftarrow\dj-1$\;}
+				\Else{$\di\leftarrow\di+1$\;}
+			}
+			\KwRet{\False\;}
+		}
+	\end{pseudocode}
+	Алгоритъмът е със сложност по време $O(n+m)$.
+\end{solution}
