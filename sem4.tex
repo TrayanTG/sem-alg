@@ -1,6 +1,6 @@
 \section{Уводни алгоритми}
 
-Ще започнем с това да изтъкнем разликата между изчислителна задача и алгоритъм. Грубо казано, изчислителна задача е нещо общо, а алгоритъмът е черна кутия, която \emph{"решава"} дадена изчислителна задача. Може да имаме много алгоритми, решаващи една и съща изчислителна задача. За да правим разлика, когато говорим за изчислителна задача ще използваме термините \emph{екземпляр (instance)} и \emph{решение (solution)} вместо \emph{вход} и \emph{изход}. Вторите ще използваме, когато говорим за алгоритъм.\\
+Ще започнем с това да изтъкнем разликата между изчислителна задача и алгоритъм. Грубо казано, изчислителна задача е нещо общо, а алгоритъмът е прозрачна кутия (т.е. знаем ѝ механизъмът на работа), която \emph{"решава"} дадена изчислителна задача. Може да имаме много алгоритми, решаващи една и съща изчислителна задача. За да правим разлика, когато говорим за изчислителна задача ще използваме термините \emph{екземпляр (instance)} и \emph{решение (solution)} вместо \emph{вход} и \emph{изход}. Вторите ще използваме, когато говорим за алгоритъм.\\
 
 \begin{problem}
 	Даден е масив $A[1..n]\in(\mathbb{N}_0)^n$ и много на брой заявки от вида:
@@ -210,7 +210,7 @@
 		\Mybegin
 		{	
 			$\di\leftarrow0$\;
-			\Myfor{$\dj\leftarrow\1$ $\KwTo$ $\dn$}
+			\Myfor{$\dj\leftarrow1$ $\KwTo$ $\dn$}
 			{
 				\While{$\di<\dm$ \And $\dA[\di+1][\dj]=1$}{$\di\leftarrow\di+1$\;}
 			}
@@ -264,4 +264,137 @@
 		}
 	\end{pseudocode}
 	Алгоритъмът е със сложност по време $O(n+m)$.
+\end{solution}\newpage
+
+\subsection{Добавяне на фиктивни променливи}
+
+Доказателството за коректност на алгоритъм (зададен чрез псевдокод) не винаги е възможно. Оказва се, че не ни достигат променливите, дадени ни в псевдокода. В зависимост от това, къде се е провалило доказателството, добавяме нови, $\textbf{фиктивни}$ променливи. Те не оказват никакво влияние на алгоритъма. Служат единствено за опорни точки в доказателството за коректност. Независимо дали алгоритъмът е итеративен или рекурсивен, такъв проблем може да настъпи. Сега ще се съсредоточим върху итеративни алгоритми.\\
+\emph{Спорно е дали мястото на подсекцията е тук или като подсекция на $\secref{sec:iter-alg-correctness}$.}\newline
+
+\begin{problem}
+	Даден е непразен масив $A[1..n]\in\mathbb{Z}^n$. Да се състави колкото се може по-бърз алгоритъм, намиращ мажорантата на $A[1..n]$, ако такава има. Съставете втори алгоритъм, който да установява дали мажоранта има.
+\end{problem}
+\begin{solution}
+	Преди да изложим какъв да е псевдокод, ще докажем спомагателно твърдение. Въвеждаме следните означения:
+	\begin{boxlocaldefinition*}{}{}
+		\begin{itemize}
+			\item $pair(p)\overset{\text{def}}\leftrightarrow\big(|p|=2\big)$
+			\item $pset(S)\overset{\text{def}}\leftrightarrow\big(\forall p\in S\big)\big(pair(p)\big)$
+			\item $cpair_{A[1..n]}(i,j)\!\overset{\text{def}}\leftrightarrow\!\big(i\!\in\!\{1,\dots,n\}\big)\!\land\!\big(j\!\in\!\{1,\dots,n\}\big)\!\land\!\big(A[i]\!\ne\! A[j]\big)$ //i.e. contrary pair
+			\item $comp_{A[1..n]}(\langle i,j\rangle,\langle i',j'\rangle)\!\overset{\text{def}}\leftrightarrow\!\big(i\ne i'\big)\!\land\!\big(i\ne j'\big)\!\land\!\big(j\ne i'\big)\!\land\!\big(j\ne j'\big)$ //i.e. compatible
+			\item $cpset_{A[1..n]}(S)\overset{\text{def}}\leftrightarrow pset(S)\land\big(\forall\langle i,j\rangle\in S\big)\big(cpair_{A[1..n]}(i,j)\big)\land$
+			
+			\hspace{3.2cm}$\big(\forall p_1\in S\big)\big(\forall p_2\in S\big)\big(comp_{A[1..n]}(p_1,p_2)\big)$
+			\item $mcpset_{A[1..n]}(S)\overset{\text{def}}\leftrightarrow cpset_{A[1..n]}(S)\land\forall i\forall j\big(\langle i,j\rangle\notin S\Rightarrow\lnot cpset_{A[1..n]}(S\cup\{\langle i,j\rangle\})\big)$
+			\item $idx(S)\leftrightharpoons Dom(S)\cup Rng(S)$ //also known as field
+		\end{itemize}
+	\end{boxlocaldefinition*}
+	\begin{remark*}
+		Казано неформално:
+		\begin{itemize}
+			\item ц-чифтове правим на индекси от $A[1..n]$, съответстващи на различни елементи
+			\item ц-чифтове $\langle i,j\rangle$ и $\langle i',j'\rangle$ наричаме съвместими, ако $|\{i,i',j,j'\}|=4$
+			\item множество от съвместими ц-чифтове наричаме максимално, ако не можем да добавим ц-чифт, така че да остане съвместимо
+		\end{itemize}
+	\end{remark*}%\leavevmode\newline
+	\vspace{0.3cm}
+	\begin{boxproposition}{}{}
+		Нека $A[1..n]$ има мажоранта $m$. Тогава:
+		\begin{itemize}
+			\item $\forall S\big(mcpset_{A[1..n]}(S)\Rightarrow idx(S)\ne\{1,\dots,n\}\big)$
+			\item $\forall S\Big(mcpset_{A[1..n]}(S)\Rightarrow\big(\forall i\!\in\!\{1,\dots,n\}\!\setminus\! idx(S)\big)\big(A[i]=m\big)\Big)$
+		\end{itemize}
+	\end{boxproposition}
+	\begin{remark*}
+		Казано неформално:
+		\begin{itemize}
+			\item за всяко максимално множество от съвместими ц-чифтове, има нечифтосан индекс
+			\item за всяко максимално множество от съвместими ц-чифтове, всеки нечифтосан индекс отговаря на елемент, равен на мажорантата
+		\end{itemize}
+	\end{remark*}
+
+	\begin{proof}
+		Нека $A[1..n]$ е произволен масив, съдържащ мажоранта $m$. Нека $S$ е множество: $mcpset_{A[1..n]}(S)$ и нека ознчим броят на срещанията на мажорантата с $k$. Нека $i_1,\dots,i_k$ са (точно) индексите на срещанията на мажорантата в $A[1..n]$. Допускаме, че индексите на всички срещания на мажорантата са ц-чифтосани, т.е. има $k$ различни (от $i_1,\dots,i_k$ и помежду си) индекси $j_1,\dots,j_k$ такива, че $\{\langle i_1,j_1\rangle,\dots,\langle i_k,j_k\rangle\}\subseteq S$. Тоест $A[1..n]$ се състои от поне $2k$ елементи, или казано с други думи $n\ge2k$. От друга страна, знаем че $k\ge\lfloor\frac n2\rfloor+1>\frac n2$, откъдето $2k>n$, което е абсурд. Следователно има поне един не ц-чифтосан индекс $i$, отговарящ на мажорантата. Нека сега допуснем, че има не ц-чифтосан индекс $j$, отговарящ на елемент, различен от мажорантата. Тогава $cpset_{A[1..n]}(S\cup\{\langle i,j\rangle\})$, което противоречи с максималността на $S$. 
+	\end{proof}
+
+	\vspace{0.3cm}
+
+	\begin{examplecp}
+		Нека $A[1..10]=[1,2,3,1,1,1,4,1,1,5]$. Примери за максимални множества от съвместими ц-чифрове са $S_1=\{\langle1,2\rangle,\langle3,4\rangle,\langle5,7\rangle,\langle6,10\rangle\},S_2=\{\langle2,3\rangle,\langle7,10\rangle\}$. В първия случай множеството от не ц-нечифтосаните индекси е $\{8,9\}$, а във втория е $\{1,4,5,6,8,9\}$. И за двете множества $S_1$ и $S_2$ имаме, че:
+		\begin{itemize}
+			\item имат не ц-чифтосан индекс, т.е. $idx(S_1)=\{1,2,3,4,5,6,7,10\}\ne\{1,\dots,10\}$ и $idx(S_2)=\{2,3,7,10\}\ne\{1,\dots,10\}$;
+			\item всички не ц-чифтосани индекси отговарят на елемент, равен на мажорантата $m=1$, т.е. за $S_1$ имаме $A[8]=A[9]=m$, а за $S_2$ имаме $A[1]=A[4]=A[5]=A[6]=A[8]=A[9]=m$.
+		\end{itemize}
+	\end{examplecp}\noindent\newline
+
+	\noindent
+	Първоначално ще изложим алгоритъм, намиращ мажорантата, при условие, че входният масив съдържа мажоранта:
+	\begin{pseudocode}
+		\SetKwData{dA}{A}
+		\SetKwData{dn}{n}
+		\SetKwData{dcurr}{curr}
+		\SetKwData{dcnt}{cnt}
+		\SetKwData{di}{i}
+		
+		$MajorityElement(\dA[1..\dn])://\,\dA\in\mathbb{Z}^n,\dn\in\mathbb{N}^+,A\text{ has majority element}$
+		\Mybegin
+		{	
+			$\dcurr\leftarrow1$\;
+			$\dcnt\leftarrow1$\;
+			\Myfor{$\di\leftarrow2$ $\KwTo$ $\dn$}
+			{
+				\If{$\dA[\dcurr]=\dA[\di]$}{$\dcnt\leftarrow\dcnt+1$\;}
+				\Else
+				{
+					$\dcnt\leftarrow\dcnt-1$\;
+					\If{$\dcnt=0$}
+					{
+						$\dcurr\leftarrow\di$\;
+						$\dcnt\leftarrow1$\;
+					}
+				}
+			}
+			\KwRet{$\dA[\dcurr]$\;}
+		}
+	\end{pseudocode}
+	Сега ще се опитаме да докажем коректността на алгоритъма (няма да успеем).
+	\begin{boxinvariant*}{}{}
+		При всяко $k$-то достигане на ред $4$ имаме, че
+		\begin{itemize}
+			\item $i=k+1$
+			\item $curr\in\{1,\dots,i-1\}$
+			\item $cnt>0$
+			\item $\exists S\big(mcpset_{A[1..i-1]}(S)\land(curr\notin idx(S))\land(cnt+|idx(S)|=n)\big)$
+		\end{itemize}
+	\end{boxinvariant*}
+	\begin{remark*}
+		Казано неформално: има максимално множество от съвместими ц-чифтове, където индексите са на $A[1..i-1]$, в което $curr$ не е ц-чифтосан. Нещо повече, броят на не ц-чифтованите индекси е $cnt$.
+	\end{remark*}
+	\begin{base}
+		При $k=1$-во достигане на ред 4 имаме, че $i=2$, $curr\!=\!1\!\in\!\{1,\dots,2-1\}\!=\!\{1,\dots,i-1\}$. Разглеждаме подмасивът $A[1..1]$. Той е съставен от един елемент. Тогава $S=\emptyset$ ни е свидетел. Наистина, $1\notin\emptyset$ и има $cnt=1>0$ не ц-чифтосани индекси. 
+	\end{base}
+	\begin{maintenance}
+		Нека е вярно за някое $k$-то непоследно достигане на ред 4 и нека $S_{old}$ ни е свидетел, т.е. $mcpset_{A[1..i_{old}-1]}(S_{old})\land(curr_{old}\notin idx(S_{old}))\land(cnt_{old}+|idx(S_{old})|=n)$. Сега се изпълнява ($k+1$)-то тялото на цикъла. Имаме $i_{new}=i_{old}+1=k+2$.
+		\begin{mycase}
+			\item $(A[curr_{old}]=A[i_{old}])$
+
+			\vspace{-0.35cm}
+			Тогава $curr_{new}=curr_{old}\in\{1,\dots,i_{old}-1\}\subset\{1,\dots,\overbrace{i_{new}-1}^{i_{old}}\}$, $cnt_{new}=cnt_{old}+1$. От ИП имаме, че $S_{old}$ е максимално множество от съвместими ц-чифтове, където индексите са на $A[1..i_{old}-1]$, $curr$ не е ц-чифтосан и броят на не ц-чифтосаните индекси е $cnt_{old}>0$. Лесно се проверява, че $S_{old}$ е максимално множество от съвместими ц-чифтове, където индексите са на $A[1..i_{new}-1]$, $curr$ не е ц-чифтосан и броят на ц-чифтосаните елементи е $cnt_{new}>1$, т.е. $mcpset_{A[1..i_{new}-1]}(S_{old})\land(curr_{new}\notin idx(S_{old}))\land(cnt_{new}+|idx(S_{old})|=n)$. С други думи $S_{old}$ е търсеният свидетел.
+			
+			\item $(A[curr_{old}]\ne A[i_{old}])$
+			
+			Тогава $cnt_{new}=cnt_{old}-1$. От ИП имаме, че $S_{old}$ е максимално множество от съвместими ц-чифтове, където индексите са на $A[1..i_{old}-1]$, $curr$ не е ц-чифтосан и броят на не ц-чифтосаните индекси е $cnt_{old}>0$. Тъй като $S_{old}$ е максимално, то всички не ц-чифтовани индекси отговарят на елементи с една и съща стойност $A[curr_{old}]\ne A[i_{old}]$.
+			\begin{mycase}
+				\item $(cnt_{old}>1)$
+				
+				\vspace{-0.35cm}
+				Тогава $curr_{new}=curr_{old}\in\{1,\dots,i_{old}-1\}\subset\{1,\dots,\overbrace{i_{new}-1}^{i_{old}}\}$. Нека $j\ne curr_{old}$ е индекс, който не е ц-чифтован. Такъв има поради горното разъждение и защото $cnt_{old}>1$. Дефинираме $S_{new}\leftrightharpoons S_{old}\cup\{\langle j,i_{old}\rangle\}$. Лесно се проверява, че $S_{new}$ е максимално множество от съвместими ц-чифтове, където индексите са на $A[1..i_{new}-1]$, $curr_{new}$ не е ц-чифтосан и броят на ц-чифтосаните елементи е $cnt_{new}=cnt_{old}-1>1-1=0$, т.е. $S_{new}$ е търсеният свидетел.
+				
+				\item $(cnt_{old}=1)$
+				
+				Тогава $curr_{new}=i_{old}\in\{1,\dots,i_{old}\}=\{1,\dots,i_{new}-1\}$. Единствените два не ц-чифтовани индекса на $A[1..i_{old}]$ са $curr$ и $i_{old}$ и имаме, че $A[curr]\ne A[i_{old}]$. Дефинираме $S_{new}\leftrightharpoons S_{old}\cup\{\langle curr,i_{old}\rangle\}$. Лесно се проверява, че $S_{new}$ е максимално множество от съвместими ц-чифтове, където индексите са на $A[1..i_{new}-1]$, но $curr_{new}=i_{old}$ е ц-чифтосан, както и броят на ц-чифтосаните елементи е $cnt_{new}=cnt_{old}-1>0-1=-1$, т.е. $cnt_{new}\ge0$. \textbf{Не успяхме да намерим свидетел}. В общия случай, такъв може да има, но ние просто да не сме успели да го намерим (в конкретната задача може да се докаже, че наистина няма).
+			\end{mycase}
+		\end{mycase}
+	Това всъщност беше очакван резултат, тъй като при вход $A[1..4]=[1,2,1,1]$, още след първата итерация на цикъла ц-чифтосваме индексите $1$ и $2$ и оставаме без не ц-чифтовани индекси, където индексите са на масива $A[1..2]$.
+	\end{maintenance}
 \end{solution}

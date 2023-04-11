@@ -30,6 +30,8 @@
 \newcommand{\thmref}[1]{\hyperref[#1]{\textbf{Теорема }}\textbf{\ref{#1}}}
 \newcommand{\exmref}[1]{\hyperref[#1]{\textbf{Пример }}\textbf{\ref{#1}}}
 \newcommand{\aplref}[1]{\hyperref[#1]{\textbf{Приложение }}\textbf{\ref{#1}}}
+\newcommand{\secref}[1]{\hyperref[#1]{\textbf{Секция }}\textbf{\ref{#1}}}
+
 
 \newcommand{\cproblem}[2]{\begin{center}$\begin{cases}\textbf{Instance: }#1\\\textbf{Solution: }#2\end{cases}$\end{center}}
 \newcommand{\cproblemquery}[2]{\begin{center}$\begin{cases}\textbf{Given: }#1\\#2\end{cases}$\end{center}}
@@ -109,6 +111,10 @@ list inside=myframe %used if in future needed to print table of contents for Д�
 {reset, enhanced, every box,
 	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
 	fonttitle=\small\bfseries, drop fuzzy shadow}{th}
+\newtcbtheorem[number within=chapter]{boxproposition}{Твърдение}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{prop}
 \newtcbtheorem[number within=chapter]{boxlemma}{Лема}%
 {reset, enhanced, every box,
 	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
@@ -125,6 +131,10 @@ list inside=myframe %used if in future needed to print table of contents for Д�
 {reset, enhanced, every box,
 	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
 	fonttitle=\small\bfseries, drop fuzzy shadow}{def}
+\newtcbtheorem[number within=chapter]{boxlocaldefinition}{Дефиниция (локална)}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{ldef}
 \newtcbtheorem[number within=chapter]{boxconvention}{Конвенция}%
 {reset, enhanced, every box,
 	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
