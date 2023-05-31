@@ -32,11 +32,14 @@
 \newcommand{\exmref}[1]{\hyperref[#1]{\textbf{Пример }}\textbf{\ref{#1}}}
 \newcommand{\aplref}[1]{\hyperref[#1]{\textbf{Приложение }}\textbf{\ref{#1}}}
 \newcommand{\secref}[1]{\hyperref[#1]{\textbf{Секция }}\textbf{\ref{#1}}}
+\newcommand{\zzrref}[1]{\hyperref[#1]{\textbf{ЗЗР }}\textbf{\ref{#1}}}
 
 
-\newcommand{\cproblem}[2]{\begin{center}$\begin{cases}\textbf{Instance: }#1\\\textbf{Solution: }#2\end{cases}$\end{center}}
+
+\newcommand{\cproblem}[2]{\begin{center}$\begin{cases}\textbf{Instance: }#1\\\textbf{Solution: }#2\end{cases}$\end{center}} %computable problem
 \newcommand{\cproblemquery}[2]{\begin{center}$\begin{cases}\textbf{Given: }#1\\#2\end{cases}$\end{center}}
 \newcommand{\query}[2]{\begin{cases}\textbf{Instance: }#1\\\textbf{Solution: }#2\end{cases}}
+\newcommand{\dproblem}[2]{\begin{center}$\begin{cases}\textbf{Instance: }#1\\\textbf{Question: }#2\end{cases}$\end{center}} %decision problem
 
 %remove "Chapter X" and "Section X".. decided to have them stay..
 %\titleformat{\chapter}[display]{\normalfont\bfseries}{}{0pt}{\Large}
@@ -172,6 +175,10 @@ list inside=myframe %used if in future needed to print table of contents for Д�
 {reset, enhanced, every box,
 	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
 	fonttitle=\small\bfseries, drop fuzzy shadow}{fct}
+\newtcbtheorem[]{boxzzr}{Задача за разпознаване}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=darkblue!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{zzr}
 
 %those two with different style..
 \newtcbtheorem[number within=chapter]{boxinvariant}{Инвариант}%
@@ -214,9 +221,13 @@ list inside=myframe %used if in future needed to print table of contents for Д�
 \SetKw{KwDownTo}{downto}
 \SetKw{True}{$\KwSty{TRUE}$}
 \SetKw{False}{$\KwSty{FALSE}$}
+\SetKw{Success}{$\KwSty{SUCCESS}$}
+\SetKw{Fail}{$\KwSty{FAIL}$}
 \SetKw{Or}{or}
 \SetKw{And}{and}
 \SetKw{Break}{break}
+\SetKw{Choose}{choose}
+
 
 
 %my cases - сл.2.1.1.3
@@ -232,3 +243,6 @@ list inside=myframe %used if in future needed to print table of contents for Д�
 \tikzstyle{st} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black] %state box
 \tikzstyle{if} = [diamond, minimum size=2cm, text centered, draw=black] %if box
 \tikzstyle{arrow} = [thick, ->, >=stealth] %obviously :D
+\tikzstyle{state-red} = [circle, minimum width=0.5cm, minimum height=0.5cm, text centered, draw=red, red] %for automa
+\tikzstyle{state} = [circle, minimum width=0.5cm, minimum height=0.5cm, text centered, draw=black] %for automa
+\tikzstyle{state-final} = [circle, minimum width=0.5cm, minimum height=0.5cm, text centered, draw=black, double] %for automa
