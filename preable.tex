@@ -2,6 +2,18 @@
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
 
+\newcommand{\doubleforall}{%
+	\hspace{-0.65ex}%
+	\mathrel{\ooalign{$\forall$\cr\hidewidth\raisebox{0.73ex}{\scalebox{0.6}[0.6]{\rule{1ex}{0.8pt}}}\hidewidth}}%
+	\hspace{-0.65ex}%
+}
+
+\newcommand{\doubleexists}{%
+	\hspace{-0.65ex}%
+	\mathrel{\ooalign{$\exists$\cr\hidewidth\raisebox{0.05ex}{\scalebox{0.6}[0.8]{\hspace{0.8ex}\rule{0.8pt}{1.85ex}}}\hidewidth}}%
+	\hspace{-0.65ex}%
+}
+
 \theoremstyle{definition}
 \newtheorem{theorem}{Теорема}[chapter]
 \newtheorem{definition}{Дефиниция}[chapter]
@@ -139,6 +151,14 @@ list inside=myframe %used if in future needed to print table of contents for Д�
 {reset, enhanced, every box,
 	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
 	fonttitle=\small\bfseries, drop fuzzy shadow}{ldef}
+\newtcbtheorem[number within=chapter]{boxalternativedefinition}{Дефиниция (алтернативна)}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{adef}
+\newtcbtheorem[number within=chapter]{boxexample}{Пример}%
+{reset, enhanced, every box,
+	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
+	fonttitle=\small\bfseries, drop fuzzy shadow}{exmpl}
 \newtcbtheorem[number within=chapter]{boxconvention}{Конвенция}%
 {reset, enhanced, every box,
 	colback=black!2!white, colframe=black!85!white, coltext=black!85!white,
